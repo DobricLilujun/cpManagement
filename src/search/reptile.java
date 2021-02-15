@@ -1,7 +1,6 @@
 package search;
 import java.util.ArrayList;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
