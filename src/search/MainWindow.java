@@ -100,7 +100,6 @@ public class MainWindow
 
 	public static void main(String[] args) throws UnknownHostException
 	{
-		re =new reptile("http://www.cnblogs.com/tankxiao");
 		if (Protection.Test_available()==true)
 		{
 		InetAddress addr = InetAddress.getLocalHost();   
@@ -193,7 +192,7 @@ public class MainWindow
 	    frame.setLocation(300, 150);
 	    frame.setTitle("数据库导出软件");
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setIconImage((new ImageIcon("figure1.png")).getImage());
+	    frame.setIconImage((new ImageIcon("resource//images//icon.jpg")).getImage());
 	    
 	    //加载软件基本信息和数据
 	    load();
@@ -359,7 +358,7 @@ public class MainWindow
         // 下面这里就需要定位处理
         frame.add(panel1, BorderLayout.SOUTH);
         frame.add(label,BorderLayout.NORTH);
-        frame.setSize(1350,400);
+        frame.setSize(1284,420);
         frame.setLocation(150, 150);
         frame.setTitle("数据库导出软件");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -369,7 +368,7 @@ public class MainWindow
 	
 	private static void load() throws IOException
  	{
- 		label = new JLabel(new ImageIcon("figure1.png"));
+ 		label = new JLabel(new ImageIcon("resource//images//icon.jpg"));
         panel1 = new JPanel();
         panel2 = new JPanel();
         String enumeration[] = {"大型汽车","小型汽车","外籍汽车","两、三轮摩托车","轻便摩托车","农用运输车","挂车","教练汽车","警用汽车","大型新能源汽车","小型新能源汽车"};

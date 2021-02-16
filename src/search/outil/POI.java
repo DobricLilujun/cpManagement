@@ -23,12 +23,29 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 public class POI {
 
 
+	
 	/**
 	 * 文件数据替换
 	 * @author 23  *
 	 */
-	    public static String path = "resource//file//FullInspection2.docx";
-
+	    public static String file_path = "resource//file//FullInspection2.docx";
+	    public static String images_path = "resource//file//FullInspection2.docx";
+	    public static String output_path = "resource//output//FullInspection2.docx";
+	    public static String config_path = "resource//config//field.properties";
+	    
+	    public static  Map<String, Object> getDataMap() {
+	    	Map<String, Object> data = new HashMap<>();
+	    	
+	    	return data;
+	    }
+	    
+	    public static  Map<String, Object> getPicMap() {
+	    	Map<String, Object> pic = new HashMap<>();
+	    	
+	    	
+	    	return pic;
+	    }
+	    
 	    public static void main(String[] args) throws Exception {
 	        Map<String, Object> data = new HashMap<>();
 	        Map<String, Object> pic = new HashMap<>();
@@ -49,11 +66,12 @@ public class POI {
 	        List<List<String[]>> tabledataList = new ArrayList<>();
 	        getWord(data, tabledataList, pic);
 	    }
+	    
 	    	// 
 	    public static void getWord(Map<String, Object> data, List<List<String[]>> tabledataList, Map<String, Object> picmap)
 	            throws Exception {
 	        try (
-	        		FileInputStream is = new FileInputStream(path);
+	        		FileInputStream is = new FileInputStream(file_path);
 	        		XWPFDocument document = new XWPFDocument(is)
 	        	) 
 	        {
@@ -72,7 +90,7 @@ public class POI {
 	            long time = System.currentTimeMillis();// 获取系统时间
 	            System.out.println(time); // 打印时间
 	            // 使用try和catch关键字捕获异常
-	            try (FileOutputStream out = new FileOutputStream("resource//output//FullInspection2" + ".docx")) {
+	            try (FileOutputStream out = new FileOutputStream(output_path)) {
 	                document.write(out);
 	            }
 	        } catch (FileNotFoundException e) {
