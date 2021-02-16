@@ -1,4 +1,5 @@
 package search;
+
 import java.awt.BorderLayout;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -60,6 +61,7 @@ import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -406,7 +408,7 @@ public class MainWindow
 	    //创建第一行（也可以称为表头）
 	    HSSFRow row = sheet.createRow(0);
 	    //样式字体居中
-	    style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+//	    style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 	    //给表头第一行一次创建单元格
 	    HSSFCell cell ;
 	    for(int i=0;i<origin.size();i++)
