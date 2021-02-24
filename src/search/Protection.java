@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -77,7 +78,8 @@ public class Protection
             InputStream in = new BufferedInputStream(new FileInputStream( 
                     filePath)); 
             props.load(in); 
-            String value = props.getProperty(key); 
+            String value_unencrypt = props.getProperty(key);
+            String value = EncryUtil.decrypt(value_unencrypt);
             System.out.println(key +"键的值是："+ value); 
             return value; 
         } catch (Exception e) { 
@@ -98,7 +100,8 @@ public class Protection
             // 调用 Hashtable 的方法 put，使用 getProperty 方法提供并行性。 
             // 强制要求为属性的键和值使用字符串。返回值是 Hashtable 调用 put 的结果。 
             OutputStream fos = new FileOutputStream(profilepath); 
-            props.setProperty(keyname, keyvalue); 
+            String keyvalueEncript = EncryUtil.encrypt(keyvalue);
+            props.setProperty(keyname, keyvalueEncript); 
             // 以适合使用 load 方法加载到 Properties 表中的格式， 
             // 将此 Properties 表中的属性列表（键和元素对）写入输出流 
             props.store(fos, "Update '" + keyname + "' value"); 
@@ -129,52 +132,54 @@ public class Protection
         } 
     } 
     //测试代码 
-    public static boolean Test_available()
-    { 
-    	
-    	String date_now_string = readValue("count.properties", "date_limit"); 
-    	if (!desDecode(date_now_string))
-    	{
-    			GUI_login a = new GUI_login();
-    			return false;
-    	}
-    	else
-    	{
-    		String sn = getHdSerialInfo();
-    		System.out.println(sn);
-    		sn = EncryUtil.encrypt(sn);
 
-    		if (sn.equals(readValue("count.properties", "key_HD")))
-    			return true;
-    		else
-    			System.out.println("You can't use this software in a new computer!");
-    			return false;
-    		
-    	}
-    } 
-    
+    //拿到指定盘符的硬盘序列号 初始版
     public static String getHdSerialInfo() {
-
         String line = "";
         String HdSerial = "";//定义变量 硬盘序列号
         try {
          Process proces = Runtime.getRuntime().exec("cmd /c dir c:");//获取命令行参数
          BufferedReader buffreader = new BufferedReader(new InputStreamReader(proces.getInputStream(),"gbk"));
-
          while ((line = buffreader.readLine()) != null) {
           if (line.indexOf("卷的序列号是 ") != -1) {  //读取参数并获取硬盘序列号
-
            HdSerial = line.substring(line.indexOf("卷的序列号是 ") + "卷的序列号是 ".length(), line.length());
            break;
           }
          }
-
         } catch (IOException e) {
          e.printStackTrace();
         }
-
         return HdSerial;
        }
+//    拿到指定盘符的硬盘序列号 进阶版
+    public static String getSerialNumber(String drive) {
+	  String result = "";
+	    try {
+	      File file = File.createTempFile("realhowto",".vbs");
+	      file.deleteOnExit();
+	      FileWriter fw = new java.io.FileWriter(file);
+
+	      String vbs = "Set objFSO = CreateObject(\"Scripting.FileSystemObject\")\n"
+	                  +"Set colDrives = objFSO.Drives\n"
+	                  +"Set objDrive = colDrives.item(\"" + drive + "\")\n"
+	                  +"Wscript.Echo objDrive.SerialNumber";  // see note
+	      fw.write(vbs);
+	      fw.close();
+	      Process p = Runtime.getRuntime().exec("cscript //NoLogo " + file.getPath());
+	      BufferedReader input =
+	        new BufferedReader
+	          (new InputStreamReader(p.getInputStream()));
+	      String line;
+	      while ((line = input.readLine()) != null) {
+	         result += line;
+	      }
+	      input.close();
+	    }
+	    catch(Exception e){
+	        e.printStackTrace();
+	    }
+	    return result.trim();
+	  }
     
     private static Boolean desDecode(String str) {
 		String t = EncryUtil.decrypt(str);
@@ -190,6 +195,18 @@ public class Protection
 		}
 		return true;
 	}
+    
+    @SuppressWarnings("unused")
+	static ArrayList<String> getValuesFromKey(String key){
+    	ArrayList<String> values = new ArrayList<>();
+    	String key_string = EncryUtil.decrypt(key);
+    	String tt[];
+    	tt=key_string.split("-");
+	    for (String s : tt) {
+	    	values.add(s);
+	    }
+	    return values;
+    }
     
     public static class GUI_login extends JFrame 
 		{

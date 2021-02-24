@@ -1,0 +1,260 @@
+package search;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.Window.Type;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.Canvas;
+import java.awt.Button;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JSeparator;
+import javax.swing.ImageIcon;
+import javax.swing.border.BevelBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import search.Protection;
+import javax.swing.JPasswordField;
+public class juiWindows extends JFrame implements variableStatic{
+
+	
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JPasswordField passwordField;
+	public String username ;
+	public String password ;
+	public String cpName ;
+	public String Activationkey;
+	public DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	public String date_limit = Protection.readValue(profilepath, "date_limit"); 
+	public String date_start = Protection.readValue(profilepath, "date_start");
+	public String key_HD = Protection.readValue(profilepath, "key_HD");
+	public String key_com = Protection.readValue(profilepath, "key_com");
+	public String Config = Protection.readValue(profilepath, "Config");
+	public String authority = Protection.readValue(profilepath, "authority");
+	public String Activation = Protection.readValue(profilepath, "Activation"); 
+	public Date date = new Date();
+	public String nowDate = format.format(date);
+    public Calendar   calendar   =   new   GregorianCalendar(); 
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					juiWindows frame = new juiWindows();
+					Dimension displaySize = Toolkit.getDefaultToolkit().getScreenSize();
+					Dimension frameSize = frame.getSize();
+					frame.setLocation((displaySize.width - frameSize.width) / 2, (displaySize.height - frameSize.height) / 2);
+					frame.setUndecorated(true);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public juiWindows() {
+		
+		// 读取基本配置数据
+	    calendar.setTime(date);
+	    	
+		setTitle("鑫达 软件");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(juiWindows.class.getResource("/resources/car.png")));
+		setForeground(Color.WHITE);
+		setFont(new Font("Times New Roman", Font.BOLD, 22));
+		setBackground(Color.WHITE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1068, 758);
+		contentPane = new JPanel();
+		contentPane.setForeground(Color.WHITE);
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(1,6,25));
+		panel.setBounds(0, 0, 604, 763);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(2, 5, 600, 600);
+		lblNewLabel_1.setIcon(new ImageIcon(juiWindows.class.getResource("/resources/icon.jpg")));
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("严谨 科学 数字 智能 ");
+		lblNewLabel_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 48));
+		lblNewLabel_2.setBounds(90, 646, 466, 64);
+		lblNewLabel_2.setForeground(Color.WHITE);
+		panel.add(lblNewLabel_2);
+		
+		JButton btnNewButton = new JButton("登录 SIGN UP");
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				username = textField.getText();
+				password = passwordField.getText();
+				cpName   = textField_2.getText();
+				Activationkey   = textField_3.getText();
+				
+				
+			}
+		});
+		btnNewButton.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		btnNewButton.setOpaque(true);
+		btnNewButton.setBackground(new Color(241, 57, 83));
+		btnNewButton.setForeground(SystemColor.text);
+		btnNewButton.setBounds(665, 679, 172, 42);
+		btnNewButton.setBorderPainted(false);
+		contentPane.add(btnNewButton);
+		
+		JLabel lblNewLabel = new JLabel("用户名 USERNAME");
+		lblNewLabel.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		lblNewLabel.setBounds(665, 151, 154, 29);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblPassword = new JLabel("密码    PASSWORD");
+		lblPassword.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		lblPassword.setBounds(665, 267, 154, 29);
+		contentPane.add(lblPassword);
+		
+		textField = new JTextField();
+		textField.setBounds(665, 190, 352, 42);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(665, 230, 352, 2);
+		contentPane.add(separator);
+		
+		JLabel lblActivationKey = new JLabel("所在公司 COMPANY");
+		lblActivationKey.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		lblActivationKey.setBounds(665, 390, 192, 29);
+		contentPane.add(lblActivationKey);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(665, 429, 352, 42);
+		contentPane.add(textField_2);
+		
+		JLabel lblActivationKey_1 = new JLabel("激活码   ACTIVATION KEY");
+		lblActivationKey_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		lblActivationKey_1.setBounds(665, 520, 192, 29);
+		contentPane.add(lblActivationKey_1);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(665, 559, 352, 42);
+		if(Config.equals("IN ACTIVATION")) {
+			textField_3.setEditable(false);
+		}
+		contentPane.add(textField_3);
+		
+		JButton btnExit = new JButton("退出 EXIT");
+
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnExit.setOpaque(true);
+		btnExit.setForeground(Color.WHITE);
+		btnExit.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		btnExit.setBorderPainted(false);
+		btnExit.setBackground(new Color(241, 57, 83));
+		btnExit.setBounds(847, 679, 172, 42);
+		contentPane.add(btnExit);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(665, 306, 352, 42);
+		contentPane.add(passwordField);
+	}
+	
+//	用于 使用权限过期后 判断激活方式
+	public boolean activate() {
+//    	首次激活的情况
+    	if (Activation.equals("FIRST TIME")) {
+    		JOptionPane.showMessageDialog(null,"温馨提示","第一次使用软件，请输入激活码,并点击登录激活!谢谢!",JOptionPane.PLAIN_MESSAGE);
+    		ArrayList<String> values = Protection.getValuesFromKey(this.Activationkey);
+    		
+//    		对输入的激活码进行判定 
+    		boolean isOkay = false;  // 标志激活是否成功
+    		
+//    		首先激活码 需要满足 用户+密码+公司+硬盘序列号+电脑名+允许时长+权限 六位初次激活码
+    		if (values.size()==7)
+    		{
+//    			对激活码的各个字段进行遍历,判断激活码是否复合要求
+        		if ((values.get(0).equals(this.username))
+        			&&(values.get(1).equals(this.password))
+        			&&(values.get(2).equals(this.cpName)
+        			&&(values.get(3).equals(Protection.getSerialNumber("C")))
+        			&&(values.get(4).equals(this.key_com))
+        			)) 
+        		{
+        			Protection.writeProperties(date_start,nowDate);
+        			int duration = Integer.parseInt(values.get(5));
+        			calendar.add(calendar.DATE,duration);
+        			Date dateNew=calendar.getTime(); 
+        			String dateNewStr = format.format(dateNew);
+//        			将有效日期写入到对应的日期
+        			Protection.writeProperties(date_limit, dateNewStr);
+        			
+//        			对于authority,填入authority中
+        			Protection.writeProperties(authority, values.get(6));
+        			JOptionPane.showMessageDialog(null,"温馨提示","成功激活软件，你有额外"+values.get(5)+"天的使用权！",JOptionPane.PLAIN_MESSAGE);
+        			Protection.writeProperties(Config, "IN ACTIVATION");
+        			return true;
+        		}
+    		}
+    	}
+    	return false;
+	}
+	
+    public boolean Test_available()
+    { 
+//    property 文件加密 以及 日期检错 机制
+		Integer result = EncryUtil.compareDate(date_limit, nowDate);
+//		如果日期在截止日期之前
+		if (result ==1) {
+			return true;
+		}else {
+			Protection.writeProperties(Config, "NOT IN ACTIVATION");
+			return false;
+		}
+
+    } 
+}

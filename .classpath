@@ -39,5 +39,17 @@
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/fontbox-2.0.22.jar"/>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/graphics2d-0.30.jar"/>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/pdfbox-2.0.22.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/javax.xml.soap-api-1.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/jaxb-api-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/jaxws-api-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/axis-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/wsdl4j-1.5.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/resource/images"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -100,7 +100,7 @@ public class MainWindow
 
 	public static void main(String[] args) throws UnknownHostException
 	{
-		if (Protection.Test_available()==true)
+		if (true)
 		{
 		InetAddress addr = InetAddress.getLocalHost();   
 		String host_read = "";  

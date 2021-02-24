@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>images</name>
+			<type>2</type>
+			<location>C:/Users/86913/Documents/GitHub/cpManagement/resource/images</location>
+		</link>
+	</linkedResources>
 </projectDescription>
