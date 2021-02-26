@@ -1,5 +1,8 @@
 表：
 
+
+sync877472.
+
 安环检测
 委托书  1
 人工检验记录表 2
@@ -156,5 +159,62 @@ wsdl2java -d D:\OUTPUT http://172.6.26.15/TmriOutAccess/TmriOutAccess.asmx?wsdl
 1、车辆识别代码clsbdh
 2、
 
+zxxs:1
+zzcmc:上海通用东岳汽车有限公司
+hpzk:
+hpzl:02
+clpp2:BUICK
+gbthps:
+clpp1:别克牌
+fdjxh:LDE
+hbdbqk:GB18352.5-2013
+cllx:K33
+hdzk:5
+fzjg:晋D
+csys:J
+qpzk:
+zzg:156
+gcjk:A
+zzl:1790
+qzbfqz:2099/12/31 0:00:00
+qlj:1544
+yxqz:2021/2/28 0:00:00
+zj:2685
+ccrq:2014/11/11 0:00:00
+dybj:
+ccdjrq:2015/2/4 0:00:00
+xszbh:1450007202202
+clxh:SGM7162DMAB
+zqyzl:
+zs:2
+zt:A
+hphm:晋DQC658
+glbm:140400000400
+jyhgbzbh:211404017810
+syr:李建英
+sfzmmc:A
+fdjh:143090774
+sfzmhm:140221********1826
+hdzzl:
+rlzl:A
+bxzzrq:2020/1/9 0:00:00
+ltgg:205/60R16
+hxnbkd:
+syxz:A
+cwkc:4671
+zbzl:1380
+hxnbcd:
+gl:86
+hxnbgd:
+hlj:1558
+djrq:2019/1/24 0:00:00
+lts:4
+clyt:P1
+clsbdh:LSGPB54U0FD054312
+xh:14040015076743
+ytsx:9
+cwkk:1815
+pl:1598
+cwkg:1478
 
 

@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import net.bytebuddy.asm.Advice.This;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -38,6 +41,7 @@ import java.util.GregorianCalendar;
 
 import search.Protection;
 import javax.swing.JPasswordField;
+import search.MainControl;
 public class juiWindows extends JFrame implements variableStatic{
 
 	
@@ -46,10 +50,12 @@ public class juiWindows extends JFrame implements variableStatic{
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JPasswordField passwordField;
+	private JLabel infoLabel;
 	public String username ;
 	public String password ;
 	public String cpName ;
 	public String Activationkey;
+	public String lastActivationDate;
 	public DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	public String date_limit = Protection.readValue(profilepath, "date_limit"); 
 	public String date_start = Protection.readValue(profilepath, "date_start");
@@ -129,8 +135,41 @@ public class juiWindows extends JFrame implements variableStatic{
 				username = textField.getText();
 				password = passwordField.getText();
 				cpName   = textField_2.getText();
+				commonUtil.COMPANY_NAME = cpName;
 				Activationkey   = textField_3.getText();
+				lastActivationDate = Protection.readValue(profilepath, "last_activation_date");
+				System.out.println(Activationkey);
+				Protection.writeProperties("username", username);
+				Protection.writeProperties("password", password);
+				Protection.writeProperties("cpName", cpName);
 				
+//				如果处于激活状态，直接进入使用界面
+				if (Protection.readValue(profilepath, "Config").equals("IN ACTIVATION"))
+				{
+					MainControl.initWindows();
+					
+				}
+//				如果处在非激活状态，直接开始激活
+				else if (Protection.readValue(profilepath, "Config").equals("NOT IN ACTIVATION"))
+				{
+//					如果成功激活，更新一些基本字段
+					if (activate()) {
+			    		JOptionPane.showMessageDialog(null,"激活成功,请重新点击登录","温馨提示",JOptionPane.PLAIN_MESSAGE);
+						infoLabel.setText("激活状态");
+						infoLabel.setForeground(Color.green);
+
+					}
+//					如果没有成功激活，那么提示说 激活秘钥不正确，请重新激活。
+					else {
+			    		JOptionPane.showMessageDialog(null,"激活秘钥失败，请重新输入","温馨提示",JOptionPane.PLAIN_MESSAGE);
+					}
+				}
+//				如果处于其它状态，直接退出
+				else 
+				{
+					JOptionPane.showMessageDialog(null,"您的状态码不正确，请不要随意更改破解！","温馨提示",JOptionPane.PLAIN_MESSAGE);
+				}
+
 				
 			}
 		});
@@ -154,6 +193,7 @@ public class juiWindows extends JFrame implements variableStatic{
 		
 		textField = new JTextField();
 		textField.setBounds(665, 190, 352, 42);
+		textField.setText(Protection.readValue(profilepath, "username"));
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -168,6 +208,7 @@ public class juiWindows extends JFrame implements variableStatic{
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
+		textField_2.setText(Protection.readValue(profilepath, "cpName"));
 		textField_2.setBounds(665, 429, 352, 42);
 		contentPane.add(textField_2);
 		
@@ -201,42 +242,58 @@ public class juiWindows extends JFrame implements variableStatic{
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(665, 306, 352, 42);
+		passwordField.setText(Protection.readValue(profilepath, "password"));
 		contentPane.add(passwordField);
+		
+		infoLabel = new JLabel("激活状态");
+		infoLabel.setForeground(Color.GREEN);
+		infoLabel.setFont(new Font("Microsoft YaHei", Font.BOLD, 27));
+		infoLabel.setBounds(817, 38, 201, 29);
+		contentPane.add(infoLabel);
+		Test_available();
 	}
 	
 //	用于 使用权限过期后 判断激活方式
 	public boolean activate() {
 //    	首次激活的情况
     	if (Activation.equals("FIRST TIME")) {
-    		JOptionPane.showMessageDialog(null,"温馨提示","第一次使用软件，请输入激活码,并点击登录激活!谢谢!",JOptionPane.PLAIN_MESSAGE);
-    		ArrayList<String> values = Protection.getValuesFromKey(this.Activationkey);
+
+    		ArrayList<String> values = Protection.getValuesFromKey(EncryUtil.decrypt(this.Activationkey));
     		
 //    		对输入的激活码进行判定 
     		boolean isOkay = false;  // 标志激活是否成功
-    		
-//    		首先激活码 需要满足 用户+密码+公司+硬盘序列号+电脑名+允许时长+权限 六位初次激活码
-    		if (values.size()==7)
+    		System.out.println(values.size());
+//    		首先激活码 需要满足 用户+密码+公司+硬盘序列号+电脑名+允许时长+权限+激活当前时间 期位初次激活码
+    		if (values.size()==8)
     		{
 //    			对激活码的各个字段进行遍历,判断激活码是否复合要求
+//    			判断字段是否符合，如符合，读取上次激活时间，然后将当天激活时间和上次激活时间进行对比，如果相等，说明多次激活。
         		if ((values.get(0).equals(this.username))
         			&&(values.get(1).equals(this.password))
         			&&(values.get(2).equals(this.cpName)
         			&&(values.get(3).equals(Protection.getSerialNumber("C")))
-        			&&(values.get(4).equals(this.key_com))
+        			&&(values.get(4).equals(Protection.getComputerName()))
+        			&&(values.get(7).equals(nowDate))
+        			&&(!nowDate.equals(lastActivationDate))
         			)) 
+        			
         		{
-        			Protection.writeProperties(date_start,nowDate);
+        			Protection.writeProperties("date_start",nowDate);
         			int duration = Integer.parseInt(values.get(5));
         			calendar.add(calendar.DATE,duration);
         			Date dateNew=calendar.getTime(); 
         			String dateNewStr = format.format(dateNew);
 //        			将有效日期写入到对应的日期
-        			Protection.writeProperties(date_limit, dateNewStr);
+        			Protection.writeProperties("date_limit", dateNewStr);
         			
 //        			对于authority,填入authority中
-        			Protection.writeProperties(authority, values.get(6));
-        			JOptionPane.showMessageDialog(null,"温馨提示","成功激活软件，你有额外"+values.get(5)+"天的使用权！",JOptionPane.PLAIN_MESSAGE);
-        			Protection.writeProperties(Config, "IN ACTIVATION");
+        			Protection.writeProperties("authority", values.get(6));
+        			JOptionPane.showMessageDialog(null,"成功激活软件，你有额外"+values.get(5)+"天的使用权！","温馨提示",JOptionPane.PLAIN_MESSAGE);
+        			JOptionPane.showMessageDialog(null,"您的权限是"+values.get(6)+"！","温馨提示",JOptionPane.PLAIN_MESSAGE);
+        			JOptionPane.showMessageDialog(null,"您的使用权限期至"+dateNewStr+"","温馨提示",JOptionPane.PLAIN_MESSAGE);
+        			Protection.writeProperties("Config", "IN ACTIVATION");
+        			textField_3.setEditable(false);
+        			
         			return true;
         		}
     		}
@@ -252,7 +309,11 @@ public class juiWindows extends JFrame implements variableStatic{
 		if (result ==1) {
 			return true;
 		}else {
-			Protection.writeProperties(Config, "NOT IN ACTIVATION");
+			Protection.writeProperties("Config", "NOT IN ACTIVATION");
+			JOptionPane.showMessageDialog(null,"您的软件已经到期，请通过输入激活码激活！","温馨提示",JOptionPane.PLAIN_MESSAGE);
+			textField_3.setEditable(true);
+			infoLabel.setText("未激活状态");
+			infoLabel.setForeground(Color.RED);
 			return false;
 		}
 

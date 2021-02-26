@@ -1,0 +1,13 @@
+${platnum}
+
+${vehicleType}
+
+${yp}年 ${mp}月 ${dp}日
+
+${yr}年 ${mr}月 ${dr}日
+
+${yi}年 ${mi}月 ${di}日
+
+${CLXH}
+
+${ZBZL}

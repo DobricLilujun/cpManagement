@@ -2,6 +2,15 @@ package search.outil;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.poi.util.Units;
@@ -18,6 +28,11 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.dom4j.DocumentException;
+
+import search.EncryUtil;
+import search.dataTableCorrespond;
+import search.variableStatic;
 
 
 public class POI {
@@ -28,9 +43,9 @@ public class POI {
 	 * 文件数据替换
 	 * @author 23  *
 	 */
-	    public static String file_path = "resource//file//FullInspection2.docx";
-	    public static String images_path = "resource//file//FullInspection2.docx";
-	    public static String output_path = "resource//output//FullInspection2.docx";
+	    public static String file_path = "resource//file//判定表.docx";
+	    public static String images_path = "resource//file//判定表.docx";
+	    public static String output_path = "resource//output//判定表.docx";
 	    public static String config_path = "resource//config//field.properties";
 	    
 	    public static  Map<String, Object> getDataMap() {
@@ -46,25 +61,221 @@ public class POI {
 	    	return pic;
 	    }
 	    
+//	    从文件中拿到字段的加密数据对应 Channel 1 华研 Channel 2 赛斯 Channel 3 接口 Channel 4 文档打印
+	    public static Map<String,String> GetDataCorrespondFromFile(String filepath,int Channel) throws IOException{
+	    	
+	    	Map<String, String> data = new HashMap<>();
+	    	File file = new File (filepath);
+	    	InputStream in = new BufferedInputStream(new FileInputStream(file));
+	    	InputStreamReader ir = new InputStreamReader(in,"utf-8");
+	    	BufferedReader br= new BufferedReader(ir);
+	    	String line = "";
+	    	while ((line=br.readLine())!=null) {
+	    		String[] str = line.split(",");
+	    		data.put(EncryUtil.decrypt(str[0]),EncryUtil.decrypt(str[Channel]));
+	    	}
+	    	
+	    	return data;
+	    }
+	    
+//	    从文件中拿到字段的非加密数据写入到文件中并加密
+	    public static void writeDataCorrespondFromFile(String filepath,String outputpath) throws IOException{
+	    	
+	    	Map<String, String> data = new HashMap<>();
+	    	File file = new File (filepath);
+	    	File fout = new File (outputpath);
+	    	InputStream in = new BufferedInputStream(new FileInputStream(file));
+	    	FileOutputStream fos = new FileOutputStream(fout);
+	    	InputStreamReader ir = new InputStreamReader(in,"utf-8");
+	    	BufferedReader br= new BufferedReader(ir);
+	    	BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+	    	String line = "";
+	    	while ((line=br.readLine())!=null) {
+	    		String[] str = line.split(",");
+	    		String result = "";
+	    		for (int i=0;i<str.length;i++) {
+	    			result = result+ EncryUtil.encrypt(str[i]);
+	    			if (i!=str.length-1) {
+	    				result = result+",";
+	    			}
+	    		}
+	    		bw.write(result); 
+	    		bw.newLine(); 
+	    	}
+	    	bw.close();
+	    	br.close();
+	    }
+	    
+	
+//	    将三通道数据进行处理和融合, 通过Authority 来判断权限
+	    public static Map<String,String> GetDataFromThreeChannel(int Authority) throws IOException, ClassNotFoundException, SQLException, DocumentException{
+	    	
+//	    	拿到数据对应仓库
+	    	Map<String, String> data_field_HY = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",1);
+	    	Map<String, String> data_field_SAISI = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",2);
+	    	Map<String, String> data_field_INTERFACE = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",3);
+	    	Map<String, String> data_field_DY = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",3);
+	    	String PZHM = "晋DLQ718";
+	    	String PZLB = "小型汽车";
+	    	String HPZL = "1";
+	    	String CLSBDH = "1234";
+//	    	拿到是哪个接口的数据
+	    	HashMap<String,String> result_map_data_HY = ChannelGetDataFromDatabaseHY.extractInfoFromDatabase(ChannelGetDataFromDatabaseHY.fileds_list,ChannelGetDataFromDatabaseHY.table_name,PZHM,PZLB);
+	    	HashMap<String,String> result_map_data_SAISI = ChannelGetDataFromDatabaseSIS.extractInfoFromDatabase(ChannelGetDataFromDatabaseSIS.fileds_list, ChannelGetDataFromDatabaseSIS.table_name, PZHM);
+	    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,ChannelGetDataFromInterface.dwjgdm);
+	    	HashMap<String,String> result_final = new HashMap<String,String>();
+//			拿到用户的权限频道
+//	    	如果是 只使用华研数据
+	    	if (Authority==1) 
+	    	{
+//	    		遍历图，判断 是否为null，为null，则返回null，不为null，则返回数值
+	    		for (Map.Entry<String,String> entry: data_field_HY.entrySet()) {
+	    			String data_temp = result_map_data_HY.get(data_field_HY.get(entry.getKey()));
+	    			if (data_temp!=null) {
+	    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
+	    			}else
+	    			{
+	    				result_final.put(data_field_DY.get(entry.getKey()), "");
+	    			}
+	    		}
+	    	}
+//	    	如果是 三通道数据都使用
+	    	else if (Authority ==2) 
+	    	{
+//	    		以接口数据作为基础数据
+	    		for (Map.Entry<String,String> entry: data_field_INTERFACE.entrySet()) {
+	    			String data_temp = result_map_data_Interface.get(data_field_INTERFACE.get(entry.getKey()));
+	    			if (data_temp!=null) {
+	    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
+	    			}else
+	    			{
+	    				result_final.put(data_field_DY.get(entry.getKey()), "");
+	    			}
+	    		}
+//	    		以赛斯数据库作为补充数据	
+	    		for (Map.Entry<String,String> entry: data_field_SAISI.entrySet()) {
+	    			if (entry.getValue().equals(""))
+	    			{
+	    				String data_temp = result_map_data_SAISI.get(data_field_SAISI.get(entry.getKey()));
+		    			if (data_temp!=null) {
+		    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
+		    			}
+	    			}
+	    		}
+//	    		以华研数据库作为第二补充数据
+	    		for (Map.Entry<String,String> entry: data_field_HY.entrySet()) {
+	    			if (entry.getValue().equals(""))
+	    			{
+	    				String data_temp = result_map_data_HY.get(data_field_HY.get(entry.getKey()));
+		    			if (data_temp!=null) {
+		    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
+		    			}
+	    			}
+	    		}
+	    		
+	    	}else
+	    	{
+	    		System.out.println("GetDataFromThreeChannel 数据有误，请检查。");
+	    		System.exit(0);
+	    	}
+
+	    	return result_final;
+	    }
+	    
+//	    导出和打印一起执行，直接调用打印接口 打印指定的数据
+	    
+//	    public static boolean exportEtPrint(int Authority, int printtab) {
+//	    	
+//	    }
 	    public static void main(String[] args) throws Exception {
-	        Map<String, Object> data = new HashMap<>();
-	        Map<String, Object> pic = new HashMap<>();
-	        data.put("${owner}", "成功更改数据");
-	        data.put("${tel}", "15022119139");
-	        data.put("${brand}", "品牌");
-	        data.put("${address}", "山西");
-	        data.put("${owner}", "成功更改数据");
-	        data.put("${mi}", "12");
-	        data.put("${di}", "23");
-	        data.put("${yi}", "2021");
-	        pic.put("${qrcode}", "resource//images//Capture.JPG");
-	        
-	        System.out.println(pic.containsKey("${qrcode}"));
-	        System.out.println(data.containsKey("${owner}"));
-	        System.out.println(data.containsKey("${yi}"));
-	        // 列表(List)是对象的有序集合
-	        List<List<String[]>> tabledataList = new ArrayList<>();
-	        getWord(data, tabledataList, pic);
+	    	writeDataCorrespondFromFile("resource/file/数据库字段对应.txt","resource/file/数据库字段对应加密.txt");
+	        Map<String, String> data = new HashMap<>();
+	        data = GetDataCorrespondFromFile("resource/file/数据库字段对应加密.txt",4);
+	        System.out.println(data.get("车辆所有人"));
+	        System.out.println(data.get("号牌号码"));
+//	        Map<String, Object> data = new HashMap<>();
+//	        Map<String, Object> pic = new HashMap<>();
+//
+//
+//	        data.put("${usage}", "1200");
+//	        data.put("${SYXZ}", "自用车");
+//	        data.put("${DLYSZH}", "1233466564");
+//	        data.put("${yp}", "1997");
+//	        data.put("${mp}", "12");
+//	        data.put("${dp}", "23");
+//	        data.put("${yr}", "1997");
+//	        data.put("${mr}", "12");
+//	        data.put("${dr}", "23");
+//	        data.put("${yi}", "1997");
+//	        data.put("${mi}", "12");
+//	        data.put("${di}", "23");
+//	        data.put("${ZXZSL}", "1");
+//	        data.put("${ZCZD}", "是");
+//	        data.put("${KQXG}", "是");
+//	        data.put("${SFSQ}", "是");
+//	        data.put("${tel}", "150221191321219");
+//	        data.put("${postcode}", "047500");
+//	        data.put("${owner}", "李璐君");
+//	        data.put("${CLCCRQ}", "李璐君123");
+//	        data.put("${CCDJRQ}", "1997年12月23号");
+//	        data.put("${JYRQ}", "李璐君");
+//	        data.put("${platnum}", "晋DLQ718");
+//	        data.put("${vehicleType}", "大型车");
+//	        
+//	        
+//	        data.put("${vin}", "ggd1343423435");
+//	        data.put("${factoryName}", "奔驰生产");
+//	        data.put("${QDXS}", "大型车");
+//	        data.put("${CPXH}", "大型车");
+//	        data.put("${DPXH}", "大型车");
+//	        data.put("${LTGG}", "大型车");
+//	        data.put("${ZZL}", "大型车");
+//	        data.put("${ZBZL}", "大型车");
+//	        data.put("${LTSL}", "大型车");
+//	        data.put("${FDJXH}", "大型车");
+//	        data.put("${RLZL}", "大型车");
+//	        data.put("${ZGCS}", "大型车");
+//	        data.put("${WKCC}", "大型车");
+//	        data.put("${ZGCS}", "大型车");
+//	        data.put("${HXLBCC}", "大型车");
+//	        data.put("${JXLJZZXH}", "大型车");
+//	        data.put("${ZXZSL}", "大型车");
+//	        data.put("${ZGCS}", "大型车");
+//	        data.put("${HXLBCKG}", "大型车");
+//	        data.put("${FDJXH}", "大型车");
+//	        data.put("${CPXH}", "大型车");
+//	        data.put("${ZKRS}", "大型车");
+//	        data.put("${DPXH}", "大型车");
+//	        data.put("${RLZL}", "大型车");
+//	        data.put("${HXLBCKG}", "大型车");
+//	        data.put("${QDXS}", "大型车");
+//	        data.put("${CPXH}", "大型车");
+//	        data.put("${JXLJZZXH}", "大型车");
+//	        data.put("${CPMC}", "大型车");
+//	        data.put("${WKCC}", "大型车");
+//	        data.put("${GCZGCS}", "大型车");
+//	        data.put("${WKCC}", "大型车");
+//	        data.put("${HXLBNCC}", "大型车");
+//	        
+//	        data.put("${today}", "大型车");
+//	        data.put("${CLXH}", "大型车");
+//	        data.put("${PPXH}", "大型车");
+//	        data.put("${WXCC}", "大型车");;
+//	        data.put("${FDJXH}", "大型车");
+//	        data.put("${DPXH}", "大型车");
+//	        data.put("${QDXS}", "大型车");
+//	        data.put("${LTGG}", "大型车");
+//	        data.put("${QYZZDCZZL}", "大型车");
+//	        data.put("${ZTGCZZL}", "大型车");
+////	        data.put("${HXLBNCC}", "大型车");
+////	        data.put("${HXLBNCC}", "大型车");
+////	        data.put("${HXLBNCC}", "大型车");
+////	        data.put("${HXLBNCC}", "大型车");
+//	                
+//	       
+//	        // 列表(List)是对象的有序集合
+//	        List<List<String[]>> tabledataList = new ArrayList<>();
+//	        getWord(data, tabledataList, pic);
 	    }
 	    
 	    	// 

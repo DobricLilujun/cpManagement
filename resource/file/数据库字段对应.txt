@@ -1,0 +1,2 @@
+车辆所有人,suoyouzhe,SYR,syr,${owner}
+号牌号码,CPH,HPHM,hphm,${platnum}

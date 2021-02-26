@@ -55,11 +55,38 @@ public class MainControl extends JFrame {
 	private JTextField textField_9;
 	private JTextField textField_11;
 	private JTextField textField_10;
-
+	private JLabel DY;
+	private JLabel PZ;
+	private JLabel SM;
+	private JLabel GY;
+	private JLabel DIS;
+	private JPanel panel_1;
+	private Panel panel_2;
+	private JPanel qrcode ;
+	private JPanel menuShowPanel;
+	private JComboBox comboBox_3;
+	private JComboBox comboBox_3_1;
+	private JComboBox comboBox_3_1_1;
+	private JComboBox comboBox_3_1_1_1;
+	private JComboBox comboBox_3_1_1_2;
+	private JComboBox comboBox_3_1_1_3;
+	private JRadioButton rdbtnNewRadioButton;
+	private JRadioButton rdbtnNewRadioButton_1;
+	private JRadioButton rdbtnNewRadioButton_2;
+	
+	private boolean isClickedDY = true;
+	private boolean isClickedSM = false;
+	private boolean isClickedPZ = false;
+	private boolean isClickedGY = false;
+	
+	public static void main(String args[]) {
+		initWindows();
+	} 
 	/**
 	 * Launch the application.
+	 * @return 
 	 */
-	public static void main(String[] args) {
+	public static void initWindows() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -75,6 +102,60 @@ public class MainControl extends JFrame {
 			}
 		});
 	}
+	
+	public void setOnClicked(int i) {
+		switch(i){
+	    case 0 :
+	       this.DY.setForeground(Color.GREEN);
+	       this.PZ.setForeground(Color.WHITE);
+	       this.GY.setForeground(Color.WHITE);
+	       this.SM.setForeground(Color.WHITE);
+	       this.DIS.setText("一键打印");
+	   	   this.isClickedDY = true;
+	   	   this.isClickedSM = false;
+	   	   this.isClickedPZ = false;
+	   	   this.isClickedGY = false;
+	       menuShowPanel.setVisible(true);
+	       qrcode.setVisible(false);
+	       break;
+	    case 1 :
+	       this.DY.setForeground(Color.WHITE);
+	       this.PZ.setForeground(Color.WHITE);
+	       this.GY.setForeground(Color.WHITE);
+	       this.SM.setForeground(Color.GREEN);
+	       this.DIS.setText("扫码输入");
+	   	   this.isClickedDY = false;
+	   	   this.isClickedSM = true;
+	   	   this.isClickedPZ = false;
+	   	   this.isClickedGY = false;
+	       menuShowPanel.setVisible(false);
+	       qrcode.setVisible(true);
+	       break;    
+	    case 2 :
+	       this.DY.setForeground(Color.WHITE);
+	       this.PZ.setForeground(Color.GREEN);
+	       this.GY.setForeground(Color.WHITE);
+	       this.SM.setForeground(Color.WHITE);
+	   	   this.isClickedDY = false;
+	   	   this.isClickedSM = false;
+	   	   this.isClickedPZ = true;
+	   	   this.isClickedGY = false;
+	       this.DIS.setText("系统配置");     	
+	       break;
+	    case 3 :
+	       this.DY.setForeground(Color.WHITE);
+	       this.PZ.setForeground(Color.WHITE);
+	       this.GY.setForeground(Color.GREEN);
+	       this.SM.setForeground(Color.WHITE);
+	   	   this.isClickedDY = false;
+	   	   this.isClickedSM = false;
+	   	   this.isClickedPZ = false;
+	   	   this.isClickedGY = true;
+	       this.DIS.setText("关于我们");	    	
+	       break;
+	}
+		
+	}
 
 	/**
 	 * Create the frame.
@@ -89,83 +170,16 @@ public class MainControl extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel qrcode = new JPanel();
-		qrcode.setBackground(SystemColor.text);
-		qrcode.setForeground(SystemColor.windowBorder);
-		qrcode.setBounds(241, 160, 794, 566);
-		contentPane.add(qrcode);
-		qrcode.setLayout(null);
-		
-		JLabel lblNewLabel_5 = new JLabel("网页网址");
-		lblNewLabel_5.setForeground(SystemColor.textHighlight);
-		lblNewLabel_5.setBackground(SystemColor.textHighlightText);
-		lblNewLabel_5.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
-		lblNewLabel_5.setBounds(29, 47, 200, 44);
-		qrcode.add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_5_1 = new JLabel("打印机端口号");
-		lblNewLabel_5_1.setForeground(SystemColor.textHighlight);
-		lblNewLabel_5_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
-		lblNewLabel_5_1.setBackground(Color.WHITE);
-		lblNewLabel_5_1.setBounds(29, 172, 200, 44);
-		qrcode.add(lblNewLabel_5_1);
-		
-		textField_11 = new JTextField();
-		textField_11.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
-		textField_11.setColumns(10);
-		textField_11.setBounds(29, 226, 634, 44);
-		qrcode.add(textField_11);
-		
-		JButton btnNewButton_1_1_1 = new JButton("系统检测");
-		btnNewButton_1_1_1.setOpaque(true);
-		btnNewButton_1_1_1.setForeground(Color.WHITE);
-		btnNewButton_1_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
-		btnNewButton_1_1_1.setBorderPainted(false);
-		btnNewButton_1_1_1.setBackground(new Color(241, 57, 83));
-		btnNewButton_1_1_1.setBounds(29, 395, 310, 60);
-		qrcode.add(btnNewButton_1_1_1);
-		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
-		textField_10.setBounds(29, 115, 634, 44);
-		qrcode.add(textField_10);
-		
-		JButton btnNewButton_1_1_1_2 = new JButton("扫码录入");
-		btnNewButton_1_1_1_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_1_1_1_2.setOpaque(true);
-		btnNewButton_1_1_1_2.setForeground(Color.WHITE);
-		btnNewButton_1_1_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
-		btnNewButton_1_1_1_2.setBorderPainted(false);
-		btnNewButton_1_1_1_2.setBackground(new Color(241, 57, 83));
-		btnNewButton_1_1_1_2.setBounds(397, 395, 310, 60);
-		qrcode.add(btnNewButton_1_1_1_2);
-		
-		JPanel menuShowPanel = new JPanel();
+		menuShowPanel = new JPanel();
 		menuShowPanel.setBackground(Color.WHITE);
-		menuShowPanel.setBounds(241, 98, 794, 633);
+		menuShowPanel.setBounds(241, 160, 794, 571);
 		contentPane.add(menuShowPanel);
 		menuShowPanel.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(108,127,144));
-		panel.setBounds(0, 0, 794, 61);
-		menuShowPanel.add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel_2_1_2 = new JLabel("   一键打印");
-		lblNewLabel_2_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_1_2.setForeground(Color.WHITE);
-		lblNewLabel_2_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
-		lblNewLabel_2_1_2.setBounds(0, 0, 208, 62);
-		panel.add(lblNewLabel_2_1_2);
-		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.text);
 		panel_1.setBackground(new Color(108,127,144));
-		panel_1.setBounds(0, 62, 791, 82);
+		panel_1.setBounds(0, 0, 794, 82);
 		menuShowPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -290,11 +304,15 @@ public class MainControl extends JFrame {
 		lblNewLabel_4_1_2_1_1_1.setBounds(400, 42, 152, 40);
 		panel_1.add(lblNewLabel_4_1_2_1_1_1);
 		
-		Panel panel_2 = new Panel();
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(-10, 0, 794, 2);
+		panel_1.add(separator_1);
+		
+		panel_2 = new Panel();
 		panel_2.setForeground(Color.DARK_GRAY);
 		panel_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(0, 145, 786, 478);
+		panel_2.setBounds(0, 83, 791, 478);
 		menuShowPanel.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -373,7 +391,7 @@ public class MainControl extends JFrame {
 		lblNewLabel_3_3_3.setBounds(32, 348, 142, 26);
 		panel_2.add(lblNewLabel_3_3_3);
 		
-		JComboBox comboBox_3 = new JComboBox();
+		comboBox_3 = new JComboBox();
 		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"3000", "3500", "4000", "4500", "5000"}));
 		comboBox_3.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		comboBox_3.setEditable(true);
@@ -382,8 +400,10 @@ public class MainControl extends JFrame {
 		panel_2.add(comboBox_3);
 		
 		JButton btnNewButton_1 = new JButton("数据提取");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				extractDataToPublicStr();
 			}
 		});
 		btnNewButton_1.setOpaque(true);
@@ -414,7 +434,7 @@ public class MainControl extends JFrame {
 		lblNewLabel_3_3_3_2.setBounds(302, 0, 142, 26);
 		panel_2.add(lblNewLabel_3_3_3_2);
 		
-		JComboBox comboBox_3_1 = new JComboBox();
+		comboBox_3_1 = new JComboBox();
 		comboBox_3_1.setModel(new DefaultComboBoxModel(new String[] {"4", "6"}));
 		comboBox_3_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		comboBox_3_1.setEditable(true);
@@ -428,7 +448,7 @@ public class MainControl extends JFrame {
 		lblNewLabel_3_3_3_2_1.setBounds(302, 70, 142, 26);
 		panel_2.add(lblNewLabel_3_3_3_2_1);
 		
-		JComboBox comboBox_3_1_1 = new JComboBox();
+		comboBox_3_1_1 = new JComboBox();
 		comboBox_3_1_1.setModel(new DefaultComboBoxModel(new String[] {"自然吸气", "涡轮增压"}));
 		comboBox_3_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		comboBox_3_1_1.setEditable(true);
@@ -455,7 +475,7 @@ public class MainControl extends JFrame {
 		lblNewLabel_3_3_3_2_1_1.setBounds(585, 201, 142, 26);
 		panel_2.add(lblNewLabel_3_3_3_2_1_1);
 		
-		JComboBox comboBox_3_1_1_1 = new JComboBox();
+		comboBox_3_1_1_1 = new JComboBox();
 		comboBox_3_1_1_1.setModel(new DefaultComboBoxModel(new String[] {"2/2", "2/2/4", "2/4/4", "2/2/4/4"}));
 		comboBox_3_1_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		comboBox_3_1_1_1.setEditable(true);
@@ -469,7 +489,7 @@ public class MainControl extends JFrame {
 		lblNewLabel_3_3_3_2_1_2.setBounds(585, 272, 142, 26);
 		panel_2.add(lblNewLabel_3_3_3_2_1_2);
 		
-		JComboBox comboBox_3_1_1_2 = new JComboBox();
+		comboBox_3_1_1_2 = new JComboBox();
 		comboBox_3_1_1_2.setModel(new DefaultComboBoxModel(new String[] {"手动", "自动", "手自一体"}));
 		comboBox_3_1_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		comboBox_3_1_1_2.setEditable(true);
@@ -483,7 +503,7 @@ public class MainControl extends JFrame {
 		lblNewLabel_3_3_3_2_1_3.setBounds(585, 342, 142, 26);
 		panel_2.add(lblNewLabel_3_3_3_2_1_3);
 		
-		JComboBox comboBox_3_1_1_3 = new JComboBox();
+		comboBox_3_1_1_3 = new JComboBox();
 		comboBox_3_1_1_3.setModel(new DefaultComboBoxModel(new String[] {"1", "2"}));
 		comboBox_3_1_1_3.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		comboBox_3_1_1_3.setEditable(true);
@@ -504,7 +524,7 @@ public class MainControl extends JFrame {
 		textField_6.setBounds(585, 93, 156, 35);
 		panel_2.add(textField_6);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("是否全时适时四驱");
+		rdbtnNewRadioButton = new JRadioButton("是否全时适时四驱");
 		rdbtnNewRadioButton.setBackground(SystemColor.text);
 		rdbtnNewRadioButton.setForeground(SystemColor.textHighlight);
 		rdbtnNewRadioButton.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
@@ -517,14 +537,14 @@ public class MainControl extends JFrame {
 		lblNewLabel_3_2_4.setBounds(302, 145, 156, 26);
 		panel_2.add(lblNewLabel_3_2_4);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("驻车制动是否使用电控制");
+		rdbtnNewRadioButton_1 = new JRadioButton("驻车制动是否使用电控制");
 		rdbtnNewRadioButton_1.setForeground(SystemColor.textHighlight);
 		rdbtnNewRadioButton_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		rdbtnNewRadioButton_1.setBackground(Color.WHITE);
 		rdbtnNewRadioButton_1.setBounds(290, 214, 218, 23);
 		panel_2.add(rdbtnNewRadioButton_1);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("是否全时适时四驱");
+		rdbtnNewRadioButton_2 = new JRadioButton("是否配备空气悬挂");
 		rdbtnNewRadioButton_2.setForeground(SystemColor.textHighlight);
 		rdbtnNewRadioButton_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		rdbtnNewRadioButton_2.setBackground(Color.WHITE);
@@ -570,56 +590,145 @@ public class MainControl extends JFrame {
 		textField_9.setBounds(585, 164, 156, 35);
 		panel_2.add(textField_9);
 		
+		qrcode = new JPanel();
+		qrcode.setBackground(SystemColor.text);
+		qrcode.setForeground(SystemColor.windowBorder);
+		qrcode.setBounds(241, 160, 794, 566);
+		contentPane.add(qrcode);
+		qrcode.setLayout(null);
+		
+		JLabel lblNewLabel_5 = new JLabel("网页网址");
+		lblNewLabel_5.setForeground(SystemColor.textHighlight);
+		lblNewLabel_5.setBackground(SystemColor.textHighlightText);
+		lblNewLabel_5.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
+		lblNewLabel_5.setBounds(29, 47, 200, 44);
+		qrcode.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_5_1 = new JLabel("打印机端口号");
+		lblNewLabel_5_1.setForeground(SystemColor.textHighlight);
+		lblNewLabel_5_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
+		lblNewLabel_5_1.setBackground(Color.WHITE);
+		lblNewLabel_5_1.setBounds(29, 172, 200, 44);
+		qrcode.add(lblNewLabel_5_1);
+		
+		textField_11 = new JTextField();
+		textField_11.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
+		textField_11.setColumns(10);
+		textField_11.setBounds(29, 226, 634, 44);
+		qrcode.add(textField_11);
+		
+		JButton btnNewButton_1_1_1 = new JButton("系统检测");
+		btnNewButton_1_1_1.setOpaque(true);
+		btnNewButton_1_1_1.setForeground(Color.WHITE);
+		btnNewButton_1_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		btnNewButton_1_1_1.setBorderPainted(false);
+		btnNewButton_1_1_1.setBackground(new Color(241, 57, 83));
+		btnNewButton_1_1_1.setBounds(29, 395, 310, 60);
+		qrcode.add(btnNewButton_1_1_1);
+		
+		textField_10 = new JTextField();
+		textField_10.setColumns(10);
+		textField_10.setBounds(29, 115, 634, 44);
+		qrcode.add(textField_10);
+		
+		JButton btnNewButton_1_1_1_2 = new JButton("扫码录入");
+		btnNewButton_1_1_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1_1_1_2.setOpaque(true);
+		btnNewButton_1_1_1_2.setForeground(Color.WHITE);
+		btnNewButton_1_1_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		btnNewButton_1_1_1_2.setBorderPainted(false);
+		btnNewButton_1_1_1_2.setBackground(new Color(241, 57, 83));
+		btnNewButton_1_1_1_2.setBounds(397, 395, 310, 60);
+		qrcode.add(btnNewButton_1_1_1_2);
+		
 
 		
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBackground(new Color(108,127,144));
-		leftPanel.setBounds(-1, 98, 242, 624);
+		leftPanel.setBounds(-1, 103, 242, 619);
 		contentPane.add(leftPanel);
 		leftPanel.setLayout(null);
+		
+		DY = new JLabel("   一键打印");
+		DY.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setOnClicked(0);
+			}
+		});
+		DY.setIcon(new ImageIcon(MainControl.class.getResource("/resources/打印机.png")));
+		DY.setHorizontalAlignment(SwingConstants.CENTER);
+		DY.setForeground(Color.WHITE);
+		DY.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		DY.setBounds(0, 72, 244, 62);
+		leftPanel.add(DY);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 57, 244, 2);
+		leftPanel.add(separator);
+		
+		SM = new JLabel("   扫码输入");
+		SM.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setOnClicked(1);
+			}
+		});
+		SM.setIcon(new ImageIcon(MainControl.class.getResource("/resources/键盘.png")));
+		SM.setHorizontalAlignment(SwingConstants.CENTER);
+		SM.setForeground(Color.WHITE);
+		SM.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		SM.setBounds(0, 141, 244, 62);
+		leftPanel.add(SM);
+		
+		PZ = new JLabel("   系统配置");
+		PZ.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setOnClicked(2);
+			}
+		});
+		PZ.setIcon(new ImageIcon(MainControl.class.getResource("/resources/设 置.png")));
+		PZ.setHorizontalAlignment(SwingConstants.CENTER);
+		PZ.setForeground(Color.WHITE);
+		PZ.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		PZ.setBounds(0, 214, 244, 62);
+		leftPanel.add(PZ);
+		
+		GY = new JLabel("   关于我们");
+		GY.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setOnClicked(3);
+			}
+		});
+		GY.setIcon(new ImageIcon(MainControl.class.getResource("/resources/我的--关于我们.png")));
+		GY.setHorizontalAlignment(SwingConstants.CENTER);
+		GY.setForeground(Color.WHITE);
+		GY.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+		GY.setBounds(0, 286, 244, 62);
+		leftPanel.add(GY);
 		
 		JLabel lblNewLabel_2 = new JLabel("WELCOME");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setForeground(Color.WHITE);
 		lblNewLabel_2.setFont(new Font("Algerian", Font.BOLD, 35));
-		lblNewLabel_2.setBounds(0, 10, 244, 52);
+		lblNewLabel_2.setBounds(0, 0, 244, 62);
 		leftPanel.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("   一键打印");
-		lblNewLabel_2_1.setIcon(new ImageIcon(MainControl.class.getResource("/resources/打印机.png")));
-		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_1.setForeground(Color.WHITE);
-		lblNewLabel_2_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
-		lblNewLabel_2_1.setBounds(0, 72, 244, 62);
-		leftPanel.add(lblNewLabel_2_1);
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(108,127,144));
+		panel.setBounds(241, 102, 794, 64);
+		contentPane.add(panel);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 60, 244, 2);
-		leftPanel.add(separator);
-		
-		JLabel lblNewLabel_2_1_1 = new JLabel("   扫码输入");
-		lblNewLabel_2_1_1.setIcon(new ImageIcon(MainControl.class.getResource("/resources/键盘.png")));
-		lblNewLabel_2_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_1_1.setForeground(Color.WHITE);
-		lblNewLabel_2_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
-		lblNewLabel_2_1_1.setBounds(0, 141, 244, 62);
-		leftPanel.add(lblNewLabel_2_1_1);
-		
-		JLabel lblNewLabel_2_1_1_1 = new JLabel("   系统配置");
-		lblNewLabel_2_1_1_1.setIcon(new ImageIcon(MainControl.class.getResource("/resources/设 置.png")));
-		lblNewLabel_2_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_1_1_1.setForeground(Color.WHITE);
-		lblNewLabel_2_1_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
-		lblNewLabel_2_1_1_1.setBounds(0, 214, 244, 62);
-		leftPanel.add(lblNewLabel_2_1_1_1);
-		
-		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("   关于我们");
-		lblNewLabel_2_1_1_1_1.setIcon(new ImageIcon(MainControl.class.getResource("/resources/我的--关于我们.png")));
-		lblNewLabel_2_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_1_1_1_1.setForeground(Color.WHITE);
-		lblNewLabel_2_1_1_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
-		lblNewLabel_2_1_1_1_1.setBounds(0, 286, 244, 62);
-		leftPanel.add(lblNewLabel_2_1_1_1_1);
+		DIS = new JLabel("一键打印");
+		DIS.setHorizontalAlignment(SwingConstants.CENTER);
+		DIS.setForeground(Color.WHITE);
+		DIS.setFont(new Font("Microsoft YaHei", Font.BOLD, 35));
+		panel.add(DIS);
 		
 		JPanel topPanel = new JPanel();
 		topPanel.setBackground(new Color(28,150,213));
@@ -632,13 +741,36 @@ public class MainControl extends JFrame {
 		lblNewLabel.setBounds(65, 0, 102, 101);
 		topPanel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("潞城市鑫达财会服务有限公司 欢迎您！");
+		JLabel lblNewLabel_1 = new JLabel(" 欢迎您！");
+		lblNewLabel_1.setText(commonUtil.COMPANY_NAME);
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 40));
 		lblNewLabel_1.setBounds(264, 25, 780, 54);
 		topPanel.add(lblNewLabel_1);
-		
-		panel_1.setVisible(false);
-		panel_2.setVisible(false);
+
+	}
+	
+//	This method is used to Set All the Static String
+	public void extractDataToPublicStr() {
+
+		commonUtil.PZHM = this.txtd.getText();
+		commonUtil.CLSBDH = this.textField.getText();
+		commonUtil.XXDZ = this.textField_1.getText();
+		commonUtil.DH = this.textField_2.getText();
+		commonUtil.XZQH = this.comboBox_3.getToolTipText();
+		commonUtil.LJXSLC = this.textField_3.getText();
+		commonUtil.EDZS = this.textField_7.getText();
+		commonUtil.GS = this.comboBox_3_1.getEditor().getItem().toString();
+		commonUtil.JQFS = this.comboBox_3_1_1.getEditor().getItem().toString();
+		commonUtil.SFSSSQ = this.rdbtnNewRadioButton.isSelected();
+		commonUtil.SFDKZ = this.rdbtnNewRadioButton_1.isSelected();
+		commonUtil.SFKQXG = this.rdbtnNewRadioButton_2.isSelected();
+		commonUtil.JXLJZZXH = this.textField_5.getText();
+		commonUtil.DBCLBH = this.textField_6.getText();
+		commonUtil.ZGCS = this.textField_9.getText();
+		commonUtil.LTSL = this.comboBox_3_1_1_1.getEditor().getItem().toString();
+		commonUtil.BSQXS = this.comboBox_3_1_1_2.getEditor().getItem().toString();
+		commonUtil.ZXZSL = this.comboBox_3_1_1_3.getEditor().getItem().toString();
+	
 	}
 }

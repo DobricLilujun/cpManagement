@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/poi-5.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/poi-scratchpad-5.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/poi-ooxml-full-5.0.0.jar"/>
@@ -51,5 +46,11 @@
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/commons-discovery-0.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/activation-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/resource/images"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/dom4j-2.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/jaxen-1.1.6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/core-3.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/javase-3.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/qrgen-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

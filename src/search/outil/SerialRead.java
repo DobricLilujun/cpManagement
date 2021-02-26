@@ -9,7 +9,7 @@ public class SerialRead {
     		throws TooManyListenersException, NoSuchPortException, PortInUseException, UnsupportedCommOperationException {
         //获得系统端口列表
         SerialTool.getSerialPortList();
-        //开启端口COM4，波特率9600，根据自己的情况更改
+        //开启端口COM7，波特率9600，根据自己的情况更改
         final SerialPort serialPort = SerialTool.openSerialPort("COM7", 9600);
         //设置串口的listener
         SerialTool.setListenerToSerialPort(serialPort, new SerialPortEventListener() {

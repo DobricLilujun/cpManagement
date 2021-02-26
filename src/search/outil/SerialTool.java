@@ -15,12 +15,11 @@ public class SerialTool {
     public static List<String> getSerialPortList() {
         List<String> systemPorts = new ArrayList<>();
         //获得系统可用的端口
-        System.out.println("I lie you");
         Enumeration<CommPortIdentifier> portList = CommPortIdentifier.getPortIdentifiers();
-        System.out.println("I lie you");
         while (portList.hasMoreElements()) {
             String portName = portList.nextElement().getName();//获得端口的名字
             systemPorts.add(portName);
+            System.out.println(portName);
             System.out.println(systemPorts.size());
         }
         return systemPorts;

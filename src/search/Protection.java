@@ -22,9 +22,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.io.InputStreamReader;  
-import java.io.LineNumberReader;  
+import java.io.LineNumberReader;
+import java.net.InetAddress;
 import java.net.NetworkInterface;  
-import java.net.SocketException;  
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.Enumeration;  
 import java.util.Vector; 
 
@@ -180,6 +182,20 @@ public class Protection
 	    }
 	    return result.trim();
 	  }
+    public static String getComputerName() {
+    	String hostname = "Unknown";
+        try
+        {
+            InetAddress addr;
+            addr = InetAddress.getLocalHost();
+            hostname = addr.getHostName();
+        }
+        catch (UnknownHostException ex)
+        {
+            System.out.println("Hostname can not be resolved");
+        }
+        return hostname;
+    }
     
     private static Boolean desDecode(String str) {
 		String t = EncryUtil.decrypt(str);
@@ -199,10 +215,10 @@ public class Protection
     @SuppressWarnings("unused")
 	static ArrayList<String> getValuesFromKey(String key){
     	ArrayList<String> values = new ArrayList<>();
-    	String key_string = EncryUtil.decrypt(key);
-    	String tt[];
-    	tt=key_string.split("-");
+    	System.out.println(key);
+    	String tt[] =key.split(",");
 	    for (String s : tt) {
+	    	System.out.println(s);
 	    	values.add(s);
 	    }
 	    return values;
