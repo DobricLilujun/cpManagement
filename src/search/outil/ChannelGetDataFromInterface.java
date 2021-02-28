@@ -17,17 +17,16 @@ import search.commonUtil;
 
 public class ChannelGetDataFromInterface {
 	public static String url="http://172.6.46.2/jcxws/TmriOutNewAccess.asmx?wsdl";
-	public static String jkxlh = 
-			"7D1A09090106170400158195E6FCF3E2F28C8AF3828AE6FB868FDEC7D5C2D18CD3D0CFDEB9ABCBBED2B5CEF1CFB5CDB3";
+	public static String jkxlh = "7D1A09090106170400158195E6FCF3E2F28C8AF3828AE6FB868FDEC7D5C2D18CD3D0CFDEB9ABCBBED2B5CEF1CFB5CDB3";
 	public static String jkdh =  "18C49";
 	public static String cjsbdh = "510101199001011234";
-	public static String dwjgdm = "001400000149";
 	public static String zdbs = "172.6.46.103";
+	
 	public ChannelGetDataFromInterface() {
 	super();
-}
+	}
 	
-	private static TmriJaxRpcOutNewAccessSoapStub stub = null;
+	public static TmriJaxRpcOutNewAccessSoapStub stub = null;
 	
 	private static void ensureStub() throws MalformedURLException, AxisFault{
 		if(stub==null){
@@ -47,12 +46,11 @@ public class ChannelGetDataFromInterface {
 				+hphm+"</hphm>\n<hpzl>"
 				+hpzl+"</hpzl>\n<clsbdh>"
 				+clsbdh+"</clsbdh>\n<jyjgbh>"
-				+jyjgbh+"</jyjgbh>\n</QueryCondition>\n</root>";
-		
+				+commonUtil.dwjgdm_URL+"</jyjgbh>\n</QueryCondition>\n</root>";
 		
 		TmriJaxRpcOutNewAccessLocator services = new TmriJaxRpcOutNewAccessLocator();
-		result=stub.queryObjectOutNew("18",jkxlh,jkdh,cjsbdh,dwjgdm,"","","",zdbs,encrptXmlDoc);
-		
+		result=stub.queryObjectOutNew("18",jkxlh,jkdh,cjsbdh,commonUtil.dwjgdm,"","","",zdbs,encrptXmlDoc);
+//		System.out.println(result);
 		try{
 			result = URLDecoder.decode(result, "utf-8");
 			FileWriter fw = null;
@@ -88,10 +86,14 @@ public class ChannelGetDataFromInterface {
 			String encrptXmlDoc ="<?xml version=\"1.0\" encoding=\"GBK\"?>\n<root>"
 					+"\n<QueryCondition>\n<hphm>晋DUF109</hphm>\n<hpzl>02</hpzl>\n<clsbdh>"
 					+"8993</clsbdh>\n<jyjgbh>1400000149</jyjgbh>\n</QueryCondition>\n</root>";
+			System.out.println(encrptXmlDoc);
 			String jkxlh = 
 	"7D1A09090106170400158195E6FCF3E2F28C8AF3828AE6FB868FDEC7D5C2D18CD3D0CFDEB9ABCBBED2B5CEF1CFB5CDB3";
+			
 			TmriJaxRpcOutNewAccessLocator services = new TmriJaxRpcOutNewAccessLocator();
+			System.out.println(stub);
 			result=stub.queryObjectOutNew("18", jkxlh, "18C49", "510101199001011234","001400000149","","","","172.6.46.103",encrptXmlDoc);
+//			result=stub.queryObjectOutNew("18",jkxlh,jkdh,cjsbdh,dwjgdm,"","","",zdbs,encrptXmlDoc);
 			try{
 				result = URLDecoder.decode(result, "utf-8");
 			}catch(Exception ex){
@@ -101,15 +103,12 @@ public class ChannelGetDataFromInterface {
 			return result;
 		}
 	
-	  public static void main(String[] args) 
-	    { 
-		  test_data t = new test_data();
-		  try {
-			t.doWrite();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    } 
+	  public static void main(String[] args) throws Exception 
+    { 
+	  HashMap<String,String> result_map = exportDataFromInterface("晋DY5882","01","3782",commonUtil.dwjgdm_URL);
+	  System.out.println(result_map.get("hphm"));
+//	  ChannelGetDataFromInterface c = new ChannelGetDataFromInterface();
+//	  c.doWrite();
+    } 
 
 }

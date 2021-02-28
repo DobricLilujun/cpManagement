@@ -31,6 +31,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.dom4j.DocumentException;
 
 import search.EncryUtil;
+import search.commonUtil;
 import search.dataTableCorrespond;
 import search.variableStatic;
 
@@ -108,22 +109,22 @@ public class POI {
 	    
 	
 //	    将三通道数据进行处理和融合, 通过Authority 来判断权限
-	    public static Map<String,String> GetDataFromThreeChannel(int Authority) throws IOException, ClassNotFoundException, SQLException, DocumentException{
+	    public static Map<String, Object> GetDataFromThreeChannel(int Authority) throws IOException, ClassNotFoundException, SQLException, DocumentException{
 	    	
 //	    	拿到数据对应仓库
 	    	Map<String, String> data_field_HY = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",1);
 	    	Map<String, String> data_field_SAISI = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",2);
 	    	Map<String, String> data_field_INTERFACE = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",3);
-	    	Map<String, String> data_field_DY = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",3);
-	    	String PZHM = "晋DLQ718";
-	    	String PZLB = "小型汽车";
-	    	String HPZL = "1";
-	    	String CLSBDH = "1234";
+	    	Map<String, String> data_field_DY = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",4);
+	    	String PZHM = "晋D19887";
+	    	String PZLB = "大型汽车";
+	    	String HPZL = "01";
+	    	String CLSBDH = "5273";
 //	    	拿到是哪个接口的数据
 	    	HashMap<String,String> result_map_data_HY = ChannelGetDataFromDatabaseHY.extractInfoFromDatabase(ChannelGetDataFromDatabaseHY.fileds_list,ChannelGetDataFromDatabaseHY.table_name,PZHM,PZLB);
 	    	HashMap<String,String> result_map_data_SAISI = ChannelGetDataFromDatabaseSIS.extractInfoFromDatabase(ChannelGetDataFromDatabaseSIS.fileds_list, ChannelGetDataFromDatabaseSIS.table_name, PZHM);
-	    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,ChannelGetDataFromInterface.dwjgdm);
-	    	HashMap<String,String> result_final = new HashMap<String,String>();
+	    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,commonUtil.dwjgdm_URL);
+	    	Map<String,Object> result_final = new HashMap<String,Object>();
 //			拿到用户的权限频道
 //	    	如果是 只使用华研数据
 	    	if (Authority==1) 
@@ -146,29 +147,30 @@ public class POI {
 	    		for (Map.Entry<String,String> entry: data_field_INTERFACE.entrySet()) {
 	    			String data_temp = result_map_data_Interface.get(data_field_INTERFACE.get(entry.getKey()));
 	    			if (data_temp!=null) {
-	    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
+	    				result_final.put(entry.getKey(), data_temp);
 	    			}else
 	    			{
-	    				result_final.put(data_field_DY.get(entry.getKey()), "");
+	    				result_final.put(entry.getKey(), "");
 	    			}
 	    		}
+	    		
 //	    		以赛斯数据库作为补充数据	
-	    		for (Map.Entry<String,String> entry: data_field_SAISI.entrySet()) {
+	    		for (Entry<String, Object> entry: result_final.entrySet()) {
 	    			if (entry.getValue().equals(""))
 	    			{
 	    				String data_temp = result_map_data_SAISI.get(data_field_SAISI.get(entry.getKey()));
 		    			if (data_temp!=null) {
-		    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
+		    				result_final.put(entry.getKey(), data_temp);
 		    			}
 	    			}
 	    		}
 //	    		以华研数据库作为第二补充数据
-	    		for (Map.Entry<String,String> entry: data_field_HY.entrySet()) {
+	    		for (Entry<String, Object> entry: result_final.entrySet()) {
 	    			if (entry.getValue().equals(""))
 	    			{
 	    				String data_temp = result_map_data_HY.get(data_field_HY.get(entry.getKey()));
 		    			if (data_temp!=null) {
-		    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
+		    				result_final.put(entry.getKey(), data_temp);
 		    			}
 	    			}
 	    		}
@@ -182,21 +184,41 @@ public class POI {
 	    	return result_final;
 	    }
 	    
-//	    导出和打印一起执行，直接调用打印接口 打印指定的数据
+//	    导出
 	    
-//	    public static boolean exportEtPrint(int Authority, int printtab) {
-//	    	
-//	    }
+	    public static void exportData(Map<String, Object> data_field,String filename) throws Exception {
+	    	
+	        Map<String, Object> data = data_field;
+	        Map<String, Object> pic =  new HashMap<>();
+	        List<List<String[]>> tabledataList = new ArrayList<>();
+	        pic.put("${qrcode}", "resource/output/QR_CODE.JPG");
+	        getWord(data, tabledataList, pic);
+	    }
+//	    打印
+	    
+	    public static boolean prinData(String filename) throws Exception {
+	    	
+	        if (printChannel.printDoc(filename)) {
+	        	return true;
+	        } 
+	        return false;
+	    }	    
+	    
 	    public static void main(String[] args) throws Exception {
-	    	writeDataCorrespondFromFile("resource/file/数据库字段对应.txt","resource/file/数据库字段对应加密.txt");
-	        Map<String, String> data = new HashMap<>();
-	        data = GetDataCorrespondFromFile("resource/file/数据库字段对应加密.txt",4);
-	        System.out.println(data.get("车辆所有人"));
-	        System.out.println(data.get("号牌号码"));
+	    	
+//	    	测试数据
+//	    	writeDataCorrespondFromFile("resource/file/数据库字段对应.txt","resource/file/数据库字段对应加密.txt");
+//	        Map<String, String> data = new HashMap<>();
+//	        data = GetDataCorrespondFromFile("resource/file/数据库字段对应加密.txt",4);
+//	        System.out.println(data.get("车辆所有人"));
+//	        System.out.println(data.get("号牌号码"));
+//	        System.out.println(data.get("发动机型号"));
+//	        System.out.println(data.get("发动机号"));
+	    	
+	    	
 //	        Map<String, Object> data = new HashMap<>();
 //	        Map<String, Object> pic = new HashMap<>();
-//
-//
+
 //	        data.put("${usage}", "1200");
 //	        data.put("${SYXZ}", "自用车");
 //	        data.put("${DLYSZH}", "1233466564");

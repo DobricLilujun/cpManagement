@@ -7,6 +7,11 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.dom4j.DocumentException;
+
+import search.outil.POI;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JSeparator;
@@ -38,8 +43,13 @@ import javax.swing.Box;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
-public class MainControl extends JFrame {
+public class MainControl extends JFrame implements variableStatic{
 
 	private JPanel contentPane;
 	private JTextField txtd;
@@ -78,6 +88,8 @@ public class MainControl extends JFrame {
 	private boolean isClickedSM = false;
 	private boolean isClickedPZ = false;
 	private boolean isClickedGY = false;
+	private JTextField textField_12;
+	private JTextField textField_13;
 	
 	public static void main(String args[]) {
 		initWindows();
@@ -187,7 +199,14 @@ public class MainControl extends JFrame {
 		lblNewLabel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_4.setForeground(Color.green);
+				if (!commonUtil.WTSisClicked) {
+					lblNewLabel_4.setForeground(Color.green);
+					commonUtil.WTSisClicked = true;
+				}else {
+					lblNewLabel_4.setForeground(Color.white);
+					commonUtil.WTSisClicked = false;
+				}
+				
 			}
 			
 		});
@@ -200,7 +219,13 @@ public class MainControl extends JFrame {
 		lblNewLabel_4_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_4_1.setForeground(Color.green);
+				if (!commonUtil.ZHQCisClicked) {
+					lblNewLabel_4_1.setForeground(Color.green);
+					commonUtil.ZHQCisClicked = true;
+				}else {
+					lblNewLabel_4_1.setForeground(Color.white);
+					commonUtil.ZHQCisClicked = false;
+				}
 			}
 		});
 		lblNewLabel_4_1.setForeground(Color.WHITE);
@@ -212,7 +237,14 @@ public class MainControl extends JFrame {
 		lblNewLabel_4_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_4_2.setForeground(Color.green);
+				if (!commonUtil.RGJYBisClicked) {
+					lblNewLabel_4_2.setForeground(Color.green);
+					commonUtil.RGJYBisClicked = true;
+				}else {
+					lblNewLabel_4_2.setForeground(Color.white);
+					commonUtil.RGJYBisClicked = false;
+				}
+				
 			}
 		});
 		lblNewLabel_4_2.setForeground(Color.WHITE);
@@ -224,7 +256,13 @@ public class MainControl extends JFrame {
 		lblNewLabel_4_6.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_4_6.setForeground(Color.green);
+				if (!commonUtil.QCPFWJBisClicked) {
+					lblNewLabel_4_6.setForeground(Color.green);
+					commonUtil.QCPFWJBisClicked = true;
+				}else {
+					lblNewLabel_4_6.setForeground(Color.white);
+					commonUtil.QCPFWJBisClicked = false;
+				}
 			}
 		});
 		lblNewLabel_4_6.setForeground(Color.WHITE);
@@ -236,7 +274,14 @@ public class MainControl extends JFrame {
 		lblNewLabel_4_7.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_4_7.setForeground(Color.green);
+				
+				if (!commonUtil.PZSQBisClicked) {
+					lblNewLabel_4_7.setForeground(Color.green);
+					commonUtil.PZSQBisClicked = true;
+				}else {
+					lblNewLabel_4_7.setForeground(Color.white);
+					commonUtil.PZSQBisClicked = false;
+				}
 			}
 		});
 		lblNewLabel_4_7.setForeground(Color.WHITE);
@@ -248,7 +293,13 @@ public class MainControl extends JFrame {
 		lblNewLabel_4_8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_4_8.setForeground(Color.green);
+				if (!commonUtil.BCXXBisClicked) {
+					lblNewLabel_4_8.setForeground(Color.green);
+					commonUtil.BCXXBisClicked = true;
+				}else {
+					lblNewLabel_4_8.setForeground(Color.white);
+					commonUtil.BCXXBisClicked = false;
+				}
 			}
 		});
 		lblNewLabel_4_8.setForeground(Color.WHITE);
@@ -260,7 +311,13 @@ public class MainControl extends JFrame {
 		lblNewLabel_4_1_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_4_1_2.setForeground(Color.green);
+				if (!commonUtil.QYCLisClicked) {
+					lblNewLabel_4_1_2.setForeground(Color.green);
+					commonUtil.QYCLisClicked = true;
+				}else {
+					lblNewLabel_4_1_2.setForeground(Color.white);
+					commonUtil.QYCLisClicked = false;
+				}
 			}
 		});
 		lblNewLabel_4_1_2.setForeground(Color.WHITE);
@@ -272,7 +329,13 @@ public class MainControl extends JFrame {
 		lblNewLabel_4_1_2_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_4_1_2_1.setForeground(Color.green);
+				if (!commonUtil.KCisClicked) {
+					lblNewLabel_4_1_2_1.setForeground(Color.green);
+					commonUtil.KCisClicked = true;
+				}else {
+					lblNewLabel_4_1_2_1.setForeground(Color.white);
+					commonUtil.KCisClicked = false;
+				}
 			}
 		});
 		lblNewLabel_4_1_2_1.setForeground(Color.WHITE);
@@ -284,7 +347,13 @@ public class MainControl extends JFrame {
 		lblNewLabel_4_1_2_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_4_1_2_1_1.setForeground(Color.green);
+				if (!commonUtil.GCisClicked) {
+					lblNewLabel_4_1_2_1_1.setForeground(Color.green);
+					commonUtil.GCisClicked = true;
+				}else {
+					lblNewLabel_4_1_2_1_1.setForeground(Color.white);
+					commonUtil.GCisClicked = false;
+				}
 			}
 		});
 		lblNewLabel_4_1_2_1_1.setForeground(Color.WHITE);
@@ -296,7 +365,13 @@ public class MainControl extends JFrame {
 		lblNewLabel_4_1_2_1_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_4_1_2_1_1_1.setForeground(Color.green);
+				if (!commonUtil.XNJCPDisClicked) {
+					lblNewLabel_4_1_2_1_1_1.setForeground(Color.green);
+					commonUtil.XNJCPDisClicked = true;
+				}else {
+					lblNewLabel_4_1_2_1_1_1.setForeground(Color.white);
+					commonUtil.XNJCPDisClicked = false;
+				}
 			}
 		});
 		lblNewLabel_4_1_2_1_1_1.setForeground(Color.WHITE);
@@ -404,6 +479,22 @@ public class MainControl extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				extractDataToPublicStr();
+				try {
+					commonUtil.resultMap = POI.GetDataFromThreeChannel(2);
+					
+					for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
+						System.out.println(entry.getKey()+" : "+entry.getValue());
+					}
+//					for (String table:tables) {
+//						POI.exportData(commonUtil.resultMap, table);
+//					}
+				} catch (ClassNotFoundException | IOException | SQLException | DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnNewButton_1.setOpaque(true);
@@ -411,7 +502,7 @@ public class MainControl extends JFrame {
 		btnNewButton_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		btnNewButton_1.setBorderPainted(false);
 		btnNewButton_1.setBackground(new Color(241, 57, 83));
-		btnNewButton_1.setBounds(290, 412, 180, 60);
+		btnNewButton_1.setBounds(553, 412, 101, 60);
 		panel_2.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_3_3_3_1 = new JLabel("额定转速");
@@ -552,6 +643,18 @@ public class MainControl extends JFrame {
 		panel_2.add(rdbtnNewRadioButton_2);
 		
 		JButton btnNewButton_1_1 = new JButton("快速打印");
+		btnNewButton_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				try {
+					POI.prinData("人工检验表");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -561,7 +664,7 @@ public class MainControl extends JFrame {
 		btnNewButton_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		btnNewButton_1_1.setBorderPainted(false);
 		btnNewButton_1_1.setBackground(new Color(241, 57, 83));
-		btnNewButton_1_1.setBounds(585, 412, 180, 60);
+		btnNewButton_1_1.setBounds(680, 412, 101, 60);
 		panel_2.add(btnNewButton_1_1);
 		
 		textField_4 = new JTextField();
@@ -573,7 +676,7 @@ public class MainControl extends JFrame {
 		textField_8 = new JTextField();
 		textField_8.setColumns(10);
 		textField_8.setBackground(SystemColor.textHighlight);
-		textField_8.setBounds(531, 0, 12, 478);
+		textField_8.setBounds(514, 0, 12, 478);
 		panel_2.add(textField_8);
 		
 		JLabel lblNewLabel_3_2_1_1_1 = new JLabel("最高车速");
@@ -589,6 +692,38 @@ public class MainControl extends JFrame {
 		textField_9.setColumns(10);
 		textField_9.setBounds(585, 164, 156, 35);
 		panel_2.add(textField_9);
+		
+		JLabel lblNewLabel_3_1_1 = new JLabel("车辆生产厂家");
+		lblNewLabel_3_1_1.setForeground(SystemColor.textHighlight);
+		lblNewLabel_3_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		lblNewLabel_3_1_1.setBounds(302, 332, 156, 26);
+		panel_2.add(lblNewLabel_3_1_1);
+		
+		textField_12 = new JTextField();
+		textField_12.setForeground(Color.DARK_GRAY);
+		textField_12.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		textField_12.setColumns(10);
+		textField_12.setBounds(302, 360, 156, 35);
+		panel_2.add(textField_12);
+		
+		JLabel lblNewLabel_3_1_1_1 = new JLabel("轮胎规格型号");
+		lblNewLabel_3_1_1_1.setForeground(SystemColor.textHighlight);
+		lblNewLabel_3_1_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		lblNewLabel_3_1_1_1.setBounds(302, 405, 156, 26);
+		panel_2.add(lblNewLabel_3_1_1_1);
+		
+		textField_13 = new JTextField();
+		textField_13.setForeground(Color.DARK_GRAY);
+		textField_13.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		textField_13.setColumns(10);
+		textField_13.setBounds(302, 433, 156, 35);
+		panel_2.add(textField_13);
+		
+		JLabel lblNewLabel_3_3_3_2_1_4 = new JLabel("新车请输入以下字段");
+		lblNewLabel_3_3_3_2_1_4.setForeground(Color.RED);
+		lblNewLabel_3_3_3_2_1_4.setFont(new Font("Microsoft YaHei", Font.BOLD, 23));
+		lblNewLabel_3_3_3_2_1_4.setBounds(267, 296, 223, 26);
+		panel_2.add(lblNewLabel_3_3_3_2_1_4);
 		
 		qrcode = new JPanel();
 		qrcode.setBackground(SystemColor.text);
@@ -618,6 +753,24 @@ public class MainControl extends JFrame {
 		qrcode.add(textField_11);
 		
 		JButton btnNewButton_1_1_1 = new JButton("系统检测");
+		btnNewButton_1_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				try {
+					commonUtil.rep =new reptile("http://172.32.250.11:8090/jc/yt/loginout/login.yt");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					commonUtil.rep.startBrowser(commonUtil.rep.e_driver);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		btnNewButton_1_1_1.setOpaque(true);
 		btnNewButton_1_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
@@ -632,10 +785,19 @@ public class MainControl extends JFrame {
 		qrcode.add(textField_10);
 		
 		JButton btnNewButton_1_1_1_2 = new JButton("扫码录入");
-		btnNewButton_1_1_1_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnNewButton_1_1_1_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					commonUtil.rep.get(commonUtil.rep.e_driver);
+//					commonUtil.rep.get_combox(commonUtil.rep.e_driver);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
+		
 		btnNewButton_1_1_1_2.setOpaque(true);
 		btnNewButton_1_1_1_2.setForeground(Color.WHITE);
 		btnNewButton_1_1_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
@@ -771,6 +933,23 @@ public class MainControl extends JFrame {
 		commonUtil.LTSL = this.comboBox_3_1_1_1.getEditor().getItem().toString();
 		commonUtil.BSQXS = this.comboBox_3_1_1_2.getEditor().getItem().toString();
 		commonUtil.ZXZSL = this.comboBox_3_1_1_3.getEditor().getItem().toString();
-	
+		commonUtil.CLSCCJ = this.textField_12.getText();
+		commonUtil.LTGGXH = this.textField_13.getText();
+		commonUtil.resultMap.put("${tel}",commonUtil.DH);
+		commonUtil.resultMap.put("${address}",commonUtil.DH);
+		commonUtil.resultMap.put("${postcode}",commonUtil.DH);
+		commonUtil.resultMap.put("${today}",commonUtil.DH);
+		commonUtil.resultMap.put("${airSupethod}",commonUtil.DH);
+		commonUtil.resultMap.put("${JZZZ}",commonUtil.DH);
+		commonUtil.resultMap.put("${ratepeed}",commonUtil.DH);
+		commonUtil.resultMap.put("${numOfCylinder}",commonUtil.DH);
+		commonUtil.resultMap.put("${transimissionType}",commonUtil.DH);
+		commonUtil.resultMap.put("${LTGG}",commonUtil.DH);
+		commonUtil.resultMap.put("${LTSL}",commonUtil.DH);
+		commonUtil.resultMap.put("${JXLJZZXH}",commonUtil.DH);
+		commonUtil.resultMap.put("${ZXZSL}",commonUtil.DH);
+		
+
+		
 	}
 }

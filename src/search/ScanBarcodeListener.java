@@ -20,7 +20,8 @@ public class ScanBarcodeListener {
 		}
 		return portNameList;
 	}
-
+	
+	
 	 public static void main(String[] args) throws Exception 
     { 
 		

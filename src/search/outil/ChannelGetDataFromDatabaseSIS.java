@@ -28,12 +28,13 @@ public class ChannelGetDataFromDatabaseSIS {
 	public static String sql="";
 	
 	public static String SQLGen (String [] fields, String table_name, String CPH) {
-		String SQL = "select";
+		String SQL = "select TOP 1";
 		for (String s: fields) {
 			SQL+= (s+",");
 		}
-		SQL.substring(0, SQL.length());
-		SQL+= ("from"+ table_name) + "where HPHM  = '" + CPH +"';";
+		SQL = SQL.substring(0, SQL.length()-1);
+		SQL = SQL + " ";
+		SQL+= (" from "+ table_name) + " where HPHM  = '" + CPH +"' ORDER BY JYRQ desc;";
 		return SQL;
 	}
 	
@@ -42,7 +43,7 @@ public class ChannelGetDataFromDatabaseSIS {
 	{
 		DBConection db = new DBConection(DataBase_ip,DataBase_name,DataBase_username,DataBase_password);
 		HashMap<String,String> result_map = new HashMap<String, String>();
-		String SQL = SQLGen(fields,table_name,CPH);
+		sql = SQLGen(fields,table_name,CPH);
 		try {
 			stmt = (Statement) db.conn.createStatement();
 			rs = (ResultSet)stmt.executeQuery(sql);
