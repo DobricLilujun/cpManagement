@@ -44,10 +44,6 @@ public class POI {
 	 * 文件数据替换
 	 * @author 23  *
 	 */
-	    public static String file_path = "resource//file//判定表.docx";
-	    public static String images_path = "resource//file//判定表.docx";
-	    public static String output_path = "resource//output//判定表.docx";
-	    public static String config_path = "resource//config//field.properties";
 	    
 	    public static  Map<String, Object> getDataMap() {
 	    	Map<String, Object> data = new HashMap<>();
@@ -106,8 +102,44 @@ public class POI {
 	    	bw.close();
 	    	br.close();
 	    }
-	    
 	
+	    public static Map<String, Object> Test(){
+	    	Map<String, Object> data = new HashMap<>();
+	    	data.put("${brand}", "解放牌");
+	    	data.put("${owner}", "潞城市承昌通商贸有限公司");
+	    	data.put("${XH}", "CA4256P1K2T1E5A80");
+	    	data.put("${usage}", "");
+	    	data.put("${SYXZ}", "F");
+	    	data.put("${DLYSZH}", "14048109468");
+	    	data.put("${CLCCRQ}", "2018/2/26 00:00:00");
+	    	data.put("${CCDJRQ}", "2018/3/5 00:00:00");
+	    	data.put("${platType}", "01");
+	    	data.put("${factoryName}", "中国第一汽车集团公司");
+	    	data.put("${posite}", "2,3");
+	    	data.put("${crosght}", "25000");
+	    	data.put("${fuelType}", "B");
+	    	data.put("${PL}", "9500");
+	    	data.put("${engineModel}", "WP10H400E50");
+	    	data.put("${FDJH}", "3618A004089");
+	    	data.put("${power}", "294");
+	    	data.put("${vin}", "LFWSRURH0JAD05273");
+	    	data.put("${vehicleType}", "CA4256P1K2T1E5A80");
+	    	data.put("${ZBZL}", "8415");
+	    	data.put("${ZGCS}", "280");
+	    	data.put("${cwkc}", "6675");
+	    	data.put("${cwkk}", "2490");
+	    	data.put("${cwkg}", "3290");
+	    	data.put("${hxnbcd}", "1000");
+	    	data.put("${hxnbkd}", "1000");
+	    	data.put("${hxnbgd}", "1000");
+	    	data.put("${ZKRS}", "2");
+	    	data.put("${ZS}", "3");
+	    	data.put("${ZJ}", "4500");
+	    	data.put("${CSYS}", "E");
+	    	data.put("${vin}", "ABLKSDJOIR798156748");
+	    	
+	    	return data;
+	    }
 //	    将三通道数据进行处理和融合, 通过Authority 来判断权限
 	    public static Map<String, Object> GetDataFromThreeChannel(int Authority) throws IOException, ClassNotFoundException, SQLException, DocumentException{
 	    	
@@ -147,10 +179,10 @@ public class POI {
 	    		for (Map.Entry<String,String> entry: data_field_INTERFACE.entrySet()) {
 	    			String data_temp = result_map_data_Interface.get(data_field_INTERFACE.get(entry.getKey()));
 	    			if (data_temp!=null) {
-	    				result_final.put(entry.getKey(), data_temp);
+	    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
 	    			}else
 	    			{
-	    				result_final.put(entry.getKey(), "");
+	    				result_final.put(data_field_DY.get(entry.getKey()), "");
 	    			}
 	    		}
 	    		
@@ -160,7 +192,7 @@ public class POI {
 	    			{
 	    				String data_temp = result_map_data_SAISI.get(data_field_SAISI.get(entry.getKey()));
 		    			if (data_temp!=null) {
-		    				result_final.put(entry.getKey(), data_temp);
+		    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
 		    			}
 	    			}
 	    		}
@@ -192,7 +224,7 @@ public class POI {
 	        Map<String, Object> pic =  new HashMap<>();
 	        List<List<String[]>> tabledataList = new ArrayList<>();
 	        pic.put("${qrcode}", "resource/output/QR_CODE.JPG");
-	        getWord(data, tabledataList, pic);
+	        getWord(data, tabledataList, pic,filename);
 	    }
 //	    打印
 	    
@@ -301,10 +333,12 @@ public class POI {
 	    }
 	    
 	    	// 
-	    public static void getWord(Map<String, Object> data, List<List<String[]>> tabledataList, Map<String, Object> picmap)
+	    public static void getWord(Map<String, Object> data, List<List<String[]>> tabledataList, Map<String, Object> picmap, String filename)
 	            throws Exception {
-	        try (
-	        		FileInputStream is = new FileInputStream(file_path);
+	    	String i= variableStatic.filePathRoot + filename+ variableStatic.fileDoxNameTail;
+	    	String o= variableStatic.outPutPathRoot + filename + variableStatic.filePdfNameTail;
+			try (
+	        		FileInputStream is = new FileInputStream(i);
 	        		XWPFDocument document = new XWPFDocument(is)
 	        	) 
 	        {
@@ -323,7 +357,7 @@ public class POI {
 	            long time = System.currentTimeMillis();// 获取系统时间
 	            System.out.println(time); // 打印时间
 	            // 使用try和catch关键字捕获异常
-	            try (FileOutputStream out = new FileOutputStream(output_path)) {
+	            try (FileOutputStream out = new FileOutputStream(o)) {
 	                document.write(out);
 	            }
 	        } catch (FileNotFoundException e) {
@@ -396,8 +430,8 @@ public class POI {
 	                        if (textMap.containsKey(run.toString())) {
 	                            run.setText("", 0);
 	                            try (FileInputStream is = new FileInputStream((String) ob)) {
-	                                run.addPicture(is, XWPFDocument.PICTURE_TYPE_PNG, (String) ob, Units.toEMU(100),
-	                                        Units.toEMU(100));
+	                                run.addPicture(is, XWPFDocument.PICTURE_TYPE_PNG, (String) ob, Units.toEMU(380),
+	                                        Units.toEMU(380));
 	                            }
 	                        }
 	                    }
@@ -454,7 +488,7 @@ public class POI {
 	                                    System.out.println("run" + run.toString() + "替换为" + ob);
 	                                    run.setText("", 0);
 	                                    try (FileInputStream is = new FileInputStream((String) ob)) {
-	                                        run.addPicture(is, XWPFDocument.PICTURE_TYPE_PNG, (String) ob, Units.toEMU(1000),
+	                                        run.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, (String) ob, Units.toEMU(1000),
 	                                                Units.toEMU(1000));
 	                                    }
 	                                } else {
@@ -500,15 +534,16 @@ public class POI {
 	                            Object ob = changeValue(run.toString(), textMap);
 	                            if (ob instanceof String) {
 	                            	
-//	                                System.out.println("run:" + "‘" + run.toString() + "‘");
+	                                System.out.println("run:" + "||" + run.toString() + "||");
 	                                if (textMap.containsKey(run.toString())) {
-//	                                    System.out.println("run:" + run.toString() + "替换为" + ob);
-//	                                	System.out.println(run.toString());
+	                                    System.out.println("run:" + run.toString() + "替换为" + ob);
+	                                	System.out.println(run.toString());
 	                                    run.setText((String) ob, 0);
 	                                } else {
-//	                                	System.out.println(run.toString());
-//	                                    System.out.println("--" + run.toString() + "--不匹配");
+	                                	System.out.println(run.toString());
+	                                    System.out.println("||" + run.toString() + "||不匹配");
 	                                }
+	                                System.out.println();
 	                            }
 	                        }
 	                    }

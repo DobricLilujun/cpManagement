@@ -45,6 +45,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -201,10 +202,12 @@ public class MainControl extends JFrame implements variableStatic{
 			public void mouseClicked(MouseEvent e) {
 				if (!commonUtil.WTSisClicked) {
 					lblNewLabel_4.setForeground(Color.green);
+					commonUtil.ifPrint[0] = 1;
 					commonUtil.WTSisClicked = true;
 				}else {
 					lblNewLabel_4.setForeground(Color.white);
 					commonUtil.WTSisClicked = false;
+					commonUtil.ifPrint[0] = 0;
 				}
 				
 			}
@@ -221,9 +224,11 @@ public class MainControl extends JFrame implements variableStatic{
 			public void mouseClicked(MouseEvent e) {
 				if (!commonUtil.ZHQCisClicked) {
 					lblNewLabel_4_1.setForeground(Color.green);
+					commonUtil.ifPrint[5] = 1;
 					commonUtil.ZHQCisClicked = true;
 				}else {
 					lblNewLabel_4_1.setForeground(Color.white);
+					commonUtil.ifPrint[5] = 0;
 					commonUtil.ZHQCisClicked = false;
 				}
 			}
@@ -239,10 +244,12 @@ public class MainControl extends JFrame implements variableStatic{
 			public void mouseClicked(MouseEvent e) {
 				if (!commonUtil.RGJYBisClicked) {
 					lblNewLabel_4_2.setForeground(Color.green);
+					commonUtil.ifPrint[1] = 1;
 					commonUtil.RGJYBisClicked = true;
 				}else {
 					lblNewLabel_4_2.setForeground(Color.white);
 					commonUtil.RGJYBisClicked = false;
+					commonUtil.ifPrint[1] = 0;
 				}
 				
 			}
@@ -259,9 +266,11 @@ public class MainControl extends JFrame implements variableStatic{
 				if (!commonUtil.QCPFWJBisClicked) {
 					lblNewLabel_4_6.setForeground(Color.green);
 					commonUtil.QCPFWJBisClicked = true;
+					commonUtil.ifPrint[2] = 1;
 				}else {
 					lblNewLabel_4_6.setForeground(Color.white);
 					commonUtil.QCPFWJBisClicked = false;
+					commonUtil.ifPrint[2] = 0;
 				}
 			}
 		});
@@ -278,9 +287,11 @@ public class MainControl extends JFrame implements variableStatic{
 				if (!commonUtil.PZSQBisClicked) {
 					lblNewLabel_4_7.setForeground(Color.green);
 					commonUtil.PZSQBisClicked = true;
+					commonUtil.ifPrint[3] = 1;
 				}else {
 					lblNewLabel_4_7.setForeground(Color.white);
 					commonUtil.PZSQBisClicked = false;
+					commonUtil.ifPrint[3] = 0;
 				}
 			}
 		});
@@ -295,10 +306,12 @@ public class MainControl extends JFrame implements variableStatic{
 			public void mouseClicked(MouseEvent e) {
 				if (!commonUtil.BCXXBisClicked) {
 					lblNewLabel_4_8.setForeground(Color.green);
+					commonUtil.ifPrint[4] = 1;
 					commonUtil.BCXXBisClicked = true;
 				}else {
 					lblNewLabel_4_8.setForeground(Color.white);
 					commonUtil.BCXXBisClicked = false;
+					commonUtil.ifPrint[4] = 0;
 				}
 			}
 		});
@@ -313,9 +326,11 @@ public class MainControl extends JFrame implements variableStatic{
 			public void mouseClicked(MouseEvent e) {
 				if (!commonUtil.QYCLisClicked) {
 					lblNewLabel_4_1_2.setForeground(Color.green);
+					commonUtil.ifPrint[6] = 1;
 					commonUtil.QYCLisClicked = true;
 				}else {
 					lblNewLabel_4_1_2.setForeground(Color.white);
+					commonUtil.ifPrint[6] = 0;
 					commonUtil.QYCLisClicked = false;
 				}
 			}
@@ -331,9 +346,11 @@ public class MainControl extends JFrame implements variableStatic{
 			public void mouseClicked(MouseEvent e) {
 				if (!commonUtil.KCisClicked) {
 					lblNewLabel_4_1_2_1.setForeground(Color.green);
+					commonUtil.ifPrint[7] = 1;
 					commonUtil.KCisClicked = true;
 				}else {
 					lblNewLabel_4_1_2_1.setForeground(Color.white);
+					commonUtil.ifPrint[7] = 0;
 					commonUtil.KCisClicked = false;
 				}
 			}
@@ -349,9 +366,11 @@ public class MainControl extends JFrame implements variableStatic{
 			public void mouseClicked(MouseEvent e) {
 				if (!commonUtil.GCisClicked) {
 					lblNewLabel_4_1_2_1_1.setForeground(Color.green);
+					commonUtil.ifPrint[8] = 1;
 					commonUtil.GCisClicked = true;
 				}else {
 					lblNewLabel_4_1_2_1_1.setForeground(Color.white);
+					commonUtil.ifPrint[8] = 0;
 					commonUtil.GCisClicked = false;
 				}
 			}
@@ -367,9 +386,11 @@ public class MainControl extends JFrame implements variableStatic{
 			public void mouseClicked(MouseEvent e) {
 				if (!commonUtil.XNJCPDisClicked) {
 					lblNewLabel_4_1_2_1_1_1.setForeground(Color.green);
+					commonUtil.ifPrint[9] = 1;
 					commonUtil.XNJCPDisClicked = true;
 				}else {
 					lblNewLabel_4_1_2_1_1_1.setForeground(Color.white);
+					commonUtil.ifPrint[9] = 0;
 					commonUtil.XNJCPDisClicked = false;
 				}
 			}
@@ -475,22 +496,24 @@ public class MainControl extends JFrame implements variableStatic{
 		panel_2.add(comboBox_3);
 		
 		JButton btnNewButton_1 = new JButton("数据提取");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				extractDataToPublicStr();
 				try {
-					commonUtil.resultMap = POI.GetDataFromThreeChannel(2);
-					
+//					commonUtil.resultMap = POI.GetDataFromThreeChannel(2);
+					commonUtil.resultMap = POI.Test();
+					extractDataToPublicStr();
 					for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
 						System.out.println(entry.getKey()+" : "+entry.getValue());
 					}
+
 //					for (String table:tables) {
 //						POI.exportData(commonUtil.resultMap, table);
 //					}
-				} catch (ClassNotFoundException | IOException | SQLException | DocumentException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -648,7 +671,16 @@ public class MainControl extends JFrame implements variableStatic{
 			public void mouseClicked(MouseEvent e) {
 				
 				try {
-					POI.prinData("人工检验表");
+					for (int i=0; i<variableStatic.tables.length;i++) {
+						if (commonUtil.ifPrint[i]==1) {
+							POI.exportData(commonUtil.resultMap,variableStatic.tables[i]);
+						}
+					}
+					for (int i=0; i<variableStatic.tables.length;i++) {
+						if (commonUtil.ifPrint[i]==1) {
+							POI.prinData(variableStatic.tables[i]);
+						}
+					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -911,7 +943,12 @@ public class MainControl extends JFrame implements variableStatic{
 		topPanel.add(lblNewLabel_1);
 
 	}
+//	这个主要用于生成 QRcode所需要的加密字符串使用
 	
+	public String exportStringFromMap() {
+		String a = null;
+		return a;
+	}
 //	This method is used to Set All the Static String
 	public void extractDataToPublicStr() {
 
@@ -919,37 +956,130 @@ public class MainControl extends JFrame implements variableStatic{
 		commonUtil.CLSBDH = this.textField.getText();
 		commonUtil.XXDZ = this.textField_1.getText();
 		commonUtil.DH = this.textField_2.getText();
-		commonUtil.XZQH = this.comboBox_3.getToolTipText();
-		commonUtil.LJXSLC = this.textField_3.getText();
+		commonUtil.LJXSLC = this.comboBox_3.getEditor().getItem().toString();
+		commonUtil.XZQH = this.textField_3.getText();
 		commonUtil.EDZS = this.textField_7.getText();
 		commonUtil.GS = this.comboBox_3_1.getEditor().getItem().toString();
 		commonUtil.JQFS = this.comboBox_3_1_1.getEditor().getItem().toString();
 		commonUtil.SFSSSQ = this.rdbtnNewRadioButton.isSelected();
 		commonUtil.SFDKZ = this.rdbtnNewRadioButton_1.isSelected();
 		commonUtil.SFKQXG = this.rdbtnNewRadioButton_2.isSelected();
+		commonUtil.CLSCCJ = this.textField_12.getText();
+		commonUtil.LTGGXH = this.textField_13.getText();
 		commonUtil.JXLJZZXH = this.textField_5.getText();
 		commonUtil.DBCLBH = this.textField_6.getText();
 		commonUtil.ZGCS = this.textField_9.getText();
 		commonUtil.LTSL = this.comboBox_3_1_1_1.getEditor().getItem().toString();
 		commonUtil.BSQXS = this.comboBox_3_1_1_2.getEditor().getItem().toString();
 		commonUtil.ZXZSL = this.comboBox_3_1_1_3.getEditor().getItem().toString();
-		commonUtil.CLSCCJ = this.textField_12.getText();
-		commonUtil.LTGGXH = this.textField_13.getText();
-		commonUtil.resultMap.put("${tel}",commonUtil.DH);
-		commonUtil.resultMap.put("${address}",commonUtil.DH);
-		commonUtil.resultMap.put("${postcode}",commonUtil.DH);
-		commonUtil.resultMap.put("${today}",commonUtil.DH);
-		commonUtil.resultMap.put("${airSupethod}",commonUtil.DH);
-		commonUtil.resultMap.put("${JZZZ}",commonUtil.DH);
-		commonUtil.resultMap.put("${ratepeed}",commonUtil.DH);
-		commonUtil.resultMap.put("${numOfCylinder}",commonUtil.DH);
-		commonUtil.resultMap.put("${transimissionType}",commonUtil.DH);
-		commonUtil.resultMap.put("${LTGG}",commonUtil.DH);
-		commonUtil.resultMap.put("${LTSL}",commonUtil.DH);
-		commonUtil.resultMap.put("${JXLJZZXH}",commonUtil.DH);
-		commonUtil.resultMap.put("${ZXZSL}",commonUtil.DH);
-		
 
+		
+		commonUtil.resultMap.put("${platnum}",commonUtil.PZHM);
+		commonUtil.resultMap.put("${address}",commonUtil.XXDZ);
+		commonUtil.resultMap.put("${tel}",commonUtil.DH);
+		commonUtil.resultMap.put("${postcode}",commonUtil.XZQH);
+		commonUtil.resultMap.put("${usage}", commonUtil.LJXSLC);
+		commonUtil.resultMap.put("${ratepeed}",commonUtil.EDZS);
+		commonUtil.resultMap.put("${numOfCylinder}",commonUtil.GS);
+		commonUtil.resultMap.put("${airSupethod}",commonUtil.JQFS);
+//		三个是否
+		if (commonUtil.SFSSSQ) {
+			commonUtil.resultMap.put("${SFSQ}","是");
+		}else {
+			commonUtil.resultMap.put("${SFSQ}","否");
+		}
+		if (commonUtil.SFDKZ) {
+			commonUtil.resultMap.put("${ZCZD}","是");
+		}else {
+			commonUtil.resultMap.put("${ZCZD}","否");
+		}
+		if (commonUtil.SFKQXG) {
+			commonUtil.resultMap.put("${KQXG}","是");
+		}else {
+			commonUtil.resultMap.put("${KQXG}","否");
+		}
+		
+//		车辆生产企业 如果数据库为空 ，调用输入字段
+		String fac = (String) commonUtil.resultMap.get("${factoryName}");
+		if (fac.equals("")) {
+			commonUtil.resultMap.put("${factoryName}",commonUtil.CLSCCJ);
+		}
+
+		commonUtil.resultMap.put("${LTGG}",commonUtil.LTGGXH);
+		commonUtil.resultMap.put("${JXLJZZXH}",commonUtil.JXLJZZXH);
+		commonUtil.resultMap.put("${LTGG}",commonUtil.LTGGXH);
+		commonUtil.resultMap.put("${DBCLBH}",commonUtil.DBCLBH);
+		commonUtil.resultMap.put("${ZGCS}", commonUtil.ZGCS);
+		commonUtil.resultMap.put("${LTSL}", commonUtil.LTSL);
+		commonUtil.resultMap.put("${transimissionType}", commonUtil.BSQXS);
+		commonUtil.resultMap.put("${ZXZSL}", commonUtil.ZXZSL);
+		
+//		当天的日期 年 月 日 以及将数据中所需要的两个日期格式化一下
+		Calendar cal=Calendar.getInstance();
+		int y = cal.get(Calendar.YEAR);   
+		int m = cal.get(Calendar.MONTH);   
+		int d = cal.get(Calendar.DATE);   
+		commonUtil.resultMap.put("${today}",y+ "年"+m+ "月"+d+ "日");
+		commonUtil.resultMap.put("${JYRQ}",y+ "年"+m+ "月"+d+ "日");
+		commonUtil.resultMap.put("${CLCCRQ}",commonUtil.DateToFormat((String)commonUtil.resultMap.get("${CLCCRQ}")));
+		commonUtil.resultMap.put("${CCDJRQ}",commonUtil.DateToFormat((String)commonUtil.resultMap.get("${CCDJRQ}")));
+
+//	    基准质量= 整备质量 +100
+		commonUtil.resultMap.put("${JZZZ}",String.valueOf((Integer.parseInt((String)commonUtil.resultMap.get("${ZBZL}"))+100)));
+		
+//      车外扩长 * 车外扩宽 * 车外扩高
+		commonUtil.resultMap.put("${WXCC}",commonUtil.resultMap.get("${cwkc}") + " × " + commonUtil.resultMap.get("${cwkk}") + " × "+ commonUtil.resultMap.get("${cwkg}"));
+				
+//      货箱栏板尺寸长 * 货箱栏板尺寸宽 * 货箱栏板尺寸高	
+		commonUtil.resultMap.put("${HXLBNCC}",commonUtil.resultMap.get("${hxnbcd}") + " × " + commonUtil.resultMap.get("${hxnbkd}") + " × "+ commonUtil.resultMap.get("${hxnbgd}"));
+
+//		号牌种类 数字转中文
+		for (int i=0;i<variableStatic.types.length;i++) {
+			if (commonUtil.resultMap.get("${platType}").equals(variableStatic.types[i][0])) {
+				commonUtil.resultMap.put("${platType}",variableStatic.types[i][1]);
+				break;
+			}
+		}
+		
+//		车身颜色转 中文
+		for (int i=0;i<variableStatic.typeColor_Site.length;i++) {
+			if (commonUtil.resultMap.get("${CSYS}").equals(variableStatic.typeColor_Site[i][0])) {
+				commonUtil.resultMap.put("${CSYS}",variableStatic.typeColor_Site[i][1]);
+			}
+		}
+		
+//		驱动形式 转中文 转华燕数据库
+		
+		
+//		使用性质 转中文
+		for (int i=0;i<variableStatic.SYXZTypes.length;i++) {
+			if (commonUtil.resultMap.get("${SYXZ}").equals(variableStatic.SYXZTypes[i][0])) {
+				commonUtil.resultMap.put("${CSYS}",variableStatic.SYXZTypes[i][1]);
+			}
+		}
+//		燃料类型 转中文 燃油形式 转义
+		for (int i=0;i<variableStatic.rlzlTables.length;i++) {
+			String fuelType = ((String)commonUtil.resultMap.get("${fuelType}"));
+			if (fuelType.equals(variableStatic.rlzlTables[i][0])) 
+			{
+				System.out.println(fuelType);
+				commonUtil.resultMap.put("${fuelType}",variableStatic.rlzlTables[i][1]);
+				if ((fuelType.equals("A"))||(fuelType.equals("E"))) {
+					commonUtil.resultMap.put("${fuelSupplyMethod}","闭环电喷");
+				}
+				else if ((fuelType.equals("B")))
+				{
+					commonUtil.resultMap.put("${fuelSupplyMethod}","高压共轨");
+				}
+				else {
+					commonUtil.resultMap.put("${fuelSupplyMethod}","");
+				}
+
+				break;
+			}
+		}
+		
+//		网页页面上一些额外数据
 		
 	}
 }

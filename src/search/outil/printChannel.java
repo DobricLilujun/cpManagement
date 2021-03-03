@@ -125,8 +125,8 @@ public class printChannel {
     }
 	public static boolean printDoc(String filename) throws Exception {
 		
-		if (word2pdf("\\resource\\file\\"+filename+".docx","\\resource\\output\\"+filename+".pdf")) {
-			File f = new File ("resource/output/+"+filename+".pdf");
+		if (word2pdf("\\resource\\output\\"+filename+".docx","\\resource\\output\\"+filename+".pdf")) {
+			File f = new File ("resource/output/"+filename+".pdf");
 			printChannel.PDFprint(f);
 			return true;
 		}

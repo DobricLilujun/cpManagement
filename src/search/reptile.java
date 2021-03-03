@@ -52,24 +52,18 @@ public class reptile {
 		WebEventListener eventListener = new WebEventListener();
         e_driver.register(eventListener);
 		e_driver.get(urlString);
-//		Dimension dimension = new Dimension(800, 600);
-//		e_driver.manage().window().setSize(dimension);
         ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
         System.out.println(tabs.size());
         e_driver.switchTo().window(tabs.get(0));
-//        Thread.sleep(5000);
         System.out.println("有标签页："+tabs.size()+"被检测到！");
         action = new Actions(driver);
         r = new Robot();
-//	    driver.quit();
 	  }
 	 
 	 public void get_combox(WebDriver driver) throws InterruptedException {
-		 ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
-//       System.out.println(tabs.get(0).);
+	   ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
        System.out.println(tabs.size());
        System.out.println("有标签页："+tabs.size()+"被检测到！");
-
        driver.switchTo().frame("addWaitWinIframe");
        Thread.sleep(1000);
        driver.switchTo().frame("addWaitWinIframe");
@@ -189,6 +183,8 @@ public class reptile {
 //        System.out.println(id1.getAttribute("outerHTML"));
 	  }
 	
+	 
+
 	 public boolean sendKeyToInputUI(WebDriver driver,String id, String input) {
 		 
 		 driver.findElement(By.id(id)).sendKeys(input);  
@@ -212,7 +208,11 @@ public class reptile {
 	 public static void main(String[] args) throws Exception 
     { 
 		 // 对浏览器驱动
-		 reptile reptile =new reptile("http://172.32.250.11:8090/jc/yt/loginout/login.yt");
+//		 reptile reptile =new reptile("http://172.32.250.11:8090/jc/yt/loginout/login.yt");
+		 String a = "2018/02/26 00:00:00";
+		 String b[] = a.split(" ");
+		 String c[] = b[0].split("/");
+		 System.out.println(c[0]+ " 年 "+c[1]+ " 月 "+c[2]+ " 日 ");
     } 
 }
 	 

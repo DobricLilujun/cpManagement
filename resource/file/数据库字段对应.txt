@@ -32,3 +32,4 @@
 车身颜色,Carcolor,,csys,${CSYS}
 外形尺寸,,,,${WXCC},
 货箱栏板内尺寸,,,,${HXLBNCC}
+国产进口,,,gcjk,${GCJK}

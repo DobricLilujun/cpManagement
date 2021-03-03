@@ -42,4 +42,10 @@ public class commonUtil {
 	public static String qrCodeData = "";
 	public static String dwjgdm = "001400000149";
 	public static String dwjgdm_URL = "1400000149";
+	public static int  ifPrint[] = {0,0,0,0,0,0,0,0,0,0};
+	public static String DateToFormat(String data) {
+		 String b[] = data.split(" ");
+		 String c[] = b[0].split("/");
+		 return(c[0]+ " 年 "+c[1]+ " 月 "+c[2]+ " 日 ");
+	}
 }
