@@ -3,9 +3,9 @@ package search;
 public interface variableStatic{
 //	String URL = ;
 	String profilepath="count.properties"; 
-	String filePathRoot = "resource/file/";
+	String filePathRoot = "resource/temp/";
 	String fileDoxNameTail = ".docx";
-	String filePdfNameTail = ".docx";
+	String filePdfNameTail = ".pdf";
 	String outPutPathRoot  = "resource/output/";
     String NAME="sa";
     String PASSWORD="svrcomputer";

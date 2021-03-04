@@ -300,7 +300,7 @@ public class MainControl extends JFrame implements variableStatic{
 		lblNewLabel_4_7.setBounds(371, 0, 108, 40);
 		panel_1.add(lblNewLabel_4_7);
 		
-		JLabel lblNewLabel_4_8 = new JLabel("补充信息表");
+		JLabel lblNewLabel_4_8 = new JLabel("补充申请表");
 		lblNewLabel_4_8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

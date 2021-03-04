@@ -335,8 +335,10 @@ public class POI {
 	    	// 
 	    public static void getWord(Map<String, Object> data, List<List<String[]>> tabledataList, Map<String, Object> picmap, String filename)
 	            throws Exception {
+	    	OpSqliteDB db = new OpSqliteDB("DatabaseName.db");
+	    	db.readPicture(filename, filename+ variableStatic.fileDoxNameTail);
 	    	String i= variableStatic.filePathRoot + filename+ variableStatic.fileDoxNameTail;
-	    	String o= variableStatic.outPutPathRoot + filename + variableStatic.filePdfNameTail;
+	    	String o= variableStatic.outPutPathRoot + filename + variableStatic.fileDoxNameTail;
 			try (
 	        		FileInputStream is = new FileInputStream(i);
 	        		XWPFDocument document = new XWPFDocument(is)
@@ -363,6 +365,12 @@ public class POI {
 	        } catch (FileNotFoundException e) {
 	            e.printStackTrace();
 	        }
+			File file = new File(i);
+//			System.out.println(i);
+			if(file.exists()) {
+				file.delete();
+				System.out.println("删除成功");
+			}
 	    }
 
 	    /**

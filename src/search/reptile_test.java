@@ -133,6 +133,7 @@ public class reptile_test {
 	
 //	 车身颜色 测试
 	 public void get_1_JS (WebDriver driver) throws AWTException, InterruptedException {
+		 
 //		 通过JS 改变readonly 参数来改变 值
 //		 WebElement we = driver.findElement(By.id("_easyui_textbox_input67"));  
 //		 JavascriptExecutor removeAttribute = (JavascriptExecutor) driver;
@@ -154,10 +155,12 @@ public class reptile_test {
 		 action = new Actions(driver);
 		 WebElement syxz= driver.findElement(By.id("_easyui_textbox_input67"));
 		 action.click(syxz).perform();
-		 WebElement content = driver.findElement(By.linkText("黑"));
-//		 WebElement content = driver.findElement(By.xpath("//[text()='黑']")); 备用
-		 action.moveToElement(content).perform();
-		 action.click(content).perform();
+//		 driver.findElement(By.xpath("//*[text()='退出']"));
+//		 WebElement content = driver.findElement(By.linkText("黑"));
+		 WebElement content = driver.findElement(By.xpath("//div[text()='黑']")); 
+//		 action.moveToElement(content).perform();
+		 content.click();
+//		 action.click(content).perform();
 		 
 //		 日期输入
 		 WebElement zcdjri= driver.findElement(By.id("_easyui_textbox_input63"));  

@@ -53,5 +53,7 @@
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/javase-3.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/qrgen-1.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/spire_2.12-0.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/commons-lang-2.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/sqlite-jdbc-3.20.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -55,6 +55,7 @@ public class printChannel {
         System.out.println(root);
         source = root + source;
         target = root + target;
+
         long start = System.currentTimeMillis();
         ActiveXComponent app = null;
         try {
@@ -72,6 +73,11 @@ public class printChannel {
             Dispatch.call(doc, "Close", false);
             long end = System.currentTimeMillis();
             System.out.println("转换完成，用时：" + (end - start) + "ms");
+            File file = new File(source);
+    		if(file.exists()) {
+    			file.delete();
+    			System.out.println("删除成功");
+    		}
             return true;
         } catch (Exception e) {
             System.out.println("Word转PDF出错：" + e.getMessage());
@@ -81,6 +87,7 @@ public class printChannel {
                 app.invoke("Quit", wdDoNotSaveChanges);
             }
         }
+
     }
 	public static void PDFprint(File file) throws Exception {
         PDDocument document = null;
