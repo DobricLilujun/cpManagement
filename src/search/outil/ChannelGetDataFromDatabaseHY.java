@@ -4,16 +4,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import search.DBConection;
+import search.commonUtil;
 import search.variableStatic;
 
 public class ChannelGetDataFromDatabaseHY {
 	
-	public static String DataBase_ip = "172.6.46.225";
-	public static String DataBase_name = "newgajck_38900";
-	public static String DataBase_username = "sa";
-	public static String DataBase_password = "svrcomputer";
+	public static String DataBase_ip = "";
+	public static String DataBase_name = "";
+	public static String DataBase_username = "";
+	public static String DataBase_password = "";
 	public static String[] fileds_list = 
 		{"DW","MakeDate","CPH","DJDate","DPH","PZLBStr",
 		"KilomCount","CLLBXStr","FDJH","FDJXH","changPH",
@@ -36,9 +40,13 @@ public class ChannelGetDataFromDatabaseHY {
 		return SQL;
 	}
 	
-	
+
 	public static HashMap<String,String> extractInfoFromDatabase(String [] fields, String table_name, String CPH, String PZLBStr) throws ClassNotFoundException, SQLException
 	{
+		DataBase_ip = commonUtil.DataBase_ip_HY_COMMMON;
+		DataBase_name = commonUtil.DataBase_name_HY_COMMMON;
+		DataBase_username = commonUtil.DataBase_username_HY_COMMMON;
+		DataBase_password = commonUtil.DataBase_password_HY_COMMMON;
 		DBConection db = new DBConection(DataBase_ip,DataBase_name,DataBase_username,DataBase_password);
 		HashMap<String,String> result_map = new HashMap<String, String>();
 		sql = SQLGen(fields,table_name,CPH,PZLBStr);
@@ -48,7 +56,7 @@ public class ChannelGetDataFromDatabaseHY {
 			while(rs.next())
 			{
 				for (String s: fields) {
-					System.out.println(rs.getString(s));
+					System.out.println(s+" : " +rs.getString(s));
 					result_map.put(s, rs.getString(s));
 				}	
 			}
@@ -64,7 +72,7 @@ public class ChannelGetDataFromDatabaseHY {
 	 public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
 //		 数据库加载器
-		 HashMap<String,String> result_map = extractInfoFromDatabase(fileds_list,table_name,"晋DZ211",variableStatic.pzlb[6]);
+		 HashMap<String,String> result_map = extractInfoFromDatabase(fileds_list,table_name,"新D456987",variableStatic.pzlb[0]);
 		 System.out.println(variableStatic.pzlb[1]);
 		 
 		 System.out.println(result_map.get("CPH"));

@@ -14,13 +14,19 @@ import org.apache.axis.client.Service;
 import org.dom4j.DocumentException;
 
 import search.commonUtil;
+import search.variableStatic;
 
 public class ChannelGetDataFromInterface {
-	public static String url="http://172.6.46.2/jcxws/TmriOutNewAccess.asmx?wsdl";
-	public static String jkxlh = "7D1A09090106170400158195E6FCF3E2F28C8AF3828AE6FB868FDEC7D5C2D18CD3D0CFDEB9ABCBBED2B5CEF1CFB5CDB3";
-	public static String jkdh =  "18C49";
-	public static String cjsbdh = "510101199001011234";
-	public static String zdbs = "172.6.46.103";
+//	public static String url="http://172.6.46.2/jcxws/TmriOutNewAccess.asmx?wsdl";
+//	public static String jkxlh = "7D1A09090106170400158195E6FCF3E2F28C8AF3828AE6FB868FDEC7D5C2D18CD3D0CFDEB9ABCBBED2B5CEF1CFB5CDB3";
+//	public static String jkdh =  "18C49";
+//	public static String cjsbdh = "510101199001011234";
+//	public static String zdbs = "172.6.46.103";
+	public static String url="";
+	public static String jkxlh = "";
+	public static String jkdh =  "";
+	public static String cjsbdh = "";
+	public static String zdbs = "";
 	
 	public ChannelGetDataFromInterface() {
 	super();
@@ -39,14 +45,29 @@ public class ChannelGetDataFromInterface {
 	
 	public static  HashMap<String, String>  exportDataFromInterface(String hphm, String hpzl, String clsbdh,String jyjgbh) throws MalformedURLException, RemoteException, FileNotFoundException, DocumentException
 	{
+		url= commonUtil.url_interface;
+		jkxlh = commonUtil.jkxlh_interface;
+		jkdh =  commonUtil.jkdh_interface;
+		cjsbdh = commonUtil.cjsbdh_interface;
+		zdbs = commonUtil.zdbs_interface;
 		ensureStub();
 		String result = "";
+//		转变 为sis号牌种类
+		String hpzl_sis = "";
+		for (int i=0;i<variableStatic.types.length;i++) {
+			if (hpzl.equals(variableStatic.types[i][1])) {
+				hpzl_sis = variableStatic.types[i][0];
+				break;
+			}
+		}
+		
 		String encrptXmlDoc ="<?xml version=\"1.0\" encoding=\"GBK\"?>\n<root>"
 				+"\n<QueryCondition>\n<hphm>"
 				+hphm+"</hphm>\n<hpzl>"
-				+hpzl+"</hpzl>\n<clsbdh>"
+				+hpzl_sis+"</hpzl>\n<clsbdh>"
 				+clsbdh+"</clsbdh>\n<jyjgbh>"
 				+commonUtil.dwjgdm_URL+"</jyjgbh>\n</QueryCondition>\n</root>";
+		
 		
 		TmriJaxRpcOutNewAccessLocator services = new TmriJaxRpcOutNewAccessLocator();
 		result=stub.queryObjectOutNew("18",jkxlh,jkdh,cjsbdh,commonUtil.dwjgdm,"","","",zdbs,encrptXmlDoc);
@@ -76,7 +97,9 @@ public class ChannelGetDataFromInterface {
 			ex.printStackTrace();
 		}
 //		System.out.println("机动车检验过程开始信息:"+result);
+
 		HashMap<String, String> map_result = XMLUtility.readStringXml(commonUtil.OUTPUT_XML_FILE_PAHT);
+		
 		return map_result;
 	}
 //	Obsolete

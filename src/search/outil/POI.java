@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -31,6 +32,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.dom4j.DocumentException;
 
 import search.EncryUtil;
+import search.QRCodeGenerate;
 import search.commonUtil;
 import search.dataTableCorrespond;
 import search.variableStatic;
@@ -102,7 +104,51 @@ public class POI {
 	    	bw.close();
 	    	br.close();
 	    }
-	
+	    
+//	    生成二维码，用于支持扫码
+	    public static void createQrCode() throws Exception {
+	    	
+	    	String msg = "";
+	    	String key = "qwrwrww十多个";
+  		   	MD5 mt= new MD5(key, "utf-8");
+	    	for (int i=0;i<variableStatic.qrfileds.length;i++) {
+	    		if (i<variableStatic.qrfileds.length-1)
+	    		{
+//	    			System.out.println(variableStatic.qrfileds[i]);
+	    			String strtemp = (String)commonUtil.resultMap.get(variableStatic.qrfileds[i]);
+	    			if (strtemp!=null)
+	    			{
+	    				msg = msg +mt.encode(strtemp)+ ";";
+	    			}else {
+	    				msg = msg + ";";
+	    			}
+	    			
+	    		}
+	    		else {
+	    			String strtemp = (String)commonUtil.resultMap.get(variableStatic.qrfileds[i]);
+	    			if (strtemp!=null)
+	    			{
+	    				msg = msg +mt.encode(strtemp);
+	    			}else {
+	    				msg = msg ;
+	    			}
+	    		}
+	    	}
+	    	System.out.println(msg);
+	    	QRCodeGenerate.writeQrCode(msg);
+	    }
+	    
+//	    解析二维码数据,并生成指定的resultmap
+	    public static void getQrCodeMsg(String msg) throws Exception {
+	    	String key = "qwrwrww十多个";
+  		   	MD5 mt= new MD5(key, "utf-8");
+	    	String [] a = msg.split(";");
+	    	for (int i =0;i< a.length;i++) {
+	    		commonUtil.resultMap.put(variableStatic.qrfileds[i], mt.decode(a[i]));
+	    	}
+	    }
+	    
+	    
 	    public static Map<String, Object> Test(){
 	    	Map<String, Object> data = new HashMap<>();
 	    	data.put("${brand}", "解放牌");
@@ -137,9 +183,25 @@ public class POI {
 	    	data.put("${ZJ}", "4500");
 	    	data.put("${CSYS}", "E");
 	    	data.put("${vin}", "ABLKSDJOIR798156748");
-	    	
+	    	data.put("${GCJK}","国产");
+	    	data.put("${hdzzl}","3000");
+	    	data.put("${sfzmhm}","140481199712230413");
 	    	return data;
 	    }
+	    
+		public static String getKeyByValue(Map map, Object value) {  
+	        String keys="";  
+	        Iterator it = map.entrySet().iterator();  
+	        while (it.hasNext()) {  
+	            Map.Entry entry = (Entry) it.next();  
+	            Object obj = entry.getValue();  
+	            if (obj != null && obj.equals(value)) {  
+	                keys=(String) entry.getKey();  
+	            }  
+	        }  
+	        return keys;  
+	        }  
+		
 //	    将三通道数据进行处理和融合, 通过Authority 来判断权限
 	    public static Map<String, Object> GetDataFromThreeChannel(int Authority) throws IOException, ClassNotFoundException, SQLException, DocumentException{
 	    	
@@ -148,64 +210,79 @@ public class POI {
 	    	Map<String, String> data_field_SAISI = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",2);
 	    	Map<String, String> data_field_INTERFACE = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",3);
 	    	Map<String, String> data_field_DY = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",4);
-	    	String PZHM = "晋D19887";
-	    	String PZLB = "大型汽车";
-	    	String HPZL = "01";
-	    	String CLSBDH = "5273";
+	    	String PZHM = commonUtil.PZHM_COMMMON;
+	    	String HPZL = commonUtil.HPZL_COMMMON;
+	    	String CLSBDH = commonUtil.CLSBDH_COMMMON;
+
+	    	
 //	    	拿到是哪个接口的数据
-	    	HashMap<String,String> result_map_data_HY = ChannelGetDataFromDatabaseHY.extractInfoFromDatabase(ChannelGetDataFromDatabaseHY.fileds_list,ChannelGetDataFromDatabaseHY.table_name,PZHM,PZLB);
-	    	HashMap<String,String> result_map_data_SAISI = ChannelGetDataFromDatabaseSIS.extractInfoFromDatabase(ChannelGetDataFromDatabaseSIS.fileds_list, ChannelGetDataFromDatabaseSIS.table_name, PZHM);
-	    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,commonUtil.dwjgdm_URL);
+	    	HashMap<String,String> result_map_data_HY = ChannelGetDataFromDatabaseHY.extractInfoFromDatabase(ChannelGetDataFromDatabaseHY.fileds_list,ChannelGetDataFromDatabaseHY.table_name,PZHM,HPZL);
 	    	Map<String,Object> result_final = new HashMap<String,Object>();
 //			拿到用户的权限频道
 //	    	如果是 只使用华研数据
 	    	if (Authority==1) 
 	    	{
 //	    		遍历图，判断 是否为null，为null，则返回null，不为null，则返回数值
-	    		for (Map.Entry<String,String> entry: data_field_HY.entrySet()) {
+	    		for (Map.Entry<String,String> entry: data_field_DY.entrySet()) {
 	    			String data_temp = result_map_data_HY.get(data_field_HY.get(entry.getKey()));
+	    			System.out.println(entry.getKey());
+	    			System.out.println(entry.getValue());
+	    			System.out.println(data_temp);
 	    			if (data_temp!=null) {
-	    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
+	    				result_final.put(entry.getValue(), data_temp);
 	    			}else
 	    			{
-	    				result_final.put(data_field_DY.get(entry.getKey()), "");
+	    				result_final.put(entry.getValue(), "");
 	    			}
 	    		}
 	    	}
 //	    	如果是 三通道数据都使用
 	    	else if (Authority ==2) 
 	    	{
+		    	HashMap<String,String> result_map_data_SAISI = ChannelGetDataFromDatabaseSIS.extractInfoFromDatabase(ChannelGetDataFromDatabaseSIS.fileds_list, ChannelGetDataFromDatabaseSIS.table_name, PZHM);
+		    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,commonUtil.dwjgdm_URL);
+
 //	    		以接口数据作为基础数据
-	    		for (Map.Entry<String,String> entry: data_field_INTERFACE.entrySet()) {
+	    		for (Map.Entry<String,String> entry: data_field_DY.entrySet()) {
 	    			String data_temp = result_map_data_Interface.get(data_field_INTERFACE.get(entry.getKey()));
 	    			if (data_temp!=null) {
-	    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
+	    				result_final.put(entry.getValue(), data_temp);
 	    			}else
 	    			{
-	    				result_final.put(data_field_DY.get(entry.getKey()), "");
+	    				result_final.put(entry.getValue(), "");
 	    			}
 	    		}
 	    		
 //	    		以赛斯数据库作为补充数据	
-	    		for (Entry<String, Object> entry: result_final.entrySet()) {
-	    			if (entry.getValue().equals(""))
+	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
+//	    			System.out.println(result_final.get(entry.getValue()));
+	    			if (result_final.get(entry.getValue()).equals(""))
 	    			{
 	    				String data_temp = result_map_data_SAISI.get(data_field_SAISI.get(entry.getKey()));
 		    			if (data_temp!=null) {
-		    				result_final.put(data_field_DY.get(entry.getKey()), data_temp);
-		    			}
+		    				result_final.put(entry.getValue(), data_temp);
+		    			}	
 	    			}
-	    		}
+	    		}	
+	    		
 //	    		以华研数据库作为第二补充数据
-	    		for (Entry<String, Object> entry: result_final.entrySet()) {
-	    			if (entry.getValue().equals(""))
+	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
+//	    			System.out.println(entry.getValue());
+//	    			System.out.println(result_final.get(entry.getValue()));
+//	    			System.out.println(result_final.get(entry.getValue()).equals(""));
+	    			if (result_final.get(entry.getValue()).equals(""))
 	    			{
+//	    				System.out.println(data_field_HY.get(entry.getKey()));
 	    				String data_temp = result_map_data_HY.get(data_field_HY.get(entry.getKey()));
+//	    				System.out.println(data_temp);
 		    			if (data_temp!=null) {
-		    				result_final.put(entry.getKey(), data_temp);
+		    				result_final.put(entry.getValue(), data_temp);
 		    			}
 	    			}
 	    		}
+	    		for (Map.Entry<String,Object> entry :result_final.entrySet()) {
+					System.out.println(entry.getKey()+" : "+entry.getValue());
+				}
 	    		
 	    	}else
 	    	{
@@ -239,7 +316,7 @@ public class POI {
 	    public static void main(String[] args) throws Exception {
 	    	
 //	    	测试数据
-//	    	writeDataCorrespondFromFile("resource/file/数据库字段对应.txt","resource/file/数据库字段对应加密.txt");
+	    	writeDataCorrespondFromFile("resource/file/数据库字段对应.txt","resource/file/数据库字段对应加密.txt");
 //	        Map<String, String> data = new HashMap<>();
 //	        data = GetDataCorrespondFromFile("resource/file/数据库字段对应加密.txt",4);
 //	        System.out.println(data.get("车辆所有人"));
@@ -335,10 +412,15 @@ public class POI {
 	    	// 
 	    public static void getWord(Map<String, Object> data, List<List<String[]>> tabledataList, Map<String, Object> picmap, String filename)
 	            throws Exception {
+	    	
 	    	OpSqliteDB db = new OpSqliteDB("DatabaseName.db");
 	    	db.readPicture(filename, filename+ variableStatic.fileDoxNameTail);
 	    	String i= variableStatic.filePathRoot + filename+ variableStatic.fileDoxNameTail;
 	    	String o= variableStatic.outPutPathRoot + filename + variableStatic.fileDoxNameTail;
+//	    	System.out.println(i);
+//	    	System.out.println(o);
+//	    	String i= variableStatic.filePathRoot_ORI + filename+ variableStatic.fileDoxNameTail;
+//	    	String o= variableStatic.outPutPathRoot + filename + variableStatic.fileDoxNameTail;
 			try (
 	        		FileInputStream is = new FileInputStream(i);
 	        		XWPFDocument document = new XWPFDocument(is)
@@ -365,12 +447,12 @@ public class POI {
 	        } catch (FileNotFoundException e) {
 	            e.printStackTrace();
 	        }
-			File file = new File(i);
+//			File file = new File(i);
 //			System.out.println(i);
-			if(file.exists()) {
-				file.delete();
-				System.out.println("删除成功");
-			}
+//			if(file.exists()) {
+//				file.delete();
+//				System.out.println("删除成功");
+//			}
 	    }
 
 	    /**
@@ -387,9 +469,6 @@ public class POI {
 	        for (XWPFParagraph paragraph : paragraphs) {
 	            // 判断此段落是否需要替换
 	            String text = paragraph.getText();// 检索文档中的所有文本
-//	            System.out.println("-------------------------");
-//	            System.out.println(text);
-//	            System.out.println("-------------------------");
 	            if (checkText(text)) {
 	                List<XWPFRun> runs = paragraph.getRuns();
 	                for (XWPFRun run : runs) {
@@ -493,7 +572,7 @@ public class POI {
 	                            if (ob instanceof String) {
 //	                                System.out.println("run" + "‘" + run.toString() + "‘");
 	                                if (pic.containsKey(run.toString())) {
-	                                    System.out.println("run" + run.toString() + "替换为" + ob);
+//	                                    System.out.println("run" + run.toString() + "替换为" + ob);
 	                                    run.setText("", 0);
 	                                    try (FileInputStream is = new FileInputStream((String) ob)) {
 	                                        run.addPicture(is, XWPFDocument.PICTURE_TYPE_JPEG, (String) ob, Units.toEMU(1000),
@@ -535,23 +614,23 @@ public class POI {
 	                if (checkText(cell.getText())) {
 	                    // System.out.println("cell:" + cell.getText());
 	                    List<XWPFParagraph> paragraphs = cell.getParagraphs();
-	                    System.out.println(paragraphs.size());
+//	                    System.out.println(paragraphs.size());
 	                    for (XWPFParagraph paragraph : paragraphs) {
 	                        List<XWPFRun> runs = paragraph.getRuns();
 	                        for (XWPFRun run : runs) {
 	                            Object ob = changeValue(run.toString(), textMap);
 	                            if (ob instanceof String) {
 	                            	
-	                                System.out.println("run:" + "||" + run.toString() + "||");
+//	                                System.out.println("run:" + "||" + run.toString() + "||");
 	                                if (textMap.containsKey(run.toString())) {
-	                                    System.out.println("run:" + run.toString() + "替换为" + ob);
-	                                	System.out.println(run.toString());
+//	                                    System.out.println("run:" + run.toString() + "替换为" + ob);
+//	                                	System.out.println(run.toString());
 	                                    run.setText((String) ob, 0);
 	                                } else {
-	                                	System.out.println(run.toString());
-	                                    System.out.println("||" + run.toString() + "||不匹配");
+//	                                	System.out.println(run.toString());
+//	                                    System.out.println("||" + run.toString() + "||不匹配");
 	                                }
-	                                System.out.println();
+//	                                System.out.println();
 	                            }
 	                        }
 	                    }

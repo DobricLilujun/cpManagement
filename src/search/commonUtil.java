@@ -7,8 +7,43 @@ public class commonUtil {
 	
 	public static String COMPANY_NAME = "潞城市鑫达财会服务有限公司";
 	public static String OUTPUT_XML_FILE_PAHT = "resource/output/result.xml";
-	public static String PZHM = "";
-	public static String CLSBDH = "";
+	
+//	输入数据信息
+	public static String PZHM_COMMMON = "";
+	public static String PZLB_COMMMON = "";
+	public static String HPZL_COMMMON = "";
+	public static String CLSBDH_COMMMON = "";
+	
+//	数据库加密信息
+//	华燕数据库
+	public static String DataBase_ip_HY_COMMMON = "";
+	public static String DataBase_name_HY_COMMMON = "";
+	public static String DataBase_username_HY_COMMMON = "";
+	public static String DataBase_password_HY_COMMMON = "";
+//	赛斯数据库
+	public static String DataBase_ip_SIS_COMMMON = "";
+	public static String DataBase_name_SIS_COMMMON = "";
+	public static String DataBase_username_SIS_COMMMON = "";
+	public static String DataBase_password_SIS_COMMMON = "";
+//	赛斯接口数据库
+	public static String url_interface="";
+	public static String jkxlh_interface = "";
+	public static String jkdh_interface =  "";
+	public static String cjsbdh_interface = "";
+	public static String zdbs_interface = "";
+	
+	
+//	用户鉴权信息
+	
+	public static String SoftwareUserName = "";
+	public static String CompanyName = "";
+	public static String SoftwarePassword = "";
+	public static String HardDiskSerialName = "";
+	public static String ComputerName = "";
+	
+//	public static String ComputerName = "";
+	
+	
 	public static String XXDZ = "";
 	public static String DH = "";
 	public static String XZQH = "";
@@ -38,14 +73,30 @@ public class commonUtil {
 	public static boolean GCisClicked = false;
 	public static boolean XNJCPDisClicked = false;
 	public static Map<String, Object> resultMap = new HashMap<>();
-	public static reptile rep = null;
+	public static reptile_test rep = null;
+	public static String HPZL = "";
 	public static String qrCodeData = "";
 	public static String dwjgdm = "001400000149";
 	public static String dwjgdm_URL = "1400000149";
 	public static int  ifPrint[] = {0,0,0,0,0,0,0,0,0,0};
+	public static String QrString = "";
+	public static String browserString = "";
+	public static String url = "http://172.32.250.11:8090/jc/yt/loginout/login.yt";
+	public static String PortNum = "COM7";
 	public static String DateToFormat(String data) {
-		 String b[] = data.split(" ");
-		 String c[] = b[0].split("/");
-		 return(c[0]+ " 年 "+c[1]+ " 月 "+c[2]+ " 日 ");
+		 if (data.contains("/"))
+		 {
+			 String b[] = data.split(" ");
+			 String c[] = b[0].split("/");
+			 return(c[0]+ "年"+c[1]+ "月"+c[2]+ "日");
+		 }
+		 else if (data.contains("-")) {
+			 String b[] = data.split(" ");
+			 String c[] = b[0].split("-");
+			 return(c[0]+ "年"+c[1]+ "月"+c[2]+ "日");
+		 }else {
+			 return "";
+		 }
+		
 	}
 }

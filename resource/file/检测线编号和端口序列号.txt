@@ -1,9 +1,9 @@
 7D1A09090106170400158195E6FCF3E2F28C8AF3828AE6FB868FDEC7D5C2D18CD3D0CFDEB9ABCBBED2B5CEF1CFB5CDB3
-${vin}
-${XH}
-${DPXH}
-${factoryName}
-${vehicleType}
+${vin}${posite}
+${XH}${platnum}
+${DPXH}${vehicleType}
+${factoryName}${factoryName}
+${vehicleType}${ZZL}${HXLBCC}
 ${platnum}
 ${yp}年 ${mp}月 ${dp}日
 ${vehicleType}

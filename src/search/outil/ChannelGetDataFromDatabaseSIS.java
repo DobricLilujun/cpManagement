@@ -6,14 +6,20 @@ import java.sql.Statement;
 import java.util.HashMap;
 
 import search.DBConection;
+import search.commonUtil;
 import search.variableStatic;
 
 public class ChannelGetDataFromDatabaseSIS {
 	
-	public static String DataBase_ip = "172.6.46.2";
-	public static String DataBase_name = "jcxdb";
-	public static String DataBase_username = "sa";
-	public static String DataBase_password = "sync877472.";
+//	public static String DataBase_ip = "172.6.46.2";
+//	public static String DataBase_name = "jcxdb";
+//	public static String DataBase_username = "sa";
+//	public static String DataBase_password = "sync877472.";
+	public static String DataBase_ip = "";
+	public static String DataBase_name = "";
+	public static String DataBase_username = "";
+	public static String DataBase_password = "";
+	
 	public static String[] fileds_list = 
 		{"CLSBDH","HPZL","HPHM","FDJH","CSYS","SYXZ",
 		"CCDJRQ","JYRQ","JYYXQZ","BXZZRQ","RLZL",
@@ -41,6 +47,11 @@ public class ChannelGetDataFromDatabaseSIS {
 	
 	public static HashMap<String,String> extractInfoFromDatabase(String [] fields, String table_name, String CPH) throws ClassNotFoundException, SQLException
 	{
+		DataBase_ip = commonUtil.DataBase_ip_SIS_COMMMON;
+		DataBase_name = commonUtil.DataBase_name_SIS_COMMMON;
+		DataBase_username = commonUtil.DataBase_username_SIS_COMMMON;
+		DataBase_password = commonUtil.DataBase_password_SIS_COMMMON;
+		
 		DBConection db = new DBConection(DataBase_ip,DataBase_name,DataBase_username,DataBase_password);
 		HashMap<String,String> result_map = new HashMap<String, String>();
 		sql = SQLGen(fields,table_name,CPH);

@@ -9,7 +9,7 @@
 初次登记日期,DJDate,CCDJRQ,ccdjrq,${CCDJRQ}
 号牌种类,PZLBStr,HPZL,hpzl,${platType}
 车辆生产企业,,,zzcmc,${factoryName}
-驱动方式,QDXS,QDXS,qdxs,${posite}
+驱动方式,QDXS,QDXS,,${posite}
 最大设计总质量,ZCZL,ZZL,zzl,${crosght}
 燃料类型,Fuelstr,RLZL,rlzl,${fuelType}
 发动机排量,,,pl,${PL}
@@ -33,3 +33,6 @@
 外形尺寸,,,,${WXCC},
 货箱栏板内尺寸,,,,${HXLBNCC}
 国产进口,,,gcjk,${GCJK}
+核定载质量,,,hdzzl,${hdzzl}
+身份证号码,,,sfzmhm,${sfzmhm}
+轮胎规格,,,ltgg,${LTGG}

@@ -215,7 +215,6 @@ public class Protection
     @SuppressWarnings("unused")
 	static ArrayList<String> getValuesFromKey(String key){
     	ArrayList<String> values = new ArrayList<>();
-    	System.out.println(key);
     	String tt[] =key.split(",");
 	    for (String s : tt) {
 	    	System.out.println(s);
@@ -342,13 +341,14 @@ public class Protection
 		    //测试代码 
 		    public static void main(String[] args) 
 		    { 
-		        readValue("count.properties", "time"); 
-		        readValue("count.properties", "date");
-		        System.out.println(EncryUtil.encrypt("LAPTOP-LRQIVD86"));
-		        writeProperties("MAIL_SERVER_INCOMING", "327@qq.com");        
-		        System.out.println("操作完成"); 
-		        System.out.println(getHdSerialInfo());
-		        System.out.println(EncryUtil.encrypt(getHdSerialInfo()));
+//		        readValue("count.properties", "time"); 
+//		        readValue("count.properties", "date");
+//		        System.out.println(EncryUtil.encrypt(""));
+//		        writeProperties("date_limit", "2021-04-01");        
+//		        System.out.println("操作完成"); 
+//		        System.out.println(getSerialNumber("C"));
+//		        System.out.println(getComputerName());
+		        System.out.println(EncryUtil.encrypt("lcsxdck,getValuesFromKey,长治市汽车检测有限公司,-1662024723,LAPTOP-LRQIVD86,3,2,2021-03-08"));
 		    } 
 
 	}
