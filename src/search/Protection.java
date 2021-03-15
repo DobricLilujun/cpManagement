@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -84,6 +85,22 @@ public class Protection
             String value = EncryUtil.decrypt(value_unencrypt);
             System.out.println(key +"键的值是："+ value); 
             return value; 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+            return null; 
+        } 
+    } 
+    
+    public static String readValue_NoEncrypt(String filePath, String key) 
+    { 
+        Properties props = new Properties(); 
+        try { 
+            InputStream in = new BufferedInputStream(new FileInputStream( 
+                    filePath)); 
+            props.load(in); 
+            String value_unencrypt =  new String( props.getProperty(key).getBytes("ISO8859-1"), "UTF-8");
+            System.out.println(key +"键的值是："+ value_unencrypt); 
+            return value_unencrypt; 
         } catch (Exception e) { 
             e.printStackTrace(); 
             return null; 
@@ -339,16 +356,23 @@ public class Protection
 			}
 
 		    //测试代码 
-		    public static void main(String[] args) 
+		    public static void main(String[] args) throws UnsupportedEncodingException 
 		    { 
 //		        readValue("count.properties", "time"); 
 //		        readValue("count.properties", "date");
 //		        System.out.println(EncryUtil.encrypt(""));
-//		        writeProperties("date_limit", "2021-04-01");        
+//		        writeProperties("date_limit", "2021-03-07");   
+//		        writeProperties("last_activation_date", "2021-03-06");   
+//		        lastActivationDate
 //		        System.out.println("操作完成"); 
 //		        System.out.println(getSerialNumber("C"));
 //		        System.out.println(getComputerName());
-		        System.out.println(EncryUtil.encrypt("lcsxdck,getValuesFromKey,长治市汽车检测有限公司,-1662024723,LAPTOP-LRQIVD86,3,2,2021-03-08"));
+//		    	writeProperties("last_activation_date", "2021-03-04");   
+//		        System.out.println(EncryUtil.encrypt("LCPY,123456,"+"LICHENGPUYANG"+",642052,PC-20181020XGMH,30,2,2021-03-08"));
+//		    	System.out.println(EncryUtil.encrypt("LCAB,123456,"+"LUCHENGANBAO"+",-1741029509,MS-KIVTJQGLHNGB,30,2,2021-03-09"));
+		    	System.out.println(EncryUtil.encrypt("LCAB,123456,"+"LUCHENGANBAO"+",-1741029509,MS-KIVTJQGLHNGB,30,2,2021-03-14"));
+//		    	
+//		    	System.out.println(EncryUtil.encrypt("LCAB,123456,"+"LUCHENGANBAO"+",107459006,SKY-20181104KJH,30,2,2021-03-08"));
 		    } 
 
 	}

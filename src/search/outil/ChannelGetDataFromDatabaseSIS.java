@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 import search.DBConection;
 import search.commonUtil;
 import search.variableStatic;
@@ -45,7 +47,7 @@ public class ChannelGetDataFromDatabaseSIS {
 	}
 	
 	
-	public static HashMap<String,String> extractInfoFromDatabase(String [] fields, String table_name, String CPH) throws ClassNotFoundException, SQLException
+	public static HashMap<String,String> extractInfoFromDatabase(String [] fields, String table_name, String CPH) throws Exception
 	{
 		DataBase_ip = commonUtil.DataBase_ip_SIS_COMMMON;
 		DataBase_name = commonUtil.DataBase_name_SIS_COMMMON;
@@ -55,25 +57,35 @@ public class ChannelGetDataFromDatabaseSIS {
 		DBConection db = new DBConection(DataBase_ip,DataBase_name,DataBase_username,DataBase_password);
 		HashMap<String,String> result_map = new HashMap<String, String>();
 		sql = SQLGen(fields,table_name,CPH);
+		int searchDataTimes = 0; 
 		try {
 			stmt = (Statement) db.conn.createStatement();
 			rs = (ResultSet)stmt.executeQuery(sql);
 			while(rs.next())
 			{
 				for (String s: fields) {
+					if (!s.equals("")) {
+						searchDataTimes++;
+					}
 					result_map.put(s, rs.getString(s));
 				}	
 			}
+			commonUtil.log.printInfo("成功从赛斯数据库中提取出:"+searchDataTimes+"个有效数据; "+"总查询字段数为:"+searchDataTimes+"个。");
 		} catch (SQLException e) 
 		{
+			commonUtil.log.printErr("赛斯数据库连接：IP="+DataBase_ip+" DBName=" +DataBase_name+ "出现问题！");
+			commonUtil.log.printErr("连接赛斯数据库出现错误，请检查连接是否正常,提示如下方代码所示：");
+			commonUtil.log.printErr(e.toString());
+			commonUtil.log.printErr("可通过PING "+DataBase_ip+ "进行尝试");
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "SIS数据库调取错误，请检查！");
 		}
 		rs.close();
 		db.close();
 		return result_map;
 	}
 	
-	 public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	 public static void main(String[] args) throws Exception {
 		
 //		 数据库加载器
 		 HashMap<String,String> result_map = extractInfoFromDatabase(fileds_list,table_name,"晋DLQ718");

@@ -134,7 +134,7 @@ public class POI {
 	    			}
 	    		}
 	    	}
-	    	System.out.println(msg);
+//	    	System.out.println(msg);
 	    	QRCodeGenerate.writeQrCode(msg);
 	    }
 	    
@@ -148,11 +148,11 @@ public class POI {
 	    	}
 	    }
 	    
-	    
+//	    测试数据生成器
 	    public static Map<String, Object> Test(){
 	    	Map<String, Object> data = new HashMap<>();
 	    	data.put("${brand}", "解放牌");
-	    	data.put("${owner}", "潞城市承昌通商贸有限公司");
+	    	data.put("${owner}", "潞城市承昌通商贸有限公司hahahahahahhAHAHAH");
 	    	data.put("${XH}", "CA4256P1K2T1E5A80");
 	    	data.put("${usage}", "");
 	    	data.put("${SYXZ}", "F");
@@ -160,7 +160,7 @@ public class POI {
 	    	data.put("${CLCCRQ}", "2018/2/26 00:00:00");
 	    	data.put("${CCDJRQ}", "2018/3/5 00:00:00");
 	    	data.put("${platType}", "01");
-	    	data.put("${factoryName}", "中国第一汽车集团公司");
+	    	data.put("${factoryName}", "中国第一汽车集团公司HAHAHAHAHAHAHAH");
 	    	data.put("${posite}", "2,3");
 	    	data.put("${crosght}", "25000");
 	    	data.put("${fuelType}", "B");
@@ -186,48 +186,48 @@ public class POI {
 	    	data.put("${GCJK}","国产");
 	    	data.put("${hdzzl}","3000");
 	    	data.put("${sfzmhm}","140481199712230413");
+	    	data.put("${LTGG}","KB123456");
 	    	return data;
 	    }
 	    
+//	    通过key来找到MAP数据结构的值
 		public static String getKeyByValue(Map map, Object value) {  
-	        String keys="";  
-	        Iterator it = map.entrySet().iterator();  
-	        while (it.hasNext()) {  
-	            Map.Entry entry = (Entry) it.next();  
-	            Object obj = entry.getValue();  
-	            if (obj != null && obj.equals(value)) {  
-	                keys=(String) entry.getKey();  
-	            }  
-	        }  
-	        return keys;  
-	        }  
+        String keys="";  
+        Iterator it = map.entrySet().iterator();  
+        while (it.hasNext()) {  
+            Map.Entry entry = (Entry) it.next();  
+            Object obj = entry.getValue();  
+            if (obj != null && obj.equals(value)) {  
+                keys=(String) entry.getKey();  
+            }  
+        }  
+        return keys;  
+        }  
 		
 //	    将三通道数据进行处理和融合, 通过Authority 来判断权限
-	    public static Map<String, Object> GetDataFromThreeChannel(int Authority) throws IOException, ClassNotFoundException, SQLException, DocumentException{
+	    public static Map<String, Object> GetDataFromThreeChannel(int Authority) throws Exception{
 	    	
-//	    	拿到数据对应仓库
+//	    	拿到数据对应仓库，也就是字段对应
 	    	Map<String, String> data_field_HY = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",1);
 	    	Map<String, String> data_field_SAISI = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",2);
 	    	Map<String, String> data_field_INTERFACE = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",3);
 	    	Map<String, String> data_field_DY = GetDataCorrespondFromFile ("resource/file/数据库字段对应加密.txt",4);
+	    	
 	    	String PZHM = commonUtil.PZHM_COMMMON;
 	    	String HPZL = commonUtil.HPZL_COMMMON;
 	    	String CLSBDH = commonUtil.CLSBDH_COMMMON;
-
-	    	
+	
 //	    	拿到是哪个接口的数据
+//	    	首先尝试拿到华燕数据库的数据
 	    	HashMap<String,String> result_map_data_HY = ChannelGetDataFromDatabaseHY.extractInfoFromDatabase(ChannelGetDataFromDatabaseHY.fileds_list,ChannelGetDataFromDatabaseHY.table_name,PZHM,HPZL);
+	    	
 	    	Map<String,Object> result_final = new HashMap<String,Object>();
 //			拿到用户的权限频道
 //	    	如果是 只使用华研数据
-	    	if (Authority==1) 
-	    	{
+	    	if (Authority==1){
 //	    		遍历图，判断 是否为null，为null，则返回null，不为null，则返回数值
 	    		for (Map.Entry<String,String> entry: data_field_DY.entrySet()) {
 	    			String data_temp = result_map_data_HY.get(data_field_HY.get(entry.getKey()));
-	    			System.out.println(entry.getKey());
-	    			System.out.println(entry.getValue());
-	    			System.out.println(data_temp);
 	    			if (data_temp!=null) {
 	    				result_final.put(entry.getValue(), data_temp);
 	    			}else
@@ -235,10 +235,10 @@ public class POI {
 	    				result_final.put(entry.getValue(), "");
 	    			}
 	    		}
+	    		commonUtil.log.printInfo("成功从HY中调出数据，使用单通道数据！");
 	    	}
 //	    	如果是 三通道数据都使用
-	    	else if (Authority ==2) 
-	    	{
+	    	else if (Authority ==2){
 		    	HashMap<String,String> result_map_data_SAISI = ChannelGetDataFromDatabaseSIS.extractInfoFromDatabase(ChannelGetDataFromDatabaseSIS.fileds_list, ChannelGetDataFromDatabaseSIS.table_name, PZHM);
 		    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,commonUtil.dwjgdm_URL);
 
@@ -252,7 +252,7 @@ public class POI {
 	    				result_final.put(entry.getValue(), "");
 	    			}
 	    		}
-	    		
+	    		commonUtil.log.printInfo("成功从接口中调出数据，使用多通道数据！");
 //	    		以赛斯数据库作为补充数据	
 	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
 //	    			System.out.println(result_final.get(entry.getValue()));
@@ -264,7 +264,7 @@ public class POI {
 		    			}	
 	    			}
 	    		}	
-	    		
+	    		commonUtil.log.printInfo("成功从赛斯中调出数据，使用多通道数据！");
 //	    		以华研数据库作为第二补充数据
 	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
 //	    			System.out.println(entry.getValue());
@@ -280,20 +280,27 @@ public class POI {
 		    			}
 	    			}
 	    		}
+	    		commonUtil.log.printInfo("成功从华燕中调出数据，使用多通道数据！");
+//	    		打印数据值，并在log中打印出相关数据，用于进行数据值 判断 最后要把此代码注释掉，不可放在release版本中
+	    		commonUtil.log.printInfo("导出数据信息如下:");
+	    		String str = "";
 	    		for (Map.Entry<String,Object> entry :result_final.entrySet()) {
+	    			str = str + entry.getValue()+" - ";
 					System.out.println(entry.getKey()+" : "+entry.getValue());
 				}
+	    		commonUtil.log.printInfo(str);
 	    		
 	    	}else
 	    	{
+	    		commonUtil.log.printErr("GetDataFromThreeChannel 数据有误，请检查。");
 	    		System.out.println("GetDataFromThreeChannel 数据有误，请检查。");
 	    		System.exit(0);
 	    	}
 
-	    	return result_final;
+	    		return result_final;
 	    }
 	    
-//	    导出
+//	    将resultMap中数据 覆盖到 word表中，生成指定的文件
 	    
 	    public static void exportData(Map<String, Object> data_field,String filename) throws Exception {
 	    	
@@ -302,12 +309,13 @@ public class POI {
 	        List<List<String[]>> tabledataList = new ArrayList<>();
 	        pic.put("${qrcode}", "resource/output/QR_CODE.JPG");
 	        getWord(data, tabledataList, pic,filename);
+	        
 	    }
 //	    打印
 	    
 	    public static boolean prinData(String filename) throws Exception {
-	    	
-	        if (printChannel.printDoc(filename)) {
+	    	File file = new File ("resource/output/"+filename+".pdf");
+	        if (printChannel.printpdf(file)) {
 	        	return true;
 	        } 
 	        return false;

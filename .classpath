@@ -55,5 +55,7 @@
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/spire_2.12-0.13.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/commons-lang-2.6.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/sqlite-jdbc-3.20.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/86913/Documents/GitHub/cpManagement/lib/Spire.Xls.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

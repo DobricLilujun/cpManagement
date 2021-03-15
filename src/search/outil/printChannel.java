@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.print.Doc;
 import javax.print.DocFlavor;
@@ -28,18 +29,22 @@ import javax.print.attribute.standard.SheetCollate;
 import javax.print.attribute.standard.Sides;
 import javax.swing.JFileChooser;
 
+import com.spire.pdf.PdfDocument;
+import com.spire.pdf.PdfDocumentBase;
+import com.spire.pdf.PdfPageSize;
+import com.spire.xls.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.printing.PDFPrintable;
 import org.apache.pdfbox.printing.Scaling;
-
-//import com.spire.doc.Document;
-
+import org.apache.poi.ss.usermodel.Sheet;
+//import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import java.awt.print.Book;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-
+import com.spire.xls.FileFormat;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
@@ -89,7 +94,7 @@ public class printChannel {
         }
 
     }
-	public static void PDFprint(File file) throws Exception {
+	public static boolean printpdf(File file) throws Exception {
         PDDocument document = null;
         try {
             document = PDDocument.load(file);
@@ -100,7 +105,7 @@ public class printChannel {
             PrintService[] printServices = PrinterJob.lookupPrintServices();                			 
             if(printServices == null || printServices.length == 0) {
                 System.out.print("打印失败，未找到可用打印机，请检查。");
-                return ;
+                return false;
             }
             PrintService printService =  PrintServiceLookup.lookupDefaultPrintService(); 
 
@@ -111,6 +116,10 @@ public class printChannel {
             PageFormat pageFormat = new PageFormat();
             //设置打印方向
             pageFormat.setOrientation(PageFormat.PORTRAIT);//纵向
+            System.out.println(file.getName());
+            if (file.getName().substring(0, 7).equals("性能检测判定表")) {
+            	pageFormat.setOrientation(PageFormat.LANDSCAPE);
+            }
 //            pageFormat.setPaper(getPaper());//设置纸张
             book.append(pdfPrintable, pageFormat, document.getNumberOfPages());
             printJob.setPageable(book);
@@ -120,6 +129,7 @@ public class printChannel {
             pars.add(Sides.DUPLEX); //设置单双页
 
             printJob.print(pars);
+            return true;
         }finally {
             if (document != null) {
                 try {
@@ -130,21 +140,61 @@ public class printChannel {
             }
         }
     }
-	public static boolean printDoc(String filename) throws Exception {
-		
-		if (word2pdf("\\resource\\output\\"+filename+".docx","\\resource\\output\\"+filename+".pdf")) {
-			File f = new File ("resource/output/"+filename+".pdf");
-			printChannel.PDFprint(f);
-			return true;
-		}
-		return false;
+	
+	
+	public static boolean xlsx2pdf(String filename) throws FileNotFoundException {
+		 Workbook wb = new Workbook();
+//		 InputStream is = new FileInputStream(new File("resource\\output\\"+filename+".xlsx"));
+		 wb.loadFromFile("resource\\file\\"+filename+".xlsx");
+		 
+		 Worksheet worksheet = wb.getWorksheets().get(0);
+		 worksheet.getPageSetup().setPaperSize(PaperSizeType.PaperA4);
+//		 worksheet.getPageSetup().setwidt
+		 wb.getConverterSetting().setSheetFitToPage(true);
+		 
+		 wb.saveToFile("resource\\output\\"+filename+".pdf",FileFormat.PDF); 
+	     return true;
 	}
+	
+	
+//	public static boolean printXlsx(String filename) {
+//		
+//	}
+	
+//	public static boolean printDoc(String filename) throws Exception {
+//		
+//		if (word2pdf("\\resource\\output\\"+filename+".docx","\\resource\\output\\"+filename+".pdf")) {
+//			File f = new File ("resource/output/"+filename+".pdf");
+//			printChannel.PDFprint(f);
+//			return true;
+//		}
+//		return false;
+//	}
 	public static void main(String[] args) throws Exception 
 	{
-		word2pdf("\\resource\\file\\人工检验表.docx","\\resource\\output\\人工检验表.pdf");
-		File f = new File ("resource/output/人工检验表.pdf");
-		printChannel.PDFprint(f);
+//		word2pdf("\\resource\\file\\人工检验表.docx","\\resource\\output\\人工检验表.pdf");
+//		File f = new File ("resource/output/人工检验表.pdf");
+//		printChannel.PDFprint(f);
+//		xlsx2pdf("人工检验表1");
+//		xlsx2pdf("人工检验表2");
+//		xlsx2pdf("牵引车辆表");
+//		xlsx2pdf("客车表");
+//		xlsx2pdf("挂车表");
+//		xlsx2pdf("载货汽车表");
+//		xlsx2pdf("汽车排放外检表");
+//		xlsx2pdf("性能检测判定表");
+//		xlsx2pdf("牌证申请表");
+//		xlsx2pdf("委托书");
+//		补充表
 		
+//		FileInputStream stream1 = new FileInputStream(new File("resource/output/人工检验表1.pdf"));
+//	    FileInputStream stream2 = new FileInputStream(new File("resource/output/人工检验表2.pdf"));
+//	    InputStream[] streams = new FileInputStream[]{stream1, stream2};
+//	    PdfDocumentBase doc = PdfDocument.mergeFiles(streams);
+//	    doc.save("resource/output/人工检验表.pdf");
+//        doc.close();
+		
+//		printxls("resource/output/人工检验表.xlsx");
 	}
 }
 

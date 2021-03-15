@@ -1,23 +1,20 @@
 package search.outil;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.swing.JOptionPane;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
+import search.commonUtil;
 
 public class XMLUtility {
 	
@@ -25,20 +22,29 @@ public class XMLUtility {
     public static HashMap<String, String> readStringXml(String filepath) throws DocumentException, FileNotFoundException {
     	  HashMap<String, String> map = new HashMap<>();
     	  SAXReader reader = new SAXReader();
-    	  reader.setEncoding("UTF-8");
+    	  reader.setEncoding("GBK");
     	  FileInputStream in = new FileInputStream(new File(filepath));
-    	  Document document = reader.read(in,"GBK");
+    	  Document document = reader.read(in,"UTF-8");
     	  document.setXMLEncoding("GBK");
     	  Element root = document.getRootElement();
-    	  Element bodyelement = root.element("body");
-    	  List<Element> childElements = bodyelement.elements();
-    	  
-    	  for (Element child : childElements) {
-
-	    	   List<Element> elementList = child.elements();
-	    	   for (Element ele : elementList) {
-	    		   map.put(ele.getName(),ele.getText());
-	    	   }
+    	  if (root.elements().size()==1) {
+    		  Element headelement = root.element("head");
+    		  List<Element> contentList = headelement.elements();
+//    		  JOptionPane.showMessageDialog(null, "调取接口数据错误，错误内容:"+contentList.get(1).getText());
+    		  commonUtil.log.printErr("调取接口数据失败，错误内容为："+contentList.get(1).getText());
+    	  }
+    	  else if(root.elements().size()==2) {
+    		  int infoTimes = 0;
+        	  Element bodyelement = root.element("body");
+        	  List<Element> childElements = bodyelement.elements();
+        	  for (Element child : childElements) {
+    	    	   List<Element> elementList = child.elements();
+    	    	   for (Element ele : elementList) {
+    	    		   map.put(ele.getName(),ele.getText());
+    	    		   infoTimes++;
+    	    	   }
+        	  }
+    		  commonUtil.log.printInfo("成功调取数据接口！调取"+infoTimes+"个数据元素！");
     	  }
     	  return map;
         }

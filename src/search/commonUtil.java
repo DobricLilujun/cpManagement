@@ -3,11 +3,13 @@ package search;
 import java.util.HashMap;
 import java.util.Map;
 
+import search.outil.OpSqliteDB;
+
 public class commonUtil {
 	
 	public static String COMPANY_NAME = "潞城市鑫达财会服务有限公司";
 	public static String OUTPUT_XML_FILE_PAHT = "resource/output/result.xml";
-	
+	public static logSystem log ;
 //	输入数据信息
 	public static String PZHM_COMMMON = "";
 	public static String PZLB_COMMMON = "";
@@ -72,17 +74,22 @@ public class commonUtil {
 	public static boolean KCisClicked = false;
 	public static boolean GCisClicked = false;
 	public static boolean XNJCPDisClicked = false;
+	public static boolean SFDTisClicked = true;
+	
 	public static Map<String, Object> resultMap = new HashMap<>();
 	public static reptile_test rep = null;
 	public static String HPZL = "";
 	public static String qrCodeData = "";
-	public static String dwjgdm = "001400000149";
-	public static String dwjgdm_URL = "1400000149";
+	public static String dwjgdm = "";
+	public static String dwjgdm_URL = "";
+	public static String authority = ""; 
+	
 	public static int  ifPrint[] = {0,0,0,0,0,0,0,0,0,0};
 	public static String QrString = "";
 	public static String browserString = "";
 	public static String url = "http://172.32.250.11:8090/jc/yt/loginout/login.yt";
 	public static String PortNum = "COM7";
+	
 	public static String DateToFormat(String data) {
 		 if (data.contains("/"))
 		 {

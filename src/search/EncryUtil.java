@@ -40,6 +40,14 @@ public class EncryUtil {
 			return null;
 		}
 	}
+	
+	public static String decrypt(String plainText,int i) {
+		try {
+			return new DES().decrypt(new String (plainText.getBytes("ISO8859-1"), "UTF-8"));
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	/**
 	 * 使用指定密钥进行DES解密

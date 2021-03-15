@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.dom4j.DocumentException;
 
+import search.outil.ChangeExcelData;
 import search.outil.OpSqliteDB;
 import search.outil.POI;
 import search.outil.SerialRead;
@@ -48,10 +49,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class MainControl extends JFrame implements variableStatic{
 
@@ -96,8 +102,11 @@ public class MainControl extends JFrame implements variableStatic{
 	private boolean isClickedGY = false;
 	private JTextField textField_12;
 	private JTextField textField_13;
+	private JTextField textField_14;
+	private JTextField txtWpscr;
 	
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
+		commonUtil.log = new logSystem();
 		initWindows();
 	} 
 	/**
@@ -121,6 +130,7 @@ public class MainControl extends JFrame implements variableStatic{
 		});
 	}
 	
+//	用于指定菜单栏
 	public void setOnClicked(int i) {
 		switch(i){
 	    case 0 :
@@ -177,8 +187,9 @@ public class MainControl extends JFrame implements variableStatic{
 
 	/**
 	 * Create the frame.
+	 * @throws Exception 
 	 */
-	public MainControl() {
+	public MainControl() throws Exception {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1039, 754);
@@ -431,17 +442,17 @@ public class MainControl extends JFrame implements variableStatic{
 		panel_2.add(txtd);
 		txtd.setColumns(10);
 		
-		JLabel lblNewLabel_3_1 = new JLabel("车辆识别代号 后四位");
+		JLabel lblNewLabel_3_1 = new JLabel("车架号 四位");
 		lblNewLabel_3_1.setForeground(SystemColor.textHighlight);
 		lblNewLabel_3_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
-		lblNewLabel_3_1.setBounds(32, 70, 156, 26);
+		lblNewLabel_3_1.setBounds(32, 70, 81, 26);
 		panel_2.add(lblNewLabel_3_1);
 		
 		textField = new JTextField();
 		textField.setForeground(Color.DARK_GRAY);
 		textField.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		textField.setColumns(10);
-		textField.setBounds(32, 98, 174, 35);
+		textField.setBounds(32, 98, 66, 35);
 		panel_2.add(textField);
 		
 		JLabel lblNewLabel_3_2 = new JLabel("详细地址");
@@ -509,29 +520,44 @@ public class MainControl extends JFrame implements variableStatic{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-//					
+
+					if (OpSqliteDB.verifyIsOkForUser()) {
+					try {
 //					从UI中拿到参数
-					extracextractDataFromUI();
+						extracextractDataFromUI();
 //					从通道中拿到具体有用参数
-//					commonUtil.resultMap = POI.Test();
-					String authority = OpSqliteDB.search("authority");
-					commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));
+						commonUtil.resultMap = POI.Test();
+//						String authority = OpSqliteDB.search("authority");
+//						System.out.println("------"+authority+"-------");
+//						commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));
 //					对参数中的数据进行更新
-					extractDataToPublicStr();
+						extractDataToPublicStr();
 //					创建 QRCODE 图片
-					POI.createQrCode();
-					for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
-						System.out.println(entry.getKey()+" : "+entry.getValue());
-					}
+						POI.createQrCode();
+//						for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
+//							System.out.println(entry.getKey()+" : "+entry.getValue());
+//						}
 //					在本地数据库中插入该数据
-					OpSqliteDB.insertCarData();
-					JOptionPane.showMessageDialog(null, "导出数据成功!");
-////					在本地数据库中查询该数据
+						OpSqliteDB.insertCarData();
+						JOptionPane.showMessageDialog(null, "导出数据成功!");
+//						OpSqliteDB.insertCarData();
+//					在本地数据库中查询该数据
 //					OpSqliteDB.queryCardata((String)commonUtil.resultMap.get("${platnum}"), (String)commonUtil.resultMap.get("${platType}"));
-				
+					
 //					for (String table:tables) {
 //						POI.exportData(commonUtil.resultMap, table);
 //					}
+						
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						commonUtil.log.printErr("导出数据出现问题，请解决！");
+						commonUtil.log.printErr(e1.toString());
+						e1.printStackTrace();
+					}
+				}
+					else {
+						JOptionPane.showMessageDialog(null, "导出数据失败，因为您更改了日期!");
+					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -563,7 +589,7 @@ public class MainControl extends JFrame implements variableStatic{
 		JLabel lblNewLabel_3_3_3_2 = new JLabel("缸数");
 		lblNewLabel_3_3_3_2.setForeground(SystemColor.textHighlight);
 		lblNewLabel_3_3_3_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
-		lblNewLabel_3_3_3_2.setBounds(302, 0, 142, 26);
+		lblNewLabel_3_3_3_2.setBounds(279, 0, 86, 26);
 		panel_2.add(lblNewLabel_3_3_3_2);
 		
 		comboBox_3_1 = new JComboBox();
@@ -571,13 +597,13 @@ public class MainControl extends JFrame implements variableStatic{
 		comboBox_3_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		comboBox_3_1.setEditable(true);
 		comboBox_3_1.setBackground(Color.WHITE);
-		comboBox_3_1.setBounds(302, 25, 156, 35);
+		comboBox_3_1.setBounds(279, 25, 98, 35);
 		panel_2.add(comboBox_3_1);
 		
 		JLabel lblNewLabel_3_3_3_2_1 = new JLabel("进气方式");
 		lblNewLabel_3_3_3_2_1.setForeground(SystemColor.textHighlight);
 		lblNewLabel_3_3_3_2_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
-		lblNewLabel_3_3_3_2_1.setBounds(302, 70, 142, 26);
+		lblNewLabel_3_3_3_2_1.setBounds(390, 0, 102, 26);
 		panel_2.add(lblNewLabel_3_3_3_2_1);
 		
 		comboBox_3_1_1 = new JComboBox();
@@ -585,7 +611,7 @@ public class MainControl extends JFrame implements variableStatic{
 		comboBox_3_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		comboBox_3_1_1.setEditable(true);
 		comboBox_3_1_1.setBackground(Color.WHITE);
-		comboBox_3_1_1.setBounds(302, 95, 156, 35);
+		comboBox_3_1_1.setBounds(390, 25, 102, 35);
 		panel_2.add(comboBox_3_1_1);
 		
 		JLabel lblNewLabel_3_2_3 = new JLabel("机械连接装置型号");
@@ -691,6 +717,7 @@ public class MainControl extends JFrame implements variableStatic{
 				try {
 					for (int i=0; i<variableStatic.tables.length;i++) {
 						if (commonUtil.ifPrint[i]==1) {
+							ChangeExcelData.exportDataXls(commonUtil.resultMap,variableStatic.tables[i]);
 							POI.exportData(commonUtil.resultMap,variableStatic.tables[i]);
 						}
 					}
@@ -787,6 +814,66 @@ public class MainControl extends JFrame implements variableStatic{
 		lblNewLabel_3_3.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		lblNewLabel_3_3.setBounds(108, 0, 66, 26);
 		panel_2.add(lblNewLabel_3_3);
+		
+		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("是否当天");
+		rdbtnNewRadioButton_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(commonUtil.SFDTisClicked) {
+					commonUtil.SFDTisClicked =false;
+					textField_14.setEditable(true);
+				}else {
+					commonUtil.SFDTisClicked =true;
+					textField_14.setEditable(false);
+				}
+			}
+		});
+		rdbtnNewRadioButton_3.setSelected(true);
+		rdbtnNewRadioButton_3.setForeground(SystemColor.textHighlight);
+		rdbtnNewRadioButton_3.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		rdbtnNewRadioButton_3.setBackground(Color.WHITE);
+		rdbtnNewRadioButton_3.setBounds(119, 72, 87, 23);
+		panel_2.add(rdbtnNewRadioButton_3);
+		
+		textField_14 = new JTextField();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String nowDate = format.format(date);
+		textField_14.setForeground(Color.DARK_GRAY);
+		textField_14.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		textField_14.setColumns(10);
+		textField_14.setBounds(108, 98, 98, 35);
+		textField_14.setText(nowDate);
+		textField_14.setEditable(false);
+		panel_2.add(textField_14);
+		
+		JLabel lblNewLabel_3_1_1_2 = new JLabel("驱动形式");
+		lblNewLabel_3_1_1_2.setForeground(SystemColor.textHighlight);
+		lblNewLabel_3_1_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		lblNewLabel_3_1_1_2.setBounds(279, 70, 86, 26);
+		panel_2.add(lblNewLabel_3_1_1_2);
+		
+		JComboBox comboBox_3_1_2 = new JComboBox();
+		comboBox_3_1_2.setModel(new DefaultComboBoxModel(new String[] {"前驱", "后驱", "全时四驱"}));
+		comboBox_3_1_2.setToolTipText("");
+		comboBox_3_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
+		comboBox_3_1_2.setEditable(true);
+		comboBox_3_1_2.setBackground(Color.WHITE);
+		comboBox_3_1_2.setBounds(279, 98, 98, 35);
+		panel_2.add(comboBox_3_1_2);
+		
+		JLabel lblNewLabel_3_1_1_1_1 = new JLabel("催化转化器型号");
+		lblNewLabel_3_1_1_1_1.setForeground(SystemColor.textHighlight);
+		lblNewLabel_3_1_1_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		lblNewLabel_3_1_1_1_1.setBounds(390, 70, 118, 26);
+		panel_2.add(lblNewLabel_3_1_1_1_1);
+		
+		txtWpscr = new JTextField();
+		txtWpscr.setForeground(Color.DARK_GRAY);
+		txtWpscr.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		txtWpscr.setColumns(10);
+		txtWpscr.setBounds(390, 98, 102, 35);
+		panel_2.add(txtWpscr);
 		
 		qrcode = new JPanel();
 		qrcode.setBackground(SystemColor.text);
@@ -980,9 +1067,9 @@ public class MainControl extends JFrame implements variableStatic{
 		topPanel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel(" 欢迎您！");
-		lblNewLabel_1.setText(Protection.readValue("count.properties", "cpName"));
+		lblNewLabel_1.setText(OpSqliteDB.search("cpName"));
 		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 40));
+		lblNewLabel_1.setFont(new Font("SimSun", Font.BOLD | Font.ITALIC, 40));
 		lblNewLabel_1.setBounds(264, 25, 780, 54);
 		topPanel.add(lblNewLabel_1);
 
@@ -995,6 +1082,7 @@ public class MainControl extends JFrame implements variableStatic{
 	}
 	
 	public void extracextractDataFromUI() throws Exception {
+		
 		commonUtil.PZHM_COMMMON = this.txtd.getText();
 		commonUtil.CLSBDH_COMMMON = this.textField.getText();
 		commonUtil.XXDZ = this.textField_1.getText();
@@ -1022,7 +1110,9 @@ public class MainControl extends JFrame implements variableStatic{
 		commonUtil.DataBase_name_HY_COMMMON = OpSqliteDB.search("DataBase_name_HY_COMMMON");
 		commonUtil.DataBase_username_HY_COMMMON = OpSqliteDB.search("DataBase_username_HY_COMMMON");
 		commonUtil.DataBase_password_HY_COMMMON = OpSqliteDB.search("DataBase_password_HY_COMMMON");
+		
 //		赛斯数据库
+		
 		commonUtil.DataBase_ip_SIS_COMMMON = OpSqliteDB.search("DataBase_ip_SIS_COMMMON");
 		commonUtil.DataBase_name_SIS_COMMMON =  OpSqliteDB.search("DataBase_name_SIS_COMMMON");
 		commonUtil.DataBase_username_SIS_COMMMON = OpSqliteDB.search("DataBase_username_SIS_COMMMON");
@@ -1033,6 +1123,9 @@ public class MainControl extends JFrame implements variableStatic{
 		commonUtil.jkdh_interface =  OpSqliteDB.search("jkdh_interface");
 		commonUtil.cjsbdh_interface =OpSqliteDB.search("cjsbdh_interface");
 		commonUtil.zdbs_interface = OpSqliteDB.search("zdbs_interface");
+		commonUtil.dwjgdm = OpSqliteDB.search("dwjgdm");
+		commonUtil.dwjgdm_URL = OpSqliteDB.search("dwjgdm_URL");
+
 
 	}
 //	This method is used to Set All the Static String
@@ -1080,13 +1173,21 @@ public class MainControl extends JFrame implements variableStatic{
 		commonUtil.resultMap.put("${transimissionType}", commonUtil.BSQXS);
 		commonUtil.resultMap.put("${ZXZSL}", commonUtil.ZXZSL);
 		
-//		当天的日期 年 月 日 以及将数据中所需要的两个日期格式化一下
-		Calendar cal=Calendar.getInstance();
-		int y = cal.get(Calendar.YEAR);   
-		int m = cal.get(Calendar.MONTH);   
-		int d = cal.get(Calendar.DATE);   
-		commonUtil.resultMap.put("${today}",y+ "年"+m+ "月"+d+ "日");
-		commonUtil.resultMap.put("${JYRQ}",y+ "年"+m+ "月"+d+ "日");
+//		当天的日期 年 月 日 以及将数据中所需要的两个日期格式化一下,并解决特殊的数据查询不到的问题
+		if (commonUtil.SFDTisClicked) {
+			Calendar cal=Calendar.getInstance();
+			int y = cal.get(Calendar.YEAR);   
+			int m = cal.get(Calendar.MONTH)+1;   
+			int d = cal.get(Calendar.DATE);  
+			commonUtil.resultMap.put("${today}",y+ "年"+m+ "月"+d+ "日");
+			commonUtil.resultMap.put("${JYRQ}",y+ "年"+m+ "月"+d+ "日");
+
+		}else {
+			String inputDate = textField_14.getText();
+			commonUtil.resultMap.put("${today}",commonUtil.DateToFormat(inputDate));
+			commonUtil.resultMap.put("${JYRQ}",commonUtil.DateToFormat(inputDate));
+		}
+		
 		commonUtil.resultMap.put("${CLCCRQ}",commonUtil.DateToFormat((String)commonUtil.resultMap.get("${CLCCRQ}")));
 		commonUtil.resultMap.put("${CCDJRQ}",commonUtil.DateToFormat((String)commonUtil.resultMap.get("${CCDJRQ}")));
 
