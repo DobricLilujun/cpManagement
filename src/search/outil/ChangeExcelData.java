@@ -19,7 +19,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 public class ChangeExcelData {
 
 	public static void main(String[] args) throws IOException, EncryptedDocumentException, InvalidFormatException {
-        String path = "resource/file/人工检验表.xlsx";
+        String path = "人工检验表";
         String outPath = "resource/output/人工检验表.xlsx";
 
         Map<String, Object> params = new HashMap<String, Object>();
@@ -39,7 +39,7 @@ public class ChangeExcelData {
         params.put("tel", "1502211919292929292992");
         params.put("postcode", "047500");
 
-//        new ChangeExcelData().replaceExcel(path,outPath,params);
+        new ChangeExcelData().replaceExcel(path,params);
     }
 
 	public static boolean exportDataXls(Map<String, Object> params,String filename) throws InvalidFormatException, IOException {
@@ -47,10 +47,15 @@ public class ChangeExcelData {
 	     new ChangeExcelData().replaceExcel(filename,params);
 	     return true;
 	}
+	
+//	注意 在此内部 的 param 中的 属性值 不包含 ${}
     @SuppressWarnings("deprecation")
+    
 	public void replaceExcel(String filename, Map params) throws IOException, InvalidFormatException {
 		String inPath = "resource/file/"+filename+".xlsx";
 	    String outPath = "resource/output/"+filename+".xlsx";
+	    System.out.println(inPath);
+	    System.out.println(outPath);
         InputStream is = new FileInputStream(new File(inPath));
         Workbook wb = WorkbookFactory.create(is);
         Sheet sheet = wb.getSheet(filename);//获取Excel的工作表sheet，下标从0开始。
@@ -63,7 +68,6 @@ public class ChangeExcelData {
             int minColIx = row.getFirstCellNum();
             int maxColIx = row.getLastCellNum();
             for (int colIx = minColIx; colIx < maxColIx; colIx++) {
-            	System.out.println(colIx);
                 Cell cell = row.getCell(colIx);//获取指定单元格，单元格从左到右下标从0开始
                 String runText = "4134234324";
                 if (cell!=null)
@@ -77,12 +81,13 @@ public class ChangeExcelData {
                 if(cell==null || cell.getStringCellValue()==null) {
                     continue;
                 }
+                
                 Matcher matcher = this.matcher(runText);
                 if (matcher.find()) {
                     while ((matcher = this.matcher(runText)).find()) {
                         runText = matcher.replaceFirst(String.valueOf(params.get(matcher.group(1))));
                     }
-                    cell.setCellValue(runText);
+                    cell.setCellValue(runText.toString());
                 }
             }
         }
@@ -100,7 +105,7 @@ public class ChangeExcelData {
     private Matcher matcher(String str) {
 //        Pattern pattern = Pattern.compile("\\$\\{(.+?)\\}", Pattern.CASE_INSENSITIVE);
     	Pattern pattern = Pattern.compile("\\$\\{(.+?)\\}", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(str.substring(2,str.length()-1));
+        Matcher matcher = pattern.matcher(str);
         return matcher;
     }
 

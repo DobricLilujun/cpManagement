@@ -436,7 +436,7 @@ public class OpSqliteDB {
 	   
 	   
 //	   db.after();
-//	   OpSqliteDB app = new OpSqliteDB("DatabaseName.db");
+	   OpSqliteDB app = new OpSqliteDB("DatabaseName.db");
 //	   app.createTable();
 //        app.updatePicture("委托书", "resource\\file\\委托书.docx");
 //        app.updatePicture("人工检验表", "resource\\file\\人工检验表.docx");
@@ -449,5 +449,15 @@ public class OpSqliteDB {
 //          app.updatePicture("挂车表", "resource\\file\\挂车表.docx");
 //          app.updatePicture("性能检测判定表", "resource\\file\\性能检测判定表.docx");
 //        app.readPicture("客车表","客车表.docx");
+//     app.updatePicture("委托书", "resource\\file\\委托书.docx");
+//     app.updatePicture("人工检验表", "resource\\file\\人工检验表.docx");
+//     app.updatePicture("汽车排放外检表", "resource\\file\\汽车排放外检表.docx");
+//     app.updatePicture("牌证申请表", "resource\\file\\牌证申请表.docx");
+//     app.updatePicture("补充申请表","resource\\file\\补充申请表.docx");
+//     app.updatePicture("载货汽车表", "resource\\file\\载货汽车表.docx");
+//     app.updatePicture("牵引车辆表", "resource\\file\\牵引车辆表.docx");
+//     app.updatePicture("客车表", "resource\\file\\客车表.docx");
+//       app.updatePicture("挂车表", "resource\\file\\挂车表.docx");
+//       app.updatePicture("性能检测判定表", "resource\\file\\性能检测判定表.docx");
    }
 }

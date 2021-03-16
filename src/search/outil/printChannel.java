@@ -55,6 +55,7 @@ public class printChannel {
     static final int wdDoNotSaveChanges = 0;// 不保存待定的更改。
     static final int wdFormatPDF = 17;// word转PDF 格式
     static final String root = System.getProperty("user.dir");
+    
 	public static boolean word2pdf(String source, String target) {
         System.out.println("Word转PDF开始启动...");
         System.out.println(root);
@@ -127,7 +128,6 @@ public class printChannel {
             //添加打印属性
             HashPrintRequestAttributeSet pars = new HashPrintRequestAttributeSet();
             pars.add(Sides.DUPLEX); //设置单双页
-
             printJob.print(pars);
             return true;
         }finally {
@@ -141,21 +141,28 @@ public class printChannel {
         }
     }
 	
-	
+//	将 xlsx 转为 pdf 使用spire
 	public static boolean xlsx2pdf(String filename) throws FileNotFoundException {
 		 Workbook wb = new Workbook();
-//		 InputStream is = new FileInputStream(new File("resource\\output\\"+filename+".xlsx"));
-		 wb.loadFromFile("resource\\file\\"+filename+".xlsx");
-		 
+		 wb.loadFromFile("resource\\output\\"+filename+".xlsx");
 		 Worksheet worksheet = wb.getWorksheets().get(0);
 		 worksheet.getPageSetup().setPaperSize(PaperSizeType.PaperA4);
-//		 worksheet.getPageSetup().setwidt
 		 wb.getConverterSetting().setSheetFitToPage(true);
-		 
 		 wb.saveToFile("resource\\output\\"+filename+".pdf",FileFormat.PDF); 
 	     return true;
 	}
 	
+//	转为打人工检验表而设计
+	public static void printSpecify() throws FileNotFoundException {
+		xlsx2pdf("人工检验表1");
+		xlsx2pdf("人工检验表2");
+		FileInputStream stream1 = new FileInputStream(new File("resource/output/人工检验表1.pdf"));
+	    FileInputStream stream2 = new FileInputStream(new File("resource/output/人工检验表2.pdf"));
+	    InputStream[] streams = new FileInputStream[]{stream1, stream2};
+	    PdfDocumentBase doc = PdfDocument.mergeFiles(streams);
+	    doc.save("resource/output/人工检验表.pdf");
+        doc.close();
+	}
 	
 //	public static boolean printXlsx(String filename) {
 //		

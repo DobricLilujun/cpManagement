@@ -313,13 +313,13 @@ public class POI {
 	    }
 //	    打印
 	    
-	    public static boolean prinData(String filename) throws Exception {
-	    	File file = new File ("resource/output/"+filename+".pdf");
-	        if (printChannel.printpdf(file)) {
-	        	return true;
-	        } 
-	        return false;
-	    }	    
+//	    public static boolean prinData(String filename) throws Exception {
+//	    	File file = new File ("resource/output/"+filename+".pdf");
+//	        if (printChannel.printpdf(file)) {
+//	        	return true;
+//	        } 
+//	        return false;
+//	    }	    
 	    
 	    public static void main(String[] args) throws Exception {
 	    	

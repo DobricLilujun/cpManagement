@@ -14,6 +14,7 @@ import search.outil.ChangeExcelData;
 import search.outil.OpSqliteDB;
 import search.outil.POI;
 import search.outil.SerialRead;
+import search.outil.printChannel;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -47,6 +48,7 @@ import javax.swing.Box;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -95,7 +97,6 @@ public class MainControl extends JFrame implements variableStatic{
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
 	
-	
 	private boolean isClickedDY = true;
 	private boolean isClickedSM = false;
 	private boolean isClickedPZ = false;
@@ -104,6 +105,7 @@ public class MainControl extends JFrame implements variableStatic{
 	private JTextField textField_13;
 	private JTextField textField_14;
 	private JTextField txtWpscr;
+	private JTextField textField_15;
 	
 	public static void main(String args[]) throws IOException {
 		commonUtil.log = new logSystem();
@@ -711,19 +713,55 @@ public class MainControl extends JFrame implements variableStatic{
 		
 		JButton btnNewButton_1_1 = new JButton("快速打印");
 		btnNewButton_1_1.addMouseListener(new MouseAdapter() {
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				commonUtil.MapToMapExcel();
 				try {
 					for (int i=0; i<variableStatic.tables.length;i++) {
+						
 						if (commonUtil.ifPrint[i]==1) {
-							ChangeExcelData.exportDataXls(commonUtil.resultMap,variableStatic.tables[i]);
-							POI.exportData(commonUtil.resultMap,variableStatic.tables[i]);
+//							如果是那张 补充表
+							if (i==4) {
+								POI.exportData(commonUtil.resultMap,variableStatic.tables[i]);
+							}
+//							如果是人工检验表的话,需要导出检测两个xls表并导出
+							else if (i ==1) {
+								ChangeExcelData.exportDataXls(commonUtil.resultMap_excel,variableStatic.tables[1]+"1");
+								ChangeExcelData.exportDataXls(commonUtil.resultMap_excel,variableStatic.tables[1]+"2");
+							}
+							else {
+								ChangeExcelData.exportDataXls(commonUtil.resultMap_excel,variableStatic.tables[i]);
+							}
+
 						}
 					}
+//					导出成功，生成对应的excle或者word文件
 					for (int i=0; i<variableStatic.tables.length;i++) {
 						if (commonUtil.ifPrint[i]==1) {
-							POI.prinData(variableStatic.tables[i]);
+							if (i==1) {
+								printChannel.printSpecify();
+								File file = new File ("resource/output/"+"人工检验表"+".pdf");
+								printChannel.printpdf(file);
+								deleteFile("resource/output/"+"人工检验表1"+".xlsx");
+								deleteFile("resource/output/"+"人工检验表2"+".xlsx");
+							}
+							else if (i==4) 
+							{
+								printChannel.word2pdf("\\resource\\output\\"+"补充申请表"+".docx","\\resource\\output\\"+"补充申请表"+".pdf");
+								File file = new File ("resource/output/"+"补充申请表"+".pdf");
+								printChannel.printpdf(file);
+								deleteFile("resource/output/"+"补充申请表"+".docx");
+								
+								
+							}else {
+								printChannel.xlsx2pdf(variableStatic.tables[i]);
+								File file = new File ("resource/output/"+variableStatic.tables[i]+".pdf");
+								System.out.println(variableStatic.tables[i]);
+								printChannel.printpdf(file);
+								deleteFile("resource/output/"+variableStatic.tables[i]+".xlsx");
+								
+							}
 						}
 					}
 				} catch (Exception e1) {
@@ -847,20 +885,11 @@ public class MainControl extends JFrame implements variableStatic{
 		textField_14.setEditable(false);
 		panel_2.add(textField_14);
 		
-		JLabel lblNewLabel_3_1_1_2 = new JLabel("驱动形式");
+		JLabel lblNewLabel_3_1_1_2 = new JLabel("SCR型号");
 		lblNewLabel_3_1_1_2.setForeground(SystemColor.textHighlight);
 		lblNewLabel_3_1_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		lblNewLabel_3_1_1_2.setBounds(279, 70, 86, 26);
 		panel_2.add(lblNewLabel_3_1_1_2);
-		
-		JComboBox comboBox_3_1_2 = new JComboBox();
-		comboBox_3_1_2.setModel(new DefaultComboBoxModel(new String[] {"前驱", "后驱", "全时四驱"}));
-		comboBox_3_1_2.setToolTipText("");
-		comboBox_3_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
-		comboBox_3_1_2.setEditable(true);
-		comboBox_3_1_2.setBackground(Color.WHITE);
-		comboBox_3_1_2.setBounds(279, 98, 98, 35);
-		panel_2.add(comboBox_3_1_2);
 		
 		JLabel lblNewLabel_3_1_1_1_1 = new JLabel("催化转化器型号");
 		lblNewLabel_3_1_1_1_1.setForeground(SystemColor.textHighlight);
@@ -874,6 +903,13 @@ public class MainControl extends JFrame implements variableStatic{
 		txtWpscr.setColumns(10);
 		txtWpscr.setBounds(390, 98, 102, 35);
 		panel_2.add(txtWpscr);
+		
+		textField_15 = new JTextField();
+		textField_15.setForeground(Color.DARK_GRAY);
+		textField_15.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
+		textField_15.setColumns(10);
+		textField_15.setBounds(279, 98, 102, 35);
+		panel_2.add(textField_15);
 		
 		qrcode = new JPanel();
 		qrcode.setBackground(SystemColor.text);
@@ -1083,27 +1119,30 @@ public class MainControl extends JFrame implements variableStatic{
 	
 	public void extracextractDataFromUI() throws Exception {
 		
-		commonUtil.PZHM_COMMMON = this.txtd.getText();
-		commonUtil.CLSBDH_COMMMON = this.textField.getText();
-		commonUtil.XXDZ = this.textField_1.getText();
-		commonUtil.DH = this.textField_2.getText();
+		commonUtil.PZHM_COMMMON = this.txtd.getText().toString();
+		commonUtil.CLSBDH_COMMMON = this.textField.getText().toString();
+		commonUtil.XXDZ = this.textField_1.getText().toString();
+		commonUtil.DH = this.textField_2.getText().toString();
 		commonUtil.LJXSLC = this.comboBox_3.getEditor().getItem().toString();
-		commonUtil.XZQH = this.textField_3.getText();
-		commonUtil.EDZS = this.textField_7.getText();
+		commonUtil.XZQH = this.textField_3.getText().toString();
+		commonUtil.EDZS = this.textField_7.getText().toString();
 		commonUtil.GS = this.comboBox_3_1.getEditor().getItem().toString();
 		commonUtil.JQFS = this.comboBox_3_1_1.getEditor().getItem().toString();
 		commonUtil.SFSSSQ = this.rdbtnNewRadioButton.isSelected();
 		commonUtil.SFDKZ = this.rdbtnNewRadioButton_1.isSelected();
 		commonUtil.SFKQXG = this.rdbtnNewRadioButton_2.isSelected();
-		commonUtil.CLSCCJ = this.textField_12.getText();
-		commonUtil.LTGGXH = this.textField_13.getText();
-		commonUtil.JXLJZZXH = this.textField_5.getText();
-		commonUtil.DBCLBH = this.textField_6.getText();
-		commonUtil.ZGCS = this.textField_9.getText();
+		commonUtil.CLSCCJ = this.textField_12.getText().toString();
+		commonUtil.LTGGXH = this.textField_13.getText().toString();
+		commonUtil.JXLJZZXH = this.textField_5.getText().toString();
+		commonUtil.DBCLBH = this.textField_6.getText().toString();
+		commonUtil.ZGCS = this.textField_9.getText().toString();
 		commonUtil.LTSL = this.comboBox_3_1_1_1.getEditor().getItem().toString();
 		commonUtil.BSQXS = this.comboBox_3_1_1_2.getEditor().getItem().toString();
 		commonUtil.ZXZSL = this.comboBox_3_1_1_3.getEditor().getItem().toString();
 		commonUtil.HPZL_COMMMON = this.comboBox.getSelectedItem().toString();
+		commonUtil.SCR  = this.textField_15.getText().toString();
+		commonUtil.CUIHUA_XINGHAO = this.txtWpscr.getText().toString();
+		
 		
 //		华燕数据库
 		commonUtil.DataBase_ip_HY_COMMMON = OpSqliteDB.search("DataBase_ip_HY_COMMMON");
@@ -1112,11 +1151,11 @@ public class MainControl extends JFrame implements variableStatic{
 		commonUtil.DataBase_password_HY_COMMMON = OpSqliteDB.search("DataBase_password_HY_COMMMON");
 		
 //		赛斯数据库
-		
 		commonUtil.DataBase_ip_SIS_COMMMON = OpSqliteDB.search("DataBase_ip_SIS_COMMMON");
 		commonUtil.DataBase_name_SIS_COMMMON =  OpSqliteDB.search("DataBase_name_SIS_COMMMON");
 		commonUtil.DataBase_username_SIS_COMMMON = OpSqliteDB.search("DataBase_username_SIS_COMMMON");
 		commonUtil.DataBase_password_SIS_COMMMON = OpSqliteDB.search("DataBase_password_SIS_COMMMON");
+		
 //		赛斯接口数据库
 		commonUtil.url_interface=OpSqliteDB.search("url_interface");
 		commonUtil.jkxlh_interface = OpSqliteDB.search("jkxlh_interface");
@@ -1139,6 +1178,19 @@ public class MainControl extends JFrame implements variableStatic{
 		commonUtil.resultMap.put("${ratepeed}",commonUtil.EDZS);
 		commonUtil.resultMap.put("${numOfCylinder}",commonUtil.GS);
 		commonUtil.resultMap.put("${airSupethod}",commonUtil.JQFS);
+		commonUtil.resultMap.put("${CUIHUA_XINGHAO}",commonUtil.CUIHUA_XINGHAO);
+		
+		
+		
+		
+//		SCR 判断
+		String fuelType = ((String)commonUtil.resultMap.get("${fuelType}"));
+		if (fuelType.equals("B")) {
+			commonUtil.resultMap.put("${SCR}","WPSCR-01");
+		}
+		else {
+			commonUtil.resultMap.put("${SCR}",commonUtil.SCR);
+		}
 		
 		
 //		三个是否
@@ -1219,6 +1271,7 @@ public class MainControl extends JFrame implements variableStatic{
 		for (int i=0; i< variableStatic.QDXS.length;i++) {
 			if (commonUtil.resultMap.get("${posite}").equals(variableStatic.QDXS[i][0])) {
 				commonUtil.resultMap.put("${posite}",variableStatic.QDXS[i][1] );
+				break;
 			}
 		}
 		
@@ -1226,11 +1279,12 @@ public class MainControl extends JFrame implements variableStatic{
 		for (int i=0;i<variableStatic.SYXZTypes.length;i++) {
 			if (commonUtil.resultMap.get("${SYXZ}").equals(variableStatic.SYXZTypes[i][0])) {
 				commonUtil.resultMap.put("${CSYS}",variableStatic.SYXZTypes[i][1]);
+				break;
 			}
 		}
 //		燃料类型 转中文 燃油形式 转义
 		for (int i=0;i<variableStatic.rlzlTables.length;i++) {
-			String fuelType = ((String)commonUtil.resultMap.get("${fuelType}"));
+			fuelType = ((String)commonUtil.resultMap.get("${fuelType}"));
 			if (fuelType.equals(variableStatic.rlzlTables[i][0])) 
 			{
 				commonUtil.resultMap.put("${fuelType}",variableStatic.rlzlTables[i][1]);
@@ -1279,5 +1333,28 @@ public class MainControl extends JFrame implements variableStatic{
 		}
 //		网页页面上一些额外数据
 		
+//		驱动形式推断
+		String qdxx = (String) commonUtil.resultMap.get("${posite}");
+		if (qdxx.contains("前驱")) {
+			commonUtil.resultMap.put("${qdxs}","前驱");
+		}
+		else if (qdxx.contains("后驱")) {
+			commonUtil.resultMap.put("${qdxs}","前驱");
+		}
+		else if (qdxx.contains("全驱")) {
+			commonUtil.resultMap.put("${qdxs}","全时四驱");
+		}
+		else {
+			commonUtil.resultMap.put("${qdxs}","-");
+		}
+		
+	}
+	
+	public static void deleteFile(String source) {
+        File file = new File(source);
+		if(file.exists()) {
+			file.delete();
+			System.out.println("删除成功");
+		}
 	}
 }

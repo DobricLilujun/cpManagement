@@ -77,6 +77,7 @@ public class commonUtil {
 	public static boolean SFDTisClicked = true;
 	
 	public static Map<String, Object> resultMap = new HashMap<>();
+	public static Map<String, Object> resultMap_excel = new HashMap<>();
 	public static reptile_test rep = null;
 	public static String HPZL = "";
 	public static String qrCodeData = "";
@@ -89,6 +90,9 @@ public class commonUtil {
 	public static String browserString = "";
 	public static String url = "http://172.32.250.11:8090/jc/yt/loginout/login.yt";
 	public static String PortNum = "COM7";
+	public static String SCR = "";
+	public static String CUIHUA_XINGHAO = "";
+	public static String QUDONG_XINGSHI = "";
 	
 	public static String DateToFormat(String data) {
 		 if (data.contains("/"))
@@ -105,5 +109,12 @@ public class commonUtil {
 			 return "";
 		 }
 		
+	}
+	
+//	该函数主要将数据 从 map 转出到 mapExcel中
+	public static void MapToMapExcel() {
+		for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
+			commonUtil.resultMap_excel.put(entry.getKey().substring(2,entry.getKey().length()-1), entry.getValue());
+		}
 	}
 }
