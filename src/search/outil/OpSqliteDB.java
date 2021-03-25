@@ -315,6 +315,7 @@ public class OpSqliteDB {
            FileInputStream fis = new FileInputStream(f);
            byte[] buffer = new byte[1024];
            bos = new ByteArrayOutputStream();
+           System.out.println(file);
            for (int len; (len = fis.read(buffer)) != -1;) {
                bos.write(buffer, 0, len);
            }
@@ -432,22 +433,37 @@ public class OpSqliteDB {
 //	   db.insert("jkxlh_interface", "7D1A09090106170400158195E6FCF3E2F28C8AF3828AE6FB868FDEC7D5C2D18CD3D0CFDEB9ABCBBED2B5CEF1CFB5CDB3");
 //	   db.insert("jkdh_interface", "18C49");
 //	   db.insert("cjsbdh_interface", "510101199001011234");
-//	   db.insert("zdbs_interface", "172.6.46.103");
+//	   db.insert("zdbs_interface", "172.6.46.103"); 
 	   
 	   
 //	   db.after();
 	   OpSqliteDB app = new OpSqliteDB("DatabaseName.db");
 //	   app.createTable();
-//        app.updatePicture("委托书", "resource\\file\\委托书.docx");
-//        app.updatePicture("人工检验表", "resource\\file\\人工检验表.docx");
-//        app.updatePicture("汽车排放外检表", "resource\\file\\汽车排放外检表.docx");
-//        app.updatePicture("牌证申请表", "resource\\file\\牌证申请表.docx");
+//        app.updatePicture("xls委托书", "resource\\file\\委托书.xlsx");
+//        app.updatePicture("xls人工检验表1", "resource\\file\\人工检验表1.xlsx");
+//        app.updatePicture("xls人工检验表2", "resource\\file\\人工检验表2.xlsx");
+//        app.updatePicture("xls汽车排放外检表", "resource\\file\\汽车排放外检表.xlsx");
+//        app.updatePicture("xls牌证申请表", "resource\\file\\牌证申请表.xlsx");
+////      app.updatePicture("xls补充申请表","resource\\file\\补充申请表.docx");
+//        app.updatePicture("xls载货汽车表", "resource\\file\\载货汽车表.xlsx");
+//        app.updatePicture("xls牵引车辆表", "resource\\file\\牵引车辆表.xlsx");
+//        app.updatePicture("xls客车表", "resource\\file\\客车表.xlsx");
+//        app.updatePicture("xls挂车表", "resource\\file\\挂车表.xlsx");
+//        app.updatePicture("xls性能检测判定表", "resource\\file\\性能检测判定表.xlsx");
 //        app.updatePicture("补充申请表","resource\\file\\补充申请表.docx");
-//        app.updatePicture("载货汽车表", "resource\\file\\载货汽车表.docx");
-//        app.updatePicture("牵引车辆表", "resource\\file\\牵引车辆表.docx");
-//        app.updatePicture("客车表", "resource\\file\\客车表.docx");
-//          app.updatePicture("挂车表", "resource\\file\\挂车表.docx");
-//          app.updatePicture("性能检测判定表", "resource\\file\\性能检测判定表.docx");
+        
+        app.updatePicture("xls委托书", "resource\\file\\委托书.xls");
+        app.updatePicture("xls人工检验表1", "resource\\file\\人工检验表1.xls");
+        app.updatePicture("xls人工检验表2", "resource\\file\\人工检验表2.xls");
+        app.updatePicture("xls汽车排放外检表", "resource\\file\\汽车排放外检表.xls");
+        app.updatePicture("xls牌证申请表", "resource\\file\\牌证申请表.xls");
+//      app.updatePicture("xls补充申请表","resource\\file\\补充申请表.docx");
+        app.updatePicture("xls载货汽车表", "resource\\file\\载货汽车表.xls");
+        app.updatePicture("xls牵引车辆表", "resource\\file\\牵引车辆表.xls");
+        app.updatePicture("xls客车表", "resource\\file\\客车表.xls");
+        app.updatePicture("xls挂车表", "resource\\file\\挂车表.xls");
+        app.updatePicture("xls性能检测判定表", "resource\\file\\性能检测判定表.xls");
+        app.updatePicture("补充申请表","resource\\file\\补充申请表.docx");
 //        app.readPicture("客车表","客车表.docx");
 //     app.updatePicture("委托书", "resource\\file\\委托书.docx");
 //     app.updatePicture("人工检验表", "resource\\file\\人工检验表.docx");

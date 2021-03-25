@@ -335,6 +335,7 @@ public class reptile_test {
 		 }
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input54", dang);
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input55", gang);
+		 commonUtil.log.printInfo("自动打印成功请检查！");
 	 }
 //	 车身颜色 测试
 	 public void get_1_JS (WebDriver driver) throws AWTException, InterruptedException {

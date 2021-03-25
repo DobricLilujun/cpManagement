@@ -81,6 +81,7 @@ public class juiWindows extends JFrame implements variableStatic{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					frame = new juiWindows();
 					Dimension displaySize = Toolkit.getDefaultToolkit().getScreenSize();
 					Dimension frameSize = frame.getSize();
@@ -271,15 +272,15 @@ public class juiWindows extends JFrame implements variableStatic{
 	public boolean activate() throws Exception {
 
     		Activationkey = textField_3.getText();
-    		System.out.println(Activationkey);
+//    		System.out.println(Activationkey);
     		String ac = EncryUtil.decrypt(Activationkey,1);
-    		System.out.println(ac);
-    		System.out.println(ac);
+//    		System.out.println(ac);
+//    		System.out.println(ac);
     		ArrayList<String> values = Protection.getValuesFromKey(ac);
     		
 //    		对输入的激活码进行判定 
     		boolean isOkay = false;  // 标志激活是否成功
-    		System.out.println(values.size());
+//    		System.out.println(values.size());
 //    		首先激活码 需要满足 用户+密码+公司+硬盘序列号+电脑名+允许时长+权限+激活当前时间 期位初次激活码
     		if (values.size()==8)
     		{
@@ -345,11 +346,11 @@ public class juiWindows extends JFrame implements variableStatic{
 			infoLabel.setForeground(Color.GREEN);
 			return true;
 		}else {
-			System.out.println(computername);
-			System.out.println(HD);
-			System.out.println(date_limit);
-			System.out.println(nowDate);
-			System.out.println(OpSqliteDB.search("date_limit"));
+//			System.out.println(computername);
+//			System.out.println(HD);
+//			System.out.println(date_limit);
+//			System.out.println(nowDate);
+//			System.out.println(OpSqliteDB.search("date_limit"));
 //			Protection.writeProperties("Config", "NOT IN ACTIVATION");
 			JOptionPane.showMessageDialog(null,"您的软件已经到期,或者您尝试迁移软件，请通过输入激活码激活或者还原！","温馨提示",JOptionPane.PLAIN_MESSAGE);
 			textField_3.setEditable(true);

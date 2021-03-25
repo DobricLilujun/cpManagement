@@ -15,6 +15,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import search.variableStatic;
+
 
 public class ChangeExcelData {
 
@@ -52,8 +54,14 @@ public class ChangeExcelData {
     @SuppressWarnings("deprecation")
     
 	public void replaceExcel(String filename, Map params) throws IOException, InvalidFormatException {
-		String inPath = "resource/file/"+filename+".xlsx";
-	    String outPath = "resource/output/"+filename+".xlsx";
+    	
+    	OpSqliteDB db = new OpSqliteDB("DatabaseName.db");
+    	db.readPicture("xls"+filename, filename+ variableStatic.fileXlsxNameTail);
+    	String inPath= variableStatic.filePathRoot + filename+ variableStatic.fileXlsxNameTail;
+    	String outPath= variableStatic.outPutPathRoot + filename + variableStatic.fileXlsxNameTail;
+//		String inPath = "resource/file/"+filename+".xlsx";
+//	    String outPath = "resource/output/"+filename+".xlsx";
+
 	    System.out.println(inPath);
 	    System.out.println(outPath);
         InputStream is = new FileInputStream(new File(inPath));

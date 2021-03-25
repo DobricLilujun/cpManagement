@@ -108,7 +108,7 @@ public class MainControl extends JFrame implements variableStatic{
 	private JTextField textField_15;
 	
 	public static void main(String args[]) throws IOException {
-		commonUtil.log = new logSystem();
+
 		initWindows();
 	} 
 	/**
@@ -119,6 +119,7 @@ public class MainControl extends JFrame implements variableStatic{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					commonUtil.log = new logSystem();
 					MainControl frame = new MainControl();
 					Dimension displaySize = Toolkit.getDefaultToolkit().getScreenSize();
 					Dimension frameSize = frame.getSize();
@@ -438,9 +439,9 @@ public class MainControl extends JFrame implements variableStatic{
 		
 		txtd = new JTextField();
 		txtd.setForeground(Color.DARK_GRAY);
-		txtd.setFont(new Font("Microsoft YaHei", Font.BOLD, 10));
+		txtd.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
 		txtd.setText("晋D");
-		txtd.setBounds(32, 25, 66, 35);
+		txtd.setBounds(32, 25, 86, 35);
 		panel_2.add(txtd);
 		txtd.setColumns(10);
 		
@@ -454,7 +455,7 @@ public class MainControl extends JFrame implements variableStatic{
 		textField.setForeground(Color.DARK_GRAY);
 		textField.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		textField.setColumns(10);
-		textField.setBounds(32, 98, 66, 35);
+		textField.setBounds(32, 98, 86, 35);
 		panel_2.add(textField);
 		
 		JLabel lblNewLabel_3_2 = new JLabel("详细地址");
@@ -519,25 +520,29 @@ public class MainControl extends JFrame implements variableStatic{
 			}
 		});
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
-			@Override
+			@Override	
 			public void mouseClicked(MouseEvent e) {
 				try {
 
 					if (OpSqliteDB.verifyIsOkForUser()) {
 					try {
+						
 //					从UI中拿到参数
 						extracextractDataFromUI();
 //					从通道中拿到具体有用参数
-						commonUtil.resultMap = POI.Test();
-//						String authority = OpSqliteDB.search("authority");
-//						System.out.println("------"+authority+"-------");
-//						commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));
+//						commonUtil.resultMap = POI.Test();
+						String authority = OpSqliteDB.search("authority");
+						System.out.println("------"+authority+"-------");
+						commonUtil.log.printInfo("该用户的权限是 "+ authority);
+						commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));
 //					对参数中的数据进行更新
 						extractDataToPublicStr();
 //					创建 QRCODE 图片
 						POI.createQrCode();
+//						commonUtil.log.printInfo("以下是导出的数据，可以作为暂时参考，如果发布版，不能够出现这些东西，保护用户的数据安全：");
 //						for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
-//							System.out.println(entry.getKey()+" : "+entry.getValue());
+////							System.out.println(entry.getKey()+" : "+entry.getValue());
+//							commonUtil.log.printInfo(entry.getKey()+" : "+entry.getValue());
 //						}
 //					在本地数据库中插入该数据
 						OpSqliteDB.insertCarData();
@@ -550,6 +555,7 @@ public class MainControl extends JFrame implements variableStatic{
 //						POI.exportData(commonUtil.resultMap, table);
 //					}
 						
+						
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						commonUtil.log.printErr("导出数据出现问题，请解决！");
@@ -558,7 +564,7 @@ public class MainControl extends JFrame implements variableStatic{
 					}
 				}
 					else {
-						JOptionPane.showMessageDialog(null, "导出数据失败，因为您更改了日期!");
+						JOptionPane.showMessageDialog(null, "导	出数据失败，因为您更改了日期!");
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -571,7 +577,7 @@ public class MainControl extends JFrame implements variableStatic{
 		btnNewButton_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		btnNewButton_1.setBorderPainted(false);
 		btnNewButton_1.setBackground(new Color(241, 57, 83));
-		btnNewButton_1.setBounds(553, 412, 101, 60);
+		btnNewButton_1.setBounds(585, 348, 156, 60);
 		panel_2.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_3_3_3_1 = new JLabel("额定转速");
@@ -646,7 +652,7 @@ public class MainControl extends JFrame implements variableStatic{
 		JLabel lblNewLabel_3_3_3_2_1_2 = new JLabel("变速器型式");
 		lblNewLabel_3_3_3_2_1_2.setForeground(SystemColor.textHighlight);
 		lblNewLabel_3_3_3_2_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
-		lblNewLabel_3_3_3_2_1_2.setBounds(585, 272, 142, 26);
+		lblNewLabel_3_3_3_2_1_2.setBounds(302, 345, 142, 26);
 		panel_2.add(lblNewLabel_3_3_3_2_1_2);
 		
 		comboBox_3_1_1_2 = new JComboBox();
@@ -654,21 +660,21 @@ public class MainControl extends JFrame implements variableStatic{
 		comboBox_3_1_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		comboBox_3_1_1_2.setEditable(true);
 		comboBox_3_1_1_2.setBackground(Color.WHITE);
-		comboBox_3_1_1_2.setBounds(585, 297, 156, 35);
+		comboBox_3_1_1_2.setBounds(302, 370, 156, 35);
 		panel_2.add(comboBox_3_1_1_2);
 		
 		JLabel lblNewLabel_3_3_3_2_1_3 = new JLabel("转向轴数量");
 		lblNewLabel_3_3_3_2_1_3.setForeground(SystemColor.textHighlight);
 		lblNewLabel_3_3_3_2_1_3.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
-		lblNewLabel_3_3_3_2_1_3.setBounds(585, 342, 142, 26);
+		lblNewLabel_3_3_3_2_1_3.setBounds(302, 278, 142, 26);
 		panel_2.add(lblNewLabel_3_3_3_2_1_3);
 		
 		comboBox_3_1_1_3 = new JComboBox();
-		comboBox_3_1_1_3.setModel(new DefaultComboBoxModel(new String[] {"1", "2"}));
+		comboBox_3_1_1_3.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "-"}));
 		comboBox_3_1_1_3.setFont(new Font("Microsoft YaHei", Font.BOLD, 12));
 		comboBox_3_1_1_3.setEditable(true);
 		comboBox_3_1_1_3.setBackground(Color.WHITE);
-		comboBox_3_1_1_3.setBounds(585, 367, 156, 35);
+		comboBox_3_1_1_3.setBounds(302, 303, 156, 35);
 		panel_2.add(comboBox_3_1_1_3);
 		
 		JLabel lblNewLabel_3_2_1_1 = new JLabel("达标车辆编号");
@@ -724,14 +730,17 @@ public class MainControl extends JFrame implements variableStatic{
 //							如果是那张 补充表
 							if (i==4) {
 								POI.exportData(commonUtil.resultMap,variableStatic.tables[i]);
+								commonUtil.log.printInfo("替换补充表中数据成功！");
 							}
 //							如果是人工检验表的话,需要导出检测两个xls表并导出
 							else if (i ==1) {
 								ChangeExcelData.exportDataXls(commonUtil.resultMap_excel,variableStatic.tables[1]+"1");
 								ChangeExcelData.exportDataXls(commonUtil.resultMap_excel,variableStatic.tables[1]+"2");
+								commonUtil.log.printInfo("替换人工检验表数据成功！");
 							}
 							else {
 								ChangeExcelData.exportDataXls(commonUtil.resultMap_excel,variableStatic.tables[i]);
+								commonUtil.log.printInfo("替换"+variableStatic.tables[i]+"中数据成功！");
 							}
 
 						}
@@ -743,8 +752,11 @@ public class MainControl extends JFrame implements variableStatic{
 								printChannel.printSpecify();
 								File file = new File ("resource/output/"+"人工检验表"+".pdf");
 								printChannel.printpdf(file);
-								deleteFile("resource/output/"+"人工检验表1"+".xlsx");
-								deleteFile("resource/output/"+"人工检验表2"+".xlsx");
+								deleteFile("resource/output/"+"人工检验表1"+".xls");
+								deleteFile("resource/output/"+"人工检验表2"+".xls");
+								deleteFile("resource/temp/"+"人工检验表1"+".xls");
+								deleteFile("resource/temp/"+"人工检验表2"+".xls");
+								commonUtil.log.printInfo("打印人工检验表中数据成功！");
 							}
 							else if (i==4) 
 							{
@@ -752,15 +764,17 @@ public class MainControl extends JFrame implements variableStatic{
 								File file = new File ("resource/output/"+"补充申请表"+".pdf");
 								printChannel.printpdf(file);
 								deleteFile("resource/output/"+"补充申请表"+".docx");
+								deleteFile("resource/temp/"+"补充申请表"+".xls");
+								commonUtil.log.printInfo("打印补充申请表中数据成功！");
 								
-								
-							}else {
+							}else {	
 								printChannel.xlsx2pdf(variableStatic.tables[i]);
 								File file = new File ("resource/output/"+variableStatic.tables[i]+".pdf");
 								System.out.println(variableStatic.tables[i]);
 								printChannel.printpdf(file);
-								deleteFile("resource/output/"+variableStatic.tables[i]+".xlsx");
-								
+								deleteFile("resource/output/"+variableStatic.tables[i]+".xls");
+								deleteFile("resource/temp/"+variableStatic.tables[i]+".xls");
+								commonUtil.log.printInfo("打印"+variableStatic.tables[i]+"成功！");
 							}
 						}
 					}
@@ -779,7 +793,7 @@ public class MainControl extends JFrame implements variableStatic{
 		btnNewButton_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		btnNewButton_1_1.setBorderPainted(false);
 		btnNewButton_1_1.setBackground(new Color(241, 57, 83));
-		btnNewButton_1_1.setBounds(680, 412, 101, 60);
+		btnNewButton_1_1.setBounds(585, 412, 156, 60);
 		panel_2.add(btnNewButton_1_1);
 		
 		textField_4 = new JTextField();
@@ -811,14 +825,14 @@ public class MainControl extends JFrame implements variableStatic{
 		JLabel lblNewLabel_3_1_1 = new JLabel("车辆生产厂家");
 		lblNewLabel_3_1_1.setForeground(SystemColor.textHighlight);
 		lblNewLabel_3_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
-		lblNewLabel_3_1_1.setBounds(302, 332, 156, 26);
+		lblNewLabel_3_1_1.setBounds(585, 275, 156, 26);
 		panel_2.add(lblNewLabel_3_1_1);
 		
 		textField_12 = new JTextField();
 		textField_12.setForeground(Color.DARK_GRAY);
 		textField_12.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		textField_12.setColumns(10);
-		textField_12.setBounds(302, 360, 156, 35);
+		textField_12.setBounds(585, 303, 156, 35);
 		panel_2.add(textField_12);
 		
 		JLabel lblNewLabel_3_1_1_1 = new JLabel("轮胎规格型号");
@@ -834,23 +848,17 @@ public class MainControl extends JFrame implements variableStatic{
 		textField_13.setBounds(302, 433, 156, 35);
 		panel_2.add(textField_13);
 		
-		JLabel lblNewLabel_3_3_3_2_1_4 = new JLabel("新车请输入以下字段");
-		lblNewLabel_3_3_3_2_1_4.setForeground(Color.RED);
-		lblNewLabel_3_3_3_2_1_4.setFont(new Font("Microsoft YaHei", Font.BOLD, 23));
-		lblNewLabel_3_3_3_2_1_4.setBounds(267, 296, 223, 26);
-		panel_2.add(lblNewLabel_3_3_3_2_1_4);
-		
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"大型汽车", "小型汽车", "外籍汽车", "两、三轮摩托车", "轻便摩托车", "农用运输车", "挂车", "教练汽车", "警用汽车", "大型新能源汽车", "小型新能源汽车", "  "}));
 		comboBox.setForeground(Color.BLACK);
 		comboBox.setBackground(Color.WHITE);
-		comboBox.setBounds(108, 25, 98, 35);
+		comboBox.setBounds(129, 25, 98, 35);
 		panel_2.add(comboBox);
 		
 		JLabel lblNewLabel_3_3 = new JLabel("号牌种类");
 		lblNewLabel_3_3.setForeground(SystemColor.textHighlight);
 		lblNewLabel_3_3.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
-		lblNewLabel_3_3.setBounds(108, 0, 66, 26);
+		lblNewLabel_3_3.setBounds(119, 0, 66, 26);
 		panel_2.add(lblNewLabel_3_3);
 		
 		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("是否当天");
@@ -870,7 +878,7 @@ public class MainControl extends JFrame implements variableStatic{
 		rdbtnNewRadioButton_3.setForeground(SystemColor.textHighlight);
 		rdbtnNewRadioButton_3.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		rdbtnNewRadioButton_3.setBackground(Color.WHITE);
-		rdbtnNewRadioButton_3.setBounds(119, 72, 87, 23);
+		rdbtnNewRadioButton_3.setBounds(130, 72, 87, 23);
 		panel_2.add(rdbtnNewRadioButton_3);
 		
 		textField_14 = new JTextField();
@@ -880,7 +888,7 @@ public class MainControl extends JFrame implements variableStatic{
 		textField_14.setForeground(Color.DARK_GRAY);
 		textField_14.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		textField_14.setColumns(10);
-		textField_14.setBounds(108, 98, 98, 35);
+		textField_14.setBounds(129, 98, 98, 35);
 		textField_14.setText(nowDate);
 		textField_14.setEditable(false);
 		panel_2.add(textField_14);
@@ -950,9 +958,11 @@ public class MainControl extends JFrame implements variableStatic{
 					commonUtil.url = textField_10.getText();
 					commonUtil.rep =new reptile_test(commonUtil.url);
 					Protection.writeProperties("url", commonUtil.url);
+					commonUtil.log.printInfo("读取数据完成，浏览器信息为: "+ commonUtil.browserString);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					commonUtil.log.printErr(e.toString());
 				}
 				try {
 					commonUtil.rep.startBrowser(commonUtil.rep.e_driver);
@@ -961,6 +971,7 @@ public class MainControl extends JFrame implements variableStatic{
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 						e.printStackTrace();
+						commonUtil.log.printErr(e.toString());
 				}
 			}
 		});
@@ -974,6 +985,7 @@ public class MainControl extends JFrame implements variableStatic{
 		
 		textField_10 = new JTextField();
 		textField_10.setColumns(10);
+		textField_10.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
 		textField_10.setBounds(29, 115, 634, 44);
 		qrcode.add(textField_10);
 		textField_10.setText(EncryUtil.decrypt(Protection.getKeyValue("url")));
@@ -983,15 +995,21 @@ public class MainControl extends JFrame implements variableStatic{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try {
-
+					
 					commonUtil.PortNum = textField_11.getText();
 					SerialRead.ScanOpen(commonUtil.PortNum);
 					Protection.writeProperties("PortNum", commonUtil.PortNum);
 					JOptionPane.showMessageDialog(null, "成功打开扫描仪，请在需要的时候扫描并开始进行自动输入！");
+					commonUtil.log.printInfo("成功打开 扫描仪！可以开始扫描");
 //					ifAutoComplete
 //					commonUtil.rep.get_combox(commonUtil.rep.e_driver);
+					
 				} catch (Exception e) {
+					commonUtil.log.printInfo("打开扫描仪失败，请检查错误！端口号是: "+commonUtil.PortNum);
 					// TODO Auto-generated catch block
+					commonUtil.log.printInfo(e.toString());
+					commonUtil.log.printErr("打开扫描仪失败，请检查错误！端口号是: "+commonUtil.PortNum);
+					commonUtil.log.printErr(e.toString());
 					e.printStackTrace();
 				}
 			}
@@ -1105,7 +1123,7 @@ public class MainControl extends JFrame implements variableStatic{
 		JLabel lblNewLabel_1 = new JLabel(" 欢迎您！");
 		lblNewLabel_1.setText(OpSqliteDB.search("cpName"));
 		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setFont(new Font("SimSun", Font.BOLD | Font.ITALIC, 40));
+		lblNewLabel_1.setFont(new Font("SimSun", Font.BOLD, 40));
 		lblNewLabel_1.setBounds(264, 25, 780, 54);
 		topPanel.add(lblNewLabel_1);
 
@@ -1216,7 +1234,7 @@ public class MainControl extends JFrame implements variableStatic{
 			commonUtil.resultMap.put("${factoryName}",commonUtil.CLSCCJ);
 		}
 
-//		commonUtil.resultMap.put("${LTGG}",commonUtil.LTGGXH);
+		commonUtil.resultMap.put("${LTGG}",commonUtil.LTGGXH);
 		commonUtil.resultMap.put("${JXLJZZXH}",commonUtil.JXLJZZXH);
 //		commonUtil.resultMap.put("${LTGG}",commonUtil.LTGGXH);
 		commonUtil.resultMap.put("${DBCLBH}",commonUtil.DBCLBH);
@@ -1282,26 +1300,37 @@ public class MainControl extends JFrame implements variableStatic{
 				break;
 			}
 		}
+		
 //		燃料类型 转中文 燃油形式 转义
+		int numOfFuelType = 0;
+		String fueltypeString = "";
 		for (int i=0;i<variableStatic.rlzlTables.length;i++) {
 			fuelType = ((String)commonUtil.resultMap.get("${fuelType}"));
-			if (fuelType.equals(variableStatic.rlzlTables[i][0])) 
+			if (fuelType.contains(variableStatic.rlzlTables[i][0])) 
 			{
-				commonUtil.resultMap.put("${fuelType}",variableStatic.rlzlTables[i][1]);
-				if ((fuelType.equals("A"))||(fuelType.equals("E"))) {
+				if (numOfFuelType == 0) {
+					fueltypeString  +=  variableStatic.rlzlTables[i][1];
+					numOfFuelType ++;
+				}
+				else if (numOfFuelType > 0) {
+					fueltypeString  += " , ";
+					fueltypeString  += variableStatic.rlzlTables[i][1];
+					numOfFuelType ++;
+				}
+				
+				if ((fuelType.contains("A"))||(fuelType.contains("E"))) {
 					commonUtil.resultMap.put("${fuelSupplyMethod}","闭环电喷");
 				}
-				else if ((fuelType.equals("B")))
+				else if ((fuelType.contains("B")))
 				{
 					commonUtil.resultMap.put("${fuelSupplyMethod}","高压共轨");
 				}
 				else {
 					commonUtil.resultMap.put("${fuelSupplyMethod}","");
 				}
-
-				break;
 			}
 		}
+		commonUtil.resultMap.put("${fuelType}",fueltypeString);
 		
 //		排量 四舍五入
 		String num = (String)commonUtil.resultMap.get("${PL}");
@@ -1339,7 +1368,7 @@ public class MainControl extends JFrame implements variableStatic{
 			commonUtil.resultMap.put("${qdxs}","前驱");
 		}
 		else if (qdxx.contains("后驱")) {
-			commonUtil.resultMap.put("${qdxs}","前驱");
+			commonUtil.resultMap.put("${qdxs}","后驱");
 		}
 		else if (qdxx.contains("全驱")) {
 			commonUtil.resultMap.put("${qdxs}","全时四驱");

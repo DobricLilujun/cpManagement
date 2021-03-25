@@ -52,10 +52,13 @@ public class SerialRead {
                 if(arg0.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
                 	// 数据通知
                     byte[] bytes = SerialTool.readData(serialPort);
-                    System.out.println("收到的数据长度："+bytes.length);
+//                    System.out.println("收到的数据长度："+bytes.length);
+                    commonUtil.log.printInfo("收到的数据长度："+bytes.length);
                     String msg = new String(bytes);
                     commonUtil.QrString = msg;
-                    System.out.println("收到的数据："+ msg);
+//                    System.out.println("收到的数据："+ msg);
+                    commonUtil.log.printInfo("该数据需要被加密，以保护客户的信息 安全！");
+                    commonUtil.log.printInfo("收到的数据是，加密后 ："+ msg);
                     try {
 						POI.getQrCodeMsg(msg);
 						commonUtil.rep.ifAutoComplete(commonUtil.rep);
@@ -63,10 +66,14 @@ public class SerialRead {
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						commonUtil.log.printErr(e.toString());
+						
 					}
-                	for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
-						System.out.println(entry.getKey()+" : "+entry.getValue());
-					}
+//                    commonUtil.log.printInfo("收到的数据解密后是下面所示的信息： 需要在最后发布版 进行封闭，不能打出LOG！ ");
+//                	for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
+//						System.out.println(entry.getKey()+" : "+entry.getValue());
+//						 commonUtil.log.printInfo(entry.getKey()+" : "+entry.getValue());
+//					}
                 }
                 try {
 					POI.getQrCodeMsg(commonUtil.QrString);

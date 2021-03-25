@@ -6,6 +6,7 @@ public interface variableStatic{
 	String filePathRoot = "resource/temp/";
 	String filePathRoot_ORI = "resource/file/";
 	String fileDoxNameTail = ".docx";
+	String fileXlsxNameTail = ".xls";
 	String filePdfNameTail = ".pdf";
 	String outPutPathRoot  = "resource/output/";
     String NAME="sa";
@@ -324,5 +325,5 @@ public interface variableStatic{
     		{"Z71","轻型非载货专项作业车"},
     		{"Z72","轻型载货专项作业车"}};
     
-    String QDXS[][] = {{"1,2","4×2前驱后驻"},{"1,2,3","6×2半挂车"},{"2,3","6×4双后驱双后驻"},{"2,2","4×2后驱后驻"},{"3,4","8×4双后驱双后驻"},{"3,3","6×2单后驱单后驻"},{"2,2","4×4全驱后驻"}}; 
+    String QDXS[][] = {{"3","6×2单后驱单后驻"},{"34","8×4双后驱双后驻"},{"23","6×4双后驱双后驻"},{"1","4×2前驱后驻"},{"2","4×2后驱后驻"},{"12","4×2前驱后驻"},{"1,2","4×2前驱后驻"},{"1,2,3","6×2半挂车"},{"2,3","6×4双后驱双后驻"},{"2,2","4×2后驱后驻"},{"3,4","8×4双后驱双后驻"},{"3,3","6×2单后驱单后驻"},{"2,2","4×4全驱后驻"}}; 
 }

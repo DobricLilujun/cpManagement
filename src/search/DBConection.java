@@ -86,7 +86,7 @@ public class DBConection
 			 commonUtil.log.printErr("数据库连接：IP="+DataBase_ip+" DBName=" +DataBase_name+ "出现问题！");
 			 commonUtil.log.printErr("Sorry,can't find the Driver!");
              System.out.println("Sorry,can`t find the Driver!");   
-           	 e.printStackTrace();   
+           	 e.printStackTrace();
            }
             catch (SQLException e){
    			   commonUtil.log.printErr("数据库连接：IP="+DataBase_ip+" DBName=" +DataBase_name+ "出现问题！");

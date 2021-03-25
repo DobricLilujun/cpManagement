@@ -22,7 +22,9 @@ import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.standard.Chromaticity;
 import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.Finishings;
+import javax.print.attribute.standard.Media;
 import javax.print.attribute.standard.MediaSizeName;
+import javax.print.attribute.standard.MediaTray;
 import javax.print.attribute.standard.NumberUp;
 import javax.print.attribute.standard.OrientationRequested;
 import javax.print.attribute.standard.SheetCollate;
@@ -34,8 +36,10 @@ import com.spire.pdf.PdfDocumentBase;
 import com.spire.pdf.PdfPageSize;
 import com.spire.xls.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.printing.PDFPageable;
 import org.apache.pdfbox.printing.PDFPrintable;
 import org.apache.pdfbox.printing.Scaling;
+import org.apache.poi.ss.usermodel.PaperSize;
 import org.apache.poi.ss.usermodel.Sheet;
 //import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -95,6 +99,47 @@ public class printChannel {
         }
 
     }
+	
+//	public static void printpdf() throws IOException, PrinterException {
+////		PrintService printer = PrintServiceLookup.lookupDefaultPrintService();
+////		PDDocument doc = PDDocument.load(new File("resource/output/人工检验表.pdf"));
+//		 PdfDocument pdf = new PdfDocument();
+//			pdf.getPages().add();
+//			pdf.getPages().removeAt(0);
+//			
+//	        pdf.loadFromFile("resource/output/人工检验表.pdf");
+//			pdf.getPages().add();
+//			pdf.getPages().removeAt(2);
+//
+//	        PrinterJob loPrinterJob = PrinterJob.getPrinterJob();
+//
+//	        PageFormat loPageFormat  = loPrinterJob.defaultPage();
+//
+//	        Paper loPaper = loPageFormat.getPaper();
+//
+//	        //删除默认页边距
+//
+//	        loPaper.setImageableArea(0,0,loPageFormat.getWidth(),loPageFormat.getHeight());
+//
+//	        //设置打印份数
+//
+//	        loPrinterJob.setCopies(1);
+////	        loPrinterJob.set
+//
+//	        loPageFormat.setPaper(loPaper);
+//
+//	        loPrinterJob.setPrintable(pdf,loPageFormat);
+//
+//	        try {
+//
+//	            loPrinterJob.print();
+//
+//	        } catch (PrinterException e) {
+//
+//	            e.printStackTrace();
+//
+//	        }
+//	}
 	public static boolean printpdf(File file) throws Exception {
         PDDocument document = null;
         try {
@@ -103,28 +148,35 @@ public class printChannel {
             printJob.setJobName(file.getName());
                 // 查找并设置打印机
                 //获得本台电脑连接的所有打印机
-            PrintService[] printServices = PrinterJob.lookupPrintServices();                			 
+            PrintService[] printServices = PrinterJob.lookupPrintServices();  
+
             if(printServices == null || printServices.length == 0) {
                 System.out.print("打印失败，未找到可用打印机，请检查。");
                 return false;
             }
             PrintService printService =  PrintServiceLookup.lookupDefaultPrintService(); 
-
+            
             //设置纸张及缩放
-            PDFPrintable pdfPrintable = new PDFPrintable(document, Scaling.ACTUAL_SIZE);
+            PDFPrintable pdfPrintable = new PDFPrintable(document, Scaling.SHRINK_TO_FIT);
             //设置多页打印
             Book book = new Book();
-            PageFormat pageFormat = new PageFormat();
+            PageFormat pageFormat =  printJob.defaultPage();
+            Paper loPaper = pageFormat.getPaper();
+            loPaper.setImageableArea(0,0,pageFormat.getWidth(),pageFormat.getHeight());
             //设置打印方向
             pageFormat.setOrientation(PageFormat.PORTRAIT);//纵向
-            System.out.println(file.getName());
+            pageFormat.setPaper(loPaper);
+//            System.out.println(file.getName());
             if (file.getName().substring(0, 7).equals("性能检测判定表")) {
             	pageFormat.setOrientation(PageFormat.LANDSCAPE);
             }
-//            pageFormat.setPaper(getPaper());//设置纸张
+//            paper.setSize(width, height);
+//            pageFormat.setPaper();//设置纸张
             book.append(pdfPrintable, pageFormat, document.getNumberOfPages());
+//            System.out.println(document.getNumberOfPages());
             printJob.setPageable(book);
             printJob.setCopies(1);//设置打印份数
+//            printJob.setPageable(new PDFPageable(document));
             //添加打印属性
             HashPrintRequestAttributeSet pars = new HashPrintRequestAttributeSet();
             pars.add(Sides.DUPLEX); //设置单双页
@@ -144,11 +196,20 @@ public class printChannel {
 //	将 xlsx 转为 pdf 使用spire
 	public static boolean xlsx2pdf(String filename) throws FileNotFoundException {
 		 Workbook wb = new Workbook();
-		 wb.loadFromFile("resource\\output\\"+filename+".xlsx");
+		 wb.loadFromFile("resource\\output\\"+filename+".xls");
+		 System.out.println( wb.getWorksheets().getCount());
 		 Worksheet worksheet = wb.getWorksheets().get(0);
+//		 worksheet.getPageSetup().setFirstPageNumber(1);
 		 worksheet.getPageSetup().setPaperSize(PaperSizeType.PaperA4);
+//		 worksheet
+//		 worksheet.getPageSetup().setFitToPagesTall(1);
+//		 worksheet.getPageSetup().setFitToPagesWide(1);
 		 wb.getConverterSetting().setSheetFitToPage(true);
-		 wb.saveToFile("resource\\output\\"+filename+".pdf",FileFormat.PDF); 
+		 
+//		 wb.getConverterSetting().setSheetFitToWidth(true);
+//		 wb.getConverterSetting().set
+//		 wb.saveToFile("resource\\output\\"+filename+".pdf",FileFormat.PDF);
+		 worksheet.saveToPdf("resource\\output\\"+filename+".pdf");
 	     return true;
 	}
 	
@@ -179,6 +240,7 @@ public class printChannel {
 //	}
 	public static void main(String[] args) throws Exception 
 	{
+//		printpdf();
 //		word2pdf("\\resource\\file\\人工检验表.docx","\\resource\\output\\人工检验表.pdf");
 //		File f = new File ("resource/output/人工检验表.pdf");
 //		printChannel.PDFprint(f);

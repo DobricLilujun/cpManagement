@@ -83,7 +83,7 @@ public class Protection
             props.load(in); 
             String value_unencrypt = props.getProperty(key);
             String value = EncryUtil.decrypt(value_unencrypt);
-            System.out.println(key +"键的值是："+ value); 
+//            System.out.println(key +"键的值是："+ value); 
             return value; 
         } catch (Exception e) { 
             e.printStackTrace(); 
@@ -99,7 +99,7 @@ public class Protection
                     filePath)); 
             props.load(in); 
             String value_unencrypt =  new String( props.getProperty(key).getBytes("ISO8859-1"), "UTF-8");
-            System.out.println(key +"键的值是："+ value_unencrypt); 
+//            System.out.println(key +"键的值是："+ value_unencrypt); 
             return value_unencrypt; 
         } catch (Exception e) { 
             e.printStackTrace(); 
@@ -216,13 +216,13 @@ public class Protection
     
     private static Boolean desDecode(String str) {
 		String t = EncryUtil.decrypt(str);
-		System.out.println("解密后：" + t);
+//		System.out.println("解密后：" + t);
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		String nowDate = format.format(date);
 		Integer result = EncryUtil.compareDate(t, nowDate);
-		System.out.println("nowDate"+nowDate);
-		System.out.println("result"+result);
+//		System.out.println("nowDate"+nowDate);
+//		System.out.println("result"+result);
 		if (result == -1) {
 			return false;
 		}
@@ -234,7 +234,7 @@ public class Protection
     	ArrayList<String> values = new ArrayList<>();
     	String tt[] =key.split(",");
 	    for (String s : tt) {
-	    	System.out.println(s);
+//	    	System.out.println(s);
 	    	values.add(s);
 	    }
 	    return values;
@@ -283,17 +283,17 @@ public class Protection
 						Date date = new Date();
 				        calendar.setTime(date);
 						String nowDate = format.format(date);
-						System.out.println("TODAY IS : " + nowDate);
-						System.out.println("用户名是 : " + jtf1.getText());		
+//						System.out.println("TODAY IS : " + nowDate);
+//						System.out.println("用户名是 : " + jtf1.getText());		
 						String activation_code_month = nowDate+nowDate;
 						String activation_code_year = jtf1.getText()+nowDate;
-						System.out.println("activation_code_year : " + activation_code_year);
-						System.out.println("activation_code_month : " + activation_code_month);
+//						System.out.println("activation_code_year : " + activation_code_year);
+//						System.out.println("activation_code_month : " + activation_code_month);
 						String password_year = EncryUtil.encrypt(activation_code_year);
 						String password_month = EncryUtil.encrypt(activation_code_month);
-						System.out.println("password_year : " + password_year);
-						System.out.println("password_month : " + password_month);
-						System.out.println("password : " + jpf1.getText());
+//						System.out.println("password_year : " + password_year);
+//						System.out.println("password_month : " + password_month);
+//						System.out.println("password : " + jpf1.getText());
 						if (password_year.equals(jpf1.getText())) 
 						{
 							JOptionPane.showMessageDialog(null, "欢迎购买本公司的软件,你们已经拥有1年的使用权！");
@@ -370,7 +370,7 @@ public class Protection
 //		    	writeProperties("last_activation_date", "2021-03-04");   
 //		        System.out.println(EncryUtil.encrypt("LCPY,123456,"+"LICHENGPUYANG"+",642052,PC-20181020XGMH,30,2,2021-03-08"));
 //		    	System.out.println(EncryUtil.encrypt("LCAB,123456,"+"LUCHENGANBAO"+",-1741029509,MS-KIVTJQGLHNGB,30,2,2021-03-09"));
-		    	System.out.println(EncryUtil.encrypt("LCAB,123456,"+"LUCHENGANBAO"+",-1741029509,MS-KIVTJQGLHNGB,30,2,2021-03-14"));
+		    	System.out.println(EncryUtil.encrypt("LCAB,123456,"+"LUCHENGANBAO"+",-1662024723,LAPTOP-LRQIVD86,30,2,2021-03-16"));
 //		    	
 //		    	System.out.println(EncryUtil.encrypt("LCAB,123456,"+"LUCHENGANBAO"+",107459006,SKY-20181104KJH,30,2,2021-03-08"));
 		    } 
