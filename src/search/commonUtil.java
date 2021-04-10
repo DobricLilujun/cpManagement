@@ -2,6 +2,7 @@ package search;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.TextArea;
 
 import search.outil.OpSqliteDB;
 
@@ -93,7 +94,20 @@ public class commonUtil {
 	public static String SCR = "";
 	public static String CUIHUA_XINGHAO = "";
 	public static String QUDONG_XINGSHI = "";
+	public static String PL = "";
+	public static TextArea textArea = null;
+	public static boolean IS_NEW_CAR = false;
 	
+//	该方法主要用于更改程序提示，从而达到更好的用户体验
+	public static void areaPrint(String str) {
+		String orgstr = textArea.getText();
+		String newstr = orgstr+ str + "\n";
+		textArea.setText(newstr);
+		textArea.invalidate();
+		textArea.repaint();
+		textArea.setCaretPosition(newstr.length());
+//		textArea.paintImmediately(textArea.getX(), textArea.getY(), textArea.getWidth(), textArea.getHeight());
+	}
 	public static String DateToFormat(String data) {
 		 if (data.contains("/"))
 		 {

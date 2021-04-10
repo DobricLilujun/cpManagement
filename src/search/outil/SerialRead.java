@@ -40,6 +40,8 @@ public class SerialRead {
         //开启端口COM7，波特率9600，根据自己的情况更改
         final SerialPort serialPort = SerialTool.openSerialPort(PortNum, 9600);
         //设置串口的listener
+        commonUtil.areaPrint("成功与扫码仪通信！");
+        commonUtil.areaPrint("可以进行扫描啦！");
         SerialTool.setListenerToSerialPort(serialPort, new SerialPortEventListener() {
             @Override
             public void serialEvent(SerialPortEvent arg0) {
@@ -65,6 +67,7 @@ public class SerialRead {
 						
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
+						commonUtil.areaPrint("读取错误！");
 						e.printStackTrace();
 						commonUtil.log.printErr(e.toString());
 						

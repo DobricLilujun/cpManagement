@@ -13,6 +13,7 @@ public class logSystem {
 	private Log errorLogger = LogFactory.getLog("errorlog");
 	
 	
+//	在这里初始化 日志系统，用于在文件中写入log，具体的配置文件在 file文件下的log4j文件下
 	
 	public logSystem() throws IOException {
 		super();

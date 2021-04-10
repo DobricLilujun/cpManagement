@@ -274,7 +274,7 @@ public class reptile_test {
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input92", (String)commonUtil.resultMap.get("${factoryName}"));
 		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input61", (String)commonUtil.resultMap.get("${transimissionType}"));
 		 
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input84", "前驱");
+		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input84", (String)commonUtil.resultMap.get("${qdxs}"));
 		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input34",  (String)commonUtil.resultMap.get("${fuelSupplyMethod}"));
 		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input77", (String)commonUtil.resultMap.get("${airSupethod}"));
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input79", "4");

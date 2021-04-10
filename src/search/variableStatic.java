@@ -30,7 +30,7 @@ public interface variableStatic{
 			"${FDJH}","${factoryName}","${transimissionType}","${posite}","${fuelSupplyMethod}",
 			"${airSupethod}","${LTSL}","${power}","${ratepeed}","${PL}",
 			"${usage}","${address}","${tel}","${postcode}",
-			"${sfzmhm}","${numOfCylinder}","${platType}","${SYXZ}","${ZS}"
+			"${sfzmhm}","${numOfCylinder}","${platType}","${SYXZ}","${ZS}","${qdxs}","${syxz}"
 
 		};
     String SYXZTypes[][] = {

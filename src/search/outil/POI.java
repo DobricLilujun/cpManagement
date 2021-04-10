@@ -121,16 +121,13 @@ public class POI {
 	    				msg = msg +mt.encode(strtemp)+ ";";
 	    			}else {
 	    				msg = msg + ";";
-	    			}
-	    			
+	    			}	
 	    		}
 	    		else {
 	    			String strtemp = (String)commonUtil.resultMap.get(variableStatic.qrfileds[i]);
 	    			if (strtemp!=null)
 	    			{
 	    				msg = msg +mt.encode(strtemp);
-	    			}else {
-	    				msg = msg ;
 	    			}
 	    		}
 	    	}
@@ -149,7 +146,8 @@ public class POI {
 	    }
 	    
 //	    测试数据生成器
-	    public static Map<String, Object> Test(){
+	    public static Map<String, Object> Test()
+	    {
 	    	Map<String, Object> data = new HashMap<>();
 	    	data.put("${brand}", "解放牌");
 	    	data.put("${owner}", "潞城市承昌通商贸有限公司hahahahahahhAHAHAH");
@@ -160,11 +158,11 @@ public class POI {
 	    	data.put("${CLCCRQ}", "2018/2/26 00:00:00");
 	    	data.put("${CCDJRQ}", "2018/3/5 00:00:00");
 	    	data.put("${platType}", "01");
-	    	data.put("${factoryName}", "中国第一汽车集团公司HAHAHAHAHAHAHAH");
+	    	data.put("${factoryName}", "");
 	    	data.put("${posite}", "2,3");
 	    	data.put("${crosght}", "25000");
 	    	data.put("${fuelType}", "B");
-	    	data.put("${PL}", "9500");
+	    	data.put("${PL}", "");
 	    	data.put("${engineModel}", "WP10H400E50");
 	    	data.put("${FDJH}", "3618A004089");
 	    	data.put("${power}", "294");
@@ -220,7 +218,7 @@ public class POI {
 //	    	拿到是哪个接口的数据
 //	    	首先尝试拿到华燕数据库的数据
 	    	HashMap<String,String> result_map_data_HY = ChannelGetDataFromDatabaseHY.extractInfoFromDatabase(ChannelGetDataFromDatabaseHY.fileds_list,ChannelGetDataFromDatabaseHY.table_name,PZHM,HPZL);
-	    	
+	    	commonUtil.areaPrint("成功从接口一中拿到数据");
 	    	Map<String,Object> result_final = new HashMap<String,Object>();
 //			拿到用户的权限频道
 //	    	如果是 只使用华研数据
@@ -240,8 +238,9 @@ public class POI {
 //	    	如果是 三通道数据都使用
 	    	else if (Authority ==2){
 		    	HashMap<String,String> result_map_data_SAISI = ChannelGetDataFromDatabaseSIS.extractInfoFromDatabase(ChannelGetDataFromDatabaseSIS.fileds_list, ChannelGetDataFromDatabaseSIS.table_name, PZHM);
+		    	commonUtil.areaPrint("成功从接口二中拿到数据");
 		    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,commonUtil.dwjgdm_URL);
-
+		    	commonUtil.areaPrint("成功从接口三中拿到数据");
 //	    		以接口数据作为基础数据
 	    		for (Map.Entry<String,String> entry: data_field_DY.entrySet()) {
 	    			String data_temp = result_map_data_Interface.get(data_field_INTERFACE.get(entry.getKey()));
@@ -281,6 +280,7 @@ public class POI {
 	    			}
 	    		}
 	    		commonUtil.log.printInfo("成功从华燕中调出数据，使用多通道数据！");
+	    		commonUtil.areaPrint("成功从华燕中调出数据，使用多通道数据！");
 //	    		打印数据值，并在log中打印出相关数据，用于进行数据值 判断 最后要把此代码注释掉，不可放在release版本中
 	    		commonUtil.log.printInfo("导出数据信息如下:");
 	    		String str = "";
