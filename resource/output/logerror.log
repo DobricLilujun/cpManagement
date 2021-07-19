@@ -130,3 +130,401 @@ java.lang.IndexOutOfBoundsException: Index: 0, Size: 0 2021-04-09 23:57:55
 gnu.io.PortInUseException: COM8 2021-04-09 23:58:38 
 检测接口服务器返回字段后，接口数据调取失败，返回result.xml数据错误 2021-04-10 06:36:57 
 调取接口数据失败，错误内容为：服务器端提示信息：java.lang.Exception: 查询条件不正确！ 2021-04-10 06:36:57 
+数据库连接：IP=172.6.46.225 DBName=newgajck_38900出现问题！ 2021-04-10 18:17:00 
+SQL操作错误 2021-04-10 18:17:00 
+导出数据出现问题，请解决！ 2021-04-10 18:17:00 
+java.lang.NullPointerException 2021-04-10 18:17:00 
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0 2021-04-10 18:47:10 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[text()='null']"}
+  (Session info: chrome=78.0.3904.108)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:57794}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 5fa23a6c1b0443bdbfa96cf15b9c4d8b
+*** Element info: {Using=xpath, value=//div[text()='null']} 2021-04-10 18:49:19 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[text()='null']"}
+  (Session info: chrome=78.0.3904.108)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:50648}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 74e80cd75ca7ecc56f503bc692fa39bc
+*** Element info: {Using=xpath, value=//div[text()='null']} 2021-04-10 18:51:42 
+数据库连接：IP=172.6.46.225 DBName=newgajck_38900出现问题！ 2021-04-10 21:08:03 
+SQL操作错误 2021-04-10 21:08:03 
+导出数据出现问题，请解决！ 2021-04-10 21:08:03 
+java.lang.NullPointerException 2021-04-10 21:08:03 
+检测接口服务器返回字段后，接口数据调取失败，返回result.xml数据错误 2021-04-10 21:09:25 
+调取接口数据失败，错误内容为：服务器端提示信息：java.lang.Exception: 查询条件不正确！ 2021-04-10 21:09:25 
+检测接口服务器返回字段后，接口数据调取失败，返回result.xml数据错误 2021-04-10 21:12:51 
+调取接口数据失败，错误内容为：服务器端提示信息：java.lang.Exception: 查询条件不正确！ 2021-04-10 21:12:51 
+检测接口服务器返回字段后，接口数据调取失败，返回result.xml数据错误 2021-04-10 21:16:31 
+调取接口数据失败，错误内容为：服务器端提示信息：java.lang.Exception: 查询条件不正确！ 2021-04-10 21:16:31 
+检测接口服务器返回字段后，接口数据调取失败，返回result.xml数据错误 2021-04-10 21:19:50 
+调取接口数据失败，错误内容为：服务器端提示信息：java.lang.Exception: 查询条件不正确！ 2021-04-10 21:19:50 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[text()='4×2前驱后驻']"}
+  (Session info: chrome=78.0.3904.108)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:51744}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: f0868ef01950257891f29348407046da
+*** Element info: {Using=xpath, value=//div[text()='4×2前驱后驻']} 2021-04-10 21:26:59 
+org.openqa.selenium.JavascriptException: javascript error: Failed to execute 'elementsFromPoint' on 'Document': The provided double value is non-finite.
+  (Session info: chrome=78.0.3904.108)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:61179}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 5c0887a06410a5fbb099dcee83df5413 2021-04-10 21:30:29 
+org.openqa.selenium.NoSuchFrameException: No frame element found by name or id addWaitWinIframe
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: driver.version: unknown 2021-04-10 21:30:50 
+打开扫描仪失败，请检查错误！端口号是: COM8 2021-04-10 21:33:33 
+gnu.io.PortInUseException: COM8 2021-04-10 21:33:33 
+打开扫描仪失败，请检查错误！端口号是: COM8 2021-04-10 21:34:12 
+gnu.io.PortInUseException: COM8 2021-04-10 21:34:12 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"#_easyui_textbox_input21"}
+  (Session info: chrome=78.0.3904.108)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:49611}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 4313e0869fbfac9ae7835549b0a471b6
+*** Element info: {Using=id, value=_easyui_textbox_input21} 2021-04-10 21:36:47 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[text()='F']"}
+  (Session info: chrome=78.0.3904.108)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:56373}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 33fdd8b3df17e4f328620a37d23f9bdc
+*** Element info: {Using=xpath, value=//div[text()='F']} 2021-04-10 21:43:02 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"#_easyui_textbox_input22"}
+  (Session info: chrome=78.0.3904.108)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:56373}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 33fdd8b3df17e4f328620a37d23f9bdc
+*** Element info: {Using=id, value=_easyui_textbox_input22} 2021-04-10 21:43:42 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[text()='F']"}
+  (Session info: chrome=78.0.3904.108)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:51166}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: d898309da1b0ca9a101f827f233a07dc
+*** Element info: {Using=xpath, value=//div[text()='F']} 2021-04-10 22:00:30 
+检测接口服务器返回字段后，接口数据调取失败，返回result.xml数据错误 2021-04-10 22:03:49 
+调取接口数据失败，错误内容为：服务器端提示信息：java.lang.Exception: 查询条件不正确！ 2021-04-10 22:03:49 
+检测接口服务器返回字段后，接口数据调取失败，返回result.xml数据错误 2021-04-10 22:04:11 
+调取接口数据失败，错误内容为：服务器端提示信息：java.lang.Exception: 查询条件不正确！ 2021-04-10 22:04:11 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[text()='F']"}
+  (Session info: chrome=78.0.3904.108)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:61296}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 0223d014a8d7576b303db163478e09dc
+*** Element info: {Using=xpath, value=//div[text()='F']} 2021-04-10 22:06:51 
+检测接口服务器返回字段后，接口数据调取失败，返回result.xml数据错误 2021-04-10 22:09:48 
+调取接口数据失败，错误内容为：服务器端提示信息：java.lang.Exception: 查询条件不正确！ 2021-04-10 22:09:48 
+org.openqa.selenium.JavascriptException: javascript error: Failed to execute 'elementsFromPoint' on 'Document': The provided double value is non-finite.
+  (Session info: chrome=78.0.3904.108)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:63838}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: ca40ba7d11c4179b7c4a7cec0f440829 2021-04-10 22:14:55 
+org.openqa.selenium.JavascriptException: javascript error: Failed to execute 'elementsFromPoint' on 'Document': The provided double value is non-finite.
+  (Session info: chrome=78.0.3904.108)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:52650}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 9ea63d450cdfcc70f49080d4784f5214 2021-04-10 22:18:56 
+org.openqa.selenium.UnhandledAlertException: unexpected alert open: {Alert text : 提示：请注意：整备质量+核定载质量 > 最大总质量，请检查，原则上不应该大于！}
+  (Session info: chrome=78.0.3904.108): 提示：请注意：整备质量+核定载质量 > 最大总质量，请检查，原则上不应该大于！
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:61562}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 077ad6c6e9f161e6199e0fa3434bbf17 2021-04-10 22:24:22 
+org.openqa.selenium.UnhandledAlertException: unexpected alert open: {Alert text : 提示：请注意：整备质量+核定载质量 > 最大总质量，请检查，原则上不应该大于！}
+  (Session info: chrome=78.0.3904.108): 提示：请注意：整备质量+核定载质量 > 最大总质量，请检查，原则上不应该大于！
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:50740}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 6ed8f577c8ced41b8b5bb447c59e5203 2021-04-10 22:30:20 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"#_easyui_textbox_input89"}
+  (Session info: chrome=78.0.3904.108)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:50740}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 6ed8f577c8ced41b8b5bb447c59e5203
+*** Element info: {Using=id, value=_easyui_textbox_input89} 2021-04-10 22:31:11 
+打开扫描仪失败，请检查错误！端口号是: COM8 2021-04-10 22:33:49 
+gnu.io.PortInUseException: Unknown Application 2021-04-10 22:33:49 
+org.openqa.selenium.JavascriptException: javascript error: Failed to execute 'elementsFromPoint' on 'Document': The provided double value is non-finite.
+  (Session info: chrome=78.0.3904.108)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:63696}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 33393d250e15094b208306c3fc0fc6c0 2021-04-10 22:34:34 
+org.openqa.selenium.NoSuchFrameException: No frame element found by name or id addWaitWinIframe
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: driver.version: unknown 2021-04-11 11:44:00 
+检测接口服务器返回字段后，接口数据调取失败，返回result.xml数据错误 2021-04-11 11:59:40 
+调取接口数据失败，错误内容为：服务器端提示信息：java.lang.Exception: 查询条件不正确！ 2021-04-11 11:59:40 
+打开扫描仪失败，请检查错误！端口号是: COM8 2021-04-11 12:03:25 
+gnu.io.NoSuchPortException 2021-04-11 12:03:25 
+java.lang.NullPointerException 2021-04-11 12:15:45 
+org.openqa.selenium.NoSuchFrameException: No frame element found by name or id addWaitWinIframe
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: driver.version: unknown 2021-04-11 12:15:46 
+org.openqa.selenium.NoSuchFrameException: No frame element found by name or id addWaitWinIframe
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: driver.version: unknown 2021-04-11 12:16:15 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"#_easyui_textbox_input20"}
+  (Session info: chrome=78.0.3904.108)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 78.0.3904.108, chrome: {chromedriverVersion: 78.0.3904.105 (60e2d8774a81..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:60136}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: XP, platformName: XP, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 304e36125f76b84a57d1183bb7e61270
+*** Element info: {Using=id, value=_easyui_textbox_input20} 2021-04-11 12:17:34 
+java.lang.NullPointerException 2021-04-11 12:24:27 
+org.openqa.selenium.NoSuchFrameException: No frame element found by name or id addWaitWinIframe
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: driver.version: unknown 2021-04-11 12:24:29 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 11:51:28 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 11:51:28 
+java.lang.NullPointerException 2021-04-12 11:51:46 
+java.lang.NullPointerException 2021-04-12 11:51:46 
+java.lang.NullPointerException 2021-04-12 11:51:47 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 11:51:47 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 11:51:47 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 11:51:52 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 11:51:53 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 11:51:53 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 17:41:37 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 17:41:37 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 17:43:29 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 17:43:29 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 17:43:29 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 17:43:46 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 17:43:46 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 17:43:46 
+java.lang.NullPointerException 2021-04-12 23:22:27 
+java.lang.NullPointerException 2021-04-12 23:23:26 
+java.lang.NullPointerException 2021-04-12 23:23:58 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:31 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:31 
+java.lang.NullPointerException 2021-04-12 23:25:31 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:38 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:38 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:43 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:43 
+javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption. 2021-04-12 23:25:43 
+java.lang.NullPointerException 2021-04-12 23:25:50 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:50 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:50 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:54 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:54 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:25:54 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:26:01 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:26:06 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:27:02 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:27:03 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:27:10 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:27:10 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:27:10 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:27:31 
+javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption. 2021-04-12 23:27:32 
+javax.crypto.IllegalBlockSizeException: Input length must be multiple of 8 when decrypting with padded cipher 2021-04-12 23:27:32 
+org.openqa.selenium.SessionNotCreatedException: session not created: This version of ChromeDriver only supports Chrome version 78
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '192.168.238.177', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: driver.version: ChromeDriver
+remote stacktrace: Backtrace:
+	Ordinal0 [0x0069A923+1550627]
+	Ordinal0 [0x0061A731+1025841]
+	Ordinal0 [0x0059C715+509717]
+	Ordinal0 [0x0052FC68+64616]
+	Ordinal0 [0x0052C594+50580]
+	Ordinal0 [0x0054ACE7+175335]
+	Ordinal0 [0x0054A8ED+174317]
+	Ordinal0 [0x00548CDB+167131]
+	Ordinal0 [0x0053144A+70730]
+	Ordinal0 [0x005324D0+74960]
+	Ordinal0 [0x00532469+74857]
+	Ordinal0 [0x006342F7+1131255]
+	GetHandleVerifier [0x0073711D+523789]
+	GetHandleVerifier [0x00736EB0+523168]
+	GetHandleVerifier [0x0073E207+552695]
+	GetHandleVerifier [0x0073791A+525834]
+	Ordinal0 [0x0062B82C+1095724]
+	Ordinal0 [0x0063636B+1139563]
+	Ordinal0 [0x006364D3+1139923]
+	Ordinal0 [0x00635455+1135701]
+	BaseThreadInitThunk [0x76A66359+25]
+	RtlGetAppContainerNamedObjectPath [0x76EE87A4+228]
+	RtlGetAppContainerNamedObjectPath [0x76EE8774+180]
+ 2021-06-20 18:42:55 
+java.lang.NullPointerException 2021-06-20 18:42:55 
+org.openqa.selenium.SessionNotCreatedException: session not created: This version of ChromeDriver only supports Chrome version 78
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '192.168.238.177', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: driver.version: ChromeDriver
+remote stacktrace: Backtrace:
+	Ordinal0 [0x0069A923+1550627]
+	Ordinal0 [0x0061A731+1025841]
+	Ordinal0 [0x0059C715+509717]
+	Ordinal0 [0x0052FC68+64616]
+	Ordinal0 [0x0052C594+50580]
+	Ordinal0 [0x0054ACE7+175335]
+	Ordinal0 [0x0054A8ED+174317]
+	Ordinal0 [0x00548CDB+167131]
+	Ordinal0 [0x0053144A+70730]
+	Ordinal0 [0x005324D0+74960]
+	Ordinal0 [0x00532469+74857]
+	Ordinal0 [0x006342F7+1131255]
+	GetHandleVerifier [0x0073711D+523789]
+	GetHandleVerifier [0x00736EB0+523168]
+	GetHandleVerifier [0x0073E207+552695]
+	GetHandleVerifier [0x0073791A+525834]
+	Ordinal0 [0x0062B82C+1095724]
+	Ordinal0 [0x0063636B+1139563]
+	Ordinal0 [0x006364D3+1139923]
+	Ordinal0 [0x00635455+1135701]
+	BaseThreadInitThunk [0x76A66359+25]
+	RtlGetAppContainerNamedObjectPath [0x76EE87A4+228]
+	RtlGetAppContainerNamedObjectPath [0x76EE8774+180]
+ 2021-06-20 18:51:31 
+java.lang.NullPointerException 2021-06-20 18:51:31 
+org.openqa.selenium.WebDriverException: unknown error: Chrome failed to start: exited normally
+  (unknown error: DevToolsActivePort file doesn't exist)
+  (The process started from chrome location D:\360 浏览器\360se6\Application\360se.exe is no longer running, so ChromeDriver is assuming that Chrome has crashed.)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '192.168.238.177', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: driver.version: ChromeDriver
+remote stacktrace: Backtrace:
+	Ordinal0 [0x0069A923+1550627]
+	Ordinal0 [0x0061A731+1025841]
+	Ordinal0 [0x0059C715+509717]
+	Ordinal0 [0x0052CB0B+51979]
+	Ordinal0 [0x0054ACE7+175335]
+	Ordinal0 [0x0054A8ED+174317]
+	Ordinal0 [0x00548CDB+167131]
+	Ordinal0 [0x0053144A+70730]
+	Ordinal0 [0x005324D0+74960]
+	Ordinal0 [0x00532469+74857]
+	Ordinal0 [0x006342F7+1131255]
+	GetHandleVerifier [0x0073711D+523789]
+	GetHandleVerifier [0x00736EB0+523168]
+	GetHandleVerifier [0x0073E207+552695]
+	GetHandleVerifier [0x0073791A+525834]
+	Ordinal0 [0x0062B82C+1095724]
+	Ordinal0 [0x0063636B+1139563]
+	Ordinal0 [0x006364D3+1139923]
+	Ordinal0 [0x00635455+1135701]
+	BaseThreadInitThunk [0x76A66359+25]
+	RtlGetAppContainerNamedObjectPath [0x76EE87A4+228]
+	RtlGetAppContainerNamedObjectPath [0x76EE8774+180]
+ 2021-06-20 18:52:54 
+java.lang.NullPointerException 2021-06-20 18:52:54 
+org.openqa.selenium.SessionNotCreatedException: session not created: This version of ChromeDriver only supports Chrome version 78
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '192.168.238.177', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: driver.version: ChromeDriver
+remote stacktrace: Backtrace:
+	Ordinal0 [0x0069A923+1550627]
+	Ordinal0 [0x0061A731+1025841]
+	Ordinal0 [0x0059C715+509717]
+	Ordinal0 [0x0052FC68+64616]
+	Ordinal0 [0x0052C594+50580]
+	Ordinal0 [0x0054ACE7+175335]
+	Ordinal0 [0x0054A8ED+174317]
+	Ordinal0 [0x00548CDB+167131]
+	Ordinal0 [0x0053144A+70730]
+	Ordinal0 [0x005324D0+74960]
+	Ordinal0 [0x00532469+74857]
+	Ordinal0 [0x006342F7+1131255]
+	GetHandleVerifier [0x0073711D+523789]
+	GetHandleVerifier [0x00736EB0+523168]
+	GetHandleVerifier [0x0073E207+552695]
+	GetHandleVerifier [0x0073791A+525834]
+	Ordinal0 [0x0062B82C+1095724]
+	Ordinal0 [0x0063636B+1139563]
+	Ordinal0 [0x006364D3+1139923]
+	Ordinal0 [0x00635455+1135701]
+	BaseThreadInitThunk [0x76A66359+25]
+	RtlGetAppContainerNamedObjectPath [0x76EE87A4+228]
+	RtlGetAppContainerNamedObjectPath [0x76EE8774+180]
+ 2021-06-20 18:54:11 
+java.lang.NullPointerException 2021-06-20 18:54:11 
+org.openqa.selenium.SessionNotCreatedException: session not created: This version of ChromeDriver only supports Chrome version 78
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '192.168.238.177', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: driver.version: ChromeDriver
+remote stacktrace: Backtrace:
+	Ordinal0 [0x0069A923+1550627]
+	Ordinal0 [0x0061A731+1025841]
+	Ordinal0 [0x0059C715+509717]
+	Ordinal0 [0x0052FC68+64616]
+	Ordinal0 [0x0052C594+50580]
+	Ordinal0 [0x0054ACE7+175335]
+	Ordinal0 [0x0054A8ED+174317]
+	Ordinal0 [0x00548CDB+167131]
+	Ordinal0 [0x0053144A+70730]
+	Ordinal0 [0x005324D0+74960]
+	Ordinal0 [0x00532469+74857]
+	Ordinal0 [0x006342F7+1131255]
+	GetHandleVerifier [0x0073711D+523789]
+	GetHandleVerifier [0x00736EB0+523168]
+	GetHandleVerifier [0x0073E207+552695]
+	GetHandleVerifier [0x0073791A+525834]
+	Ordinal0 [0x0062B82C+1095724]
+	Ordinal0 [0x0063636B+1139563]
+	Ordinal0 [0x006364D3+1139923]
+	Ordinal0 [0x00635455+1135701]
+	BaseThreadInitThunk [0x76A66359+25]
+	RtlGetAppContainerNamedObjectPath [0x76EE87A4+228]
+	RtlGetAppContainerNamedObjectPath [0x76EE8774+180]
+ 2021-06-20 18:55:06 
+java.lang.NullPointerException 2021-06-20 18:55:06 
+数据库连接：IP=172.6.46.225 DBName=newgajck_38900出现问题！ 2021-07-18 16:25:22 
+SQL操作错误 2021-07-18 16:25:22 
+导出数据出现问题，请解决！ 2021-07-18 16:25:22 
+java.lang.NullPointerException 2021-07-18 16:25:22 
+打开扫描仪失败，请检查错误！端口号是: COM9 2021-07-18 16:27:55 
+gnu.io.NoSuchPortException 2021-07-18 16:27:55 
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"#_easyui_textbox_input102"}
+  (Session info: chrome=86.0.4240.198)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '172.31.15.103', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_201'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 86.0.4240.198, chrome: {chromedriverVersion: 86.0.4240.22 (398b0743353ff..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:50848}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 4733cbd3789fc6ca41f8653e17942ff9
+*** Element info: {Using=id, value=_easyui_textbox_input102} 2021-07-18 16:28:56 

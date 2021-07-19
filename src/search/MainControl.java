@@ -62,6 +62,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.TextArea;
 import java.awt.TextField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class MainControl extends JFrame implements variableStatic{
 
@@ -79,6 +81,7 @@ public class MainControl extends JFrame implements variableStatic{
 	private JTextField textField_9;
 	private JTextField textField_11;
 	private JTextField textField_10;
+	private JTextField textField_19;
 	private JLabel DY;
 	private JLabel PZ;
 	private JLabel SM;
@@ -133,6 +136,7 @@ public class MainControl extends JFrame implements variableStatic{
 //					frame.setUndecorated(true);
 					frame.setLocation((displaySize.width - frameSize.width) / 2, (displaySize.height - frameSize.height) / 2);
 					frame.setVisible(true);
+					frame.setTitle("V1.17");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -533,10 +537,10 @@ public class MainControl extends JFrame implements variableStatic{
 						try {
 							extracextractDataFromUI();	commonUtil.areaPrint("成功从UI中拿到参数");//从UI中拿到参数
 	//					从通道中拿到具体有用参数
-							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数");
-//							String authority = OpSqliteDB.search("authority");  //在数据库中拿到 权限信息 判断 是否有
-//							commonUtil.log.printInfo("该用户的权限是 "+ authority);  // 记录用户的权限。写入log
-//							commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));  // 将数据库总数据写入全局变量中供调用
+//							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数");
+							String authority = OpSqliteDB.search("authority");  //在数据库中拿到 权限信息 判断 是否有
+							commonUtil.log.printInfo("该用户的权限是 "+ authority);  // 记录用户的权限。写入log
+							commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));  // 将数据库总数据写入全局变量中供调用
 							extractDataToPublicStr();	commonUtil.areaPrint("完成对数据库中提取的原数据的处理和更新");//对数据库中提取的原数据进行数据更新和处理 
 							POI.createQrCode();		//创建 QR二维码图片
 							
@@ -856,6 +860,37 @@ public class MainControl extends JFrame implements variableStatic{
 		panel_2.add(textField_13);
 		
 		comboBox = new JComboBox();
+		comboBox.addFocusListener(new FocusAdapter() {
+//			对该该数据加入一个失去焦点的监听器，当其失去焦点后，去本地数据库中寻找对应的数据
+			@Override
+			public void focusLost(FocusEvent e) {
+				commonUtil.PZHM_COMMMON = txtd.getText().toString();
+				try {
+					HashMap<String,String> queryCardata = OpSqliteDB.queryCardata (commonUtil.PZHM_COMMMON);
+					if (queryCardata.size()>10)  //只要大于1就行，说明有数据
+					{
+						commonUtil.areaPrint("自动查询到本地数据，启动自动填充");
+	//					自动填充vin码
+						int len = queryCardata.get("${vin}").length();
+						textField.setText(queryCardata.get("${vin}").substring(len-4,len));
+	//					自动填充详细地址
+						textField_1.setText(queryCardata.get("${address}"));
+	//					自动填充电话
+						textField_2.setText(queryCardata.get("${tel}"));
+	//					自动填充行政区划
+						textField_3.setText(queryCardata.get("${postcode}"));
+	//					自动填充里程数
+						comboBox_3.setToolTipText(queryCardata.get("${usage}"));
+					}
+					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					commonUtil.areaPrint("未自动查询到本地数据");
+				}
+				
+			}
+		});
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"大型汽车", "小型汽车", "外籍汽车", "两、三轮摩托车", "轻便摩托车", "农用运输车", "挂车", "教练汽车", "警用汽车", "大型新能源汽车", "小型新能源汽车", "  "}));
 		comboBox.setForeground(Color.BLACK);
 		comboBox.setBackground(Color.WHITE);
@@ -968,6 +1003,22 @@ public class MainControl extends JFrame implements variableStatic{
 
 		qrcode.add(textField_11);
 		
+		
+		JLabel lblNewLabel_5_2 = new JLabel("环保信息更改");
+		lblNewLabel_5_2.setForeground(SystemColor.textHighlight);
+		lblNewLabel_5_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
+		lblNewLabel_5_2.setBackground(Color.WHITE);
+		lblNewLabel_5_2.setBounds(29, 297, 200, 44);
+		qrcode.add(lblNewLabel_5_2);
+		
+		textField_19 = new JTextField();
+		textField_19.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
+		textField_19.setColumns(10);
+		textField_19.setBounds(29, 351, 634, 44);
+		textField_19.setText(EncryUtil.decrypt(Protection.getKeyValue("address")));
+
+		qrcode.add(textField_19);
+		
 		JButton btnNewButton_1_1_1 = new JButton("系统检测");
 		btnNewButton_1_1_1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -976,8 +1027,10 @@ public class MainControl extends JFrame implements variableStatic{
 				try {
 					commonUtil.browserString = OpSqliteDB.search("browserString");
 					commonUtil.url = textField_10.getText();
-					commonUtil.rep =new reptile_test(commonUtil.url);
+					String address  = textField_19.getText();
 					Protection.writeProperties("url", commonUtil.url);
+					Protection.writeProperties("address", address);
+					commonUtil.rep =new reptile_test(commonUtil.url,address);
 					commonUtil.areaPrint("读取数据完成，浏览器信息为: "+ commonUtil.browserString);
 					commonUtil.log.printInfo("读取数据完成，浏览器信息为: "+ commonUtil.browserString);
 				} catch (Exception e) {
@@ -1002,7 +1055,7 @@ public class MainControl extends JFrame implements variableStatic{
 		btnNewButton_1_1_1.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		btnNewButton_1_1_1.setBorderPainted(false);
 		btnNewButton_1_1_1.setBackground(new Color(241, 57, 83));
-		btnNewButton_1_1_1.setBounds(29, 395, 310, 60);
+		btnNewButton_1_1_1.setBounds(29, 460, 310, 60);
 		qrcode.add(btnNewButton_1_1_1);
 		
 		textField_10 = new JTextField();
@@ -1042,7 +1095,7 @@ public class MainControl extends JFrame implements variableStatic{
 		btnNewButton_1_1_1_2.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
 		btnNewButton_1_1_1_2.setBorderPainted(false);
 		btnNewButton_1_1_1_2.setBackground(new Color(241, 57, 83));
-		btnNewButton_1_1_1_2.setBounds(397, 395, 310, 60);
+		btnNewButton_1_1_1_2.setBounds(397, 460, 310, 60);
 		qrcode.add(btnNewButton_1_1_1_2);
 		
 
@@ -1219,18 +1272,25 @@ public class MainControl extends JFrame implements variableStatic{
 		
 		if (commonUtil.PZHM_COMMMON.contains("新")) {
 			Object[] options ={ "当然是", "不是的" };  //自定义按钮上的文字
-			int ISNewCar = JOptionPane.showOptionDialog(null, "检测到\"新\"字样，请确认是否该车辆是否是注册登记车辆车辆!（该选择只影响使用性质填写）", "需要您再次确认",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]); 
+			int ISNewCar = JOptionPane.showOptionDialog(null, "检测到\"新\"字样，请确认该查询车辆是否是注册登记车辆车辆!（该选择只影响使用性质填写）", "需要您再次确认",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]); 
 			System.out.println(ISNewCar);
 			if (ISNewCar==0) {
 				commonUtil.IS_NEW_CAR = true;
 			}
+			String result = "";
+			if (commonUtil.PZHM_COMMMON.contains("新")) {
+				result = JOptionPane.showInputDialog("检测到新车牌号，请确认你要输入的综检车牌号：");	
+			}
+			commonUtil.resultMap.put("${platnum_zj}",result);
+			
 		}
 
 
 	}
+	
 //	This method is used to Set All the Static String
 	public void extractDataToPublicStr() {
-
+		
 		commonUtil.resultMap.put("${platnum}",commonUtil.PZHM_COMMMON);
 		commonUtil.resultMap.put("${address}",commonUtil.XXDZ);
 		commonUtil.resultMap.put("${tel}",commonUtil.DH);
@@ -1240,9 +1300,7 @@ public class MainControl extends JFrame implements variableStatic{
 		commonUtil.resultMap.put("${numOfCylinder}",commonUtil.GS);
 		commonUtil.resultMap.put("${airSupethod}",commonUtil.JQFS);
 		commonUtil.resultMap.put("${CUIHUA_XINGHAO}",commonUtil.CUIHUA_XINGHAO);
-		
-		
-		
+
 		
 //		SCR 判断
 		String fuelType = ((String)commonUtil.resultMap.get("${fuelType}"));
@@ -1289,9 +1347,9 @@ public class MainControl extends JFrame implements variableStatic{
 //		当天的日期 年 月 日 以及将数据中所需要的两个日期格式化一下,并解决特殊的数据查询不到的问题
 		if (commonUtil.SFDTisClicked) {
 			Calendar cal=Calendar.getInstance();
-			int y = cal.get(Calendar.YEAR);   
+			int y = cal.get(Calendar.YEAR);
 			int m = cal.get(Calendar.MONTH)+1;   
-			int d = cal.get(Calendar.DATE);  
+			int d = cal.get(Calendar.DATE);
 			commonUtil.resultMap.put("${today}",y+ "年"+m+ "月"+d+ "日");
 			commonUtil.resultMap.put("${JYRQ}",y+ "年"+m+ "月"+d+ "日");
 
@@ -1340,13 +1398,16 @@ public class MainControl extends JFrame implements variableStatic{
 		for (int i=0;i<variableStatic.SYXZTypes.length;i++) {
 			if (commonUtil.IS_NEW_CAR){
 				if (commonUtil.resultMap.get("${SYXZ}").equals(variableStatic.SYXZTypes[i][0])) {
-//					commonUtil.resultMap.put("${SYXZ}",(String)variableStatic.SYXZTypes[i][1]);
+					commonUtil.resultMap.put("${SYXZ}",(String)variableStatic.SYXZTypes[i][1]);
 					commonUtil.resultMap.put("${syxz}",(String)variableStatic.SYXZTypes[i][1]);
 					break;
 				}
 			}
 			else {
 				commonUtil.resultMap.put("${syxz}","---");
+			}
+			if (commonUtil.resultMap.get("${SYXZ}").equals(variableStatic.SYXZTypes[i][0])) {
+				commonUtil.resultMap.put("${SYXZ}",(String)variableStatic.SYXZTypes[i][1]);
 			}
 		}
 		

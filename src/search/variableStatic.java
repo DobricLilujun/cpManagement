@@ -30,8 +30,7 @@ public interface variableStatic{
 			"${FDJH}","${factoryName}","${transimissionType}","${posite}","${fuelSupplyMethod}",
 			"${airSupethod}","${LTSL}","${power}","${ratepeed}","${PL}",
 			"${usage}","${address}","${tel}","${postcode}",
-			"${sfzmhm}","${numOfCylinder}","${platType}","${SYXZ}","${ZS}","${qdxs}","${syxz}"
-
+			"${sfzmhm}","${numOfCylinder}","${platType}","${SYXZ}","${ZS}","${qdxs}","${syxz}","${vehicleType}"
 		};
     String SYXZTypes[][] = {
     		{"A","非营运"},{"Z","其他"},{"C","公交客运"},{"D","出租客运"},{"E","旅游客运"},{"F","货运"},

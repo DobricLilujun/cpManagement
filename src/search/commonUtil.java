@@ -23,11 +23,13 @@ public class commonUtil {
 	public static String DataBase_name_HY_COMMMON = "";
 	public static String DataBase_username_HY_COMMMON = "";
 	public static String DataBase_password_HY_COMMMON = "";
+	
 //	赛斯数据库
 	public static String DataBase_ip_SIS_COMMMON = "";
 	public static String DataBase_name_SIS_COMMMON = "";
 	public static String DataBase_username_SIS_COMMMON = "";
 	public static String DataBase_password_SIS_COMMMON = "";
+	
 //	赛斯接口数据库
 	public static String url_interface="";
 	public static String jkxlh_interface = "";
@@ -37,7 +39,6 @@ public class commonUtil {
 	
 	
 //	用户鉴权信息
-	
 	public static String SoftwareUserName = "";
 	public static String CompanyName = "";
 	public static String SoftwarePassword = "";
@@ -45,8 +46,6 @@ public class commonUtil {
 	public static String ComputerName = "";
 	
 //	public static String ComputerName = "";
-	
-	
 	public static String XXDZ = "";
 	public static String DH = "";
 	public static String XZQH = "";
@@ -97,6 +96,7 @@ public class commonUtil {
 	public static String PL = "";
 	public static TextArea textArea = null;
 	public static boolean IS_NEW_CAR = false;
+	public static boolean IS_SCANNED_ALREADY = false;
 	
 //	该方法主要用于更改程序提示，从而达到更好的用户体验
 	public static void areaPrint(String str) {

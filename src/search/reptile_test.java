@@ -1,5 +1,6 @@
 package search;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -19,6 +20,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import com.sun.corba.se.spi.orbutil.fsm.Action;
 import com.sun.glass.events.KeyEvent;
@@ -29,23 +32,25 @@ import search.outil.OpSqliteDB;
 public class reptile_test {
 	
 //	public static String browserString = "D:\\360 浏览器\\360se6\\Application\\360se.exe";
-	public static String browserString;
+	public static String browserString ;
 	private ChromeOptions option ;
 	public WebDriver br;
 	public String urlString;
 	public EventFiringWebDriver e_driver;
 	public Actions action;
 	public Robot r;
+	public String addressString;
 	
-	reptile_test(String urlString) {
+	reptile_test(String urlString,String addressString) {
 		final File file = new File ("resource/file/chromedriver.exe");
 		System.setProperty("webdriver.chrome.driver",file.getAbsolutePath());
 		this.urlString = urlString;
+		this.addressString = addressString;
 		System.out.println(this.urlString);
 		ChromeOptions option = new ChromeOptions();
 		option.addArguments("disable-infobars");
-		
 		browserString = commonUtil.browserString;
+//		browserString= "D:\\360 浏览器\\360se6\\Application\\360se.exe";
 		System.out.println(commonUtil.browserString);
 		option.setBinary(browserString);
 		br =  new ChromeDriver(option);
@@ -68,10 +73,16 @@ public class reptile_test {
 			}
 			if (CDate.substring(i, i+1).equals("月")) {
 				y = CDate.substring(flag,i);
+				if (y.length()==1) {
+					y = "0"+ y;
+				}
 				flag = i+1;
 			}
 			if (CDate.substring(i, i+1).equals("日")) {
 				r = CDate.substring(flag,i);
+				if (r.length()==1) {
+					r = "0"+ r;
+				}
 				return n+"-"+y+"-"+r;
 			}
 		}
@@ -86,13 +97,14 @@ public class reptile_test {
 		WebEventListener eventListener = new WebEventListener();
         e_driver.register(eventListener);
 		e_driver.get(urlString);
-//		Dimension dimension = new Dimension(800, 600);
-//		e_driver.manage().window().setSize(dimension);
+        JavascriptExecutor jsExecutor = (JavascriptExecutor)driver;
+        String jsOpenNewWindow = "window.open('"+addressString+"');";
+        jsExecutor.executeScript(jsOpenNewWindow);
         ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
         System.out.println(tabs.size());
         e_driver.switchTo().window(tabs.get(0));
-//        Thread.sleep(5000);
         System.out.println("有标签页："+tabs.size()+"被检测到！");
+        
         action = new Actions(driver);
         r = new Robot();
 //	    driver.quit();
@@ -168,13 +180,52 @@ public class reptile_test {
 		 JavascriptExecutor js = (JavascriptExecutor) driver;
 		 WebElement content = driver.findElement(By.xpath("//div[text()='"+targeChoice+"']")); 
 		 String StrJs = "var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true,false);arguments[0].dispatchEvent(evObj);arguments[0].click();";
-		 System.out.println(StrJs);
+//		 System.out.println(StrJs);
 		 js.executeScript(StrJs,content);
 		 content = driver.findElement(By.xpath("//div[text()='"+targeChoice+"']")); 
-		 System.out.println(content.getAttribute("outerHTML"));
+//		 System.out.println(content.getAttribute("outerHTML"));
 		 StrJs = "var evObj = document.createEvent('HTMLEvents');evObj.initEvent('select',true,false);arguments[0].dispatchEvent(evObj);";
-		 System.out.println(StrJs);
+//		 System.out.println(StrJs);
 		 js.executeScript(StrJs,content);
+	 }
+	 
+	 public void fillVehicleType (WebDriver driver,String targetID, String targeChoice) throws InterruptedException {
+		 
+		 if (targeChoice.equals("微型轿车")) {
+			 targeChoice = "小型轿车";
+		 }
+		 if (targeChoice.equals("轻型栏板货车")) {
+			 targeChoice = "轻型普通货车";
+		 }
+		 JavascriptExecutor js = (JavascriptExecutor) driver;
+		 WebElement targetCombox= driver.findElement(By.id(targetID));
+		 action.click(targetCombox).perform();
+		 WebElement contentEle= driver.findElement(By.xpath("/html/body/div[22]/div"));
+		 WebElement contentList = contentEle.findElement(By.tagName("ul"));
+		 List<WebElement> Lists = contentList.findElements(By.xpath("./*"));
+		 boolean isfind = false;
+		 for (WebElement list: Lists){
+//			 action.click(list).perform();
+			 WebElement sublist = list.findElement(By.tagName("ul"));
+			 WebElement spanlist = list.findElements(By.tagName("span")).get(0);
+			 List<WebElement> subLists = sublist.findElements(By.tagName("li"));
+			 for (WebElement subTitle: subLists) {
+				 WebElement elediv = subTitle.findElement(By.tagName("div"));
+				 WebElement elespan = elediv.findElement(By.className("tree-title"));
+				 String eleText = elespan.getAttribute("textContent");
+				 if (targeChoice.equals(eleText)) {
+					 action.click(spanlist).perform();
+					 Thread.sleep(1000);
+					 action.click(elediv).perform();
+//					 String StrJs = "var evObj = document.createEvent('HTMLEvents');evObj.initEvent('select',true,false);arguments[0].dispatchEvent(evObj);";
+//					 js.executeScript(StrJs,elediv);
+					 isfind = true;
+					 break;
+				 }
+			 }
+			 if (isfind) {break;}
+		 }
+		 
 	 }
 //	 通过名字和排序 填写 选项框
 	 public void fillComboxBoxSelectedWithSameValue (WebDriver driver,String targetID, String targeChoice, int order) {
@@ -216,7 +267,8 @@ public class reptile_test {
 	 }
 //	 填写 文本框
 	 public void fillTextInput (WebDriver driver,String targetID, String StringContent) {
-		 WebElement clpp= driver.findElement(By.id(targetID));  
+		 WebElement clpp= driver.findElement(By.id(targetID));
+		 clpp.clear();
 		 clpp.click();
 		 clpp.clear();
 		 clpp.click();
@@ -233,7 +285,7 @@ public class reptile_test {
 //		 reptile.br.findElement(By.id("clearBtn")).click();
 //	 }
 	 
-	 public void ifAutoComplete (reptile_test reptile) throws InterruptedException {
+	 public void ifAutoComplete (reptile_test reptile) throws InterruptedException, ParseException {
 
 		 reptile.br.switchTo().frame("addWaitWinIframe");
 		 reptile.br.switchTo().frame("addWaitWinIframe");
@@ -242,10 +294,16 @@ public class reptile_test {
 //		 selector.click();
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input89", (String)commonUtil.resultMap.get("${vin}"));
 		 
-		 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input67", "蓝",0);
+		 String platype = (String)commonUtil.resultMap.get("${platType}");
+		 if (platype.contains("大型汽车")) {
+			 platype = "黄";
+		 }else {
+			 platype = "蓝";
+		 }
+		 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input67", platype,0);
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input68", (String)commonUtil.resultMap.get("${owner}"));
 //		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input64", "客车");
-		 
+		 reptile.fillVehicleType(reptile.br, "_easyui_textbox_input64", (String)commonUtil.resultMap.get("${vehicleType}"));
 		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input87", (String)commonUtil.resultMap.get("${SYXZ}"));
 		 
 		 
@@ -253,6 +311,7 @@ public class reptile_test {
 		 reptile.fillDate(reptile.br, "_easyui_textbox_input63", rq);
 		 rq  = (String)commonUtil.resultMap.get("${CLCCRQ}");rq = C2EDate(rq);
 		 reptile.fillDate(reptile.br, "_easyui_textbox_input62", rq);
+		 
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input65",(String)commonUtil.resultMap.get("${brand}") );
 		 if (((String)commonUtil.resultMap.get("${GCJK}")).equals("A")) {
 			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input28", "国产" );		
@@ -265,19 +324,33 @@ public class reptile_test {
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input75", (String)commonUtil.resultMap.get("${hdzzl}"));
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input74", (String)commonUtil.resultMap.get("${ZKRS}"));
 		 
+
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input66", (String)commonUtil.resultMap.get("${XH}"));
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input73", (String)commonUtil.resultMap.get("${engineModel}"));
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input85", (String)commonUtil.resultMap.get("${fuelType}"));
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input30", "无");
+		 
+//		 对于燃油形式，进行一定的定义和对比,包含双油料种类的选择
+		 String fueltypestr = (String)commonUtil.resultMap.get("${fuelType}");
+		 String result[] = fueltypestr.split(" , ");
+		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input85", result[0]);
+		 if (result.length>=2) {reptile.fillComboxBox(reptile.br, "_easyui_textbox_input30", result[1]);}	 
 		 
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input8", (String)commonUtil.resultMap.get("${FDJH}"));
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input92", (String)commonUtil.resultMap.get("${factoryName}"));
 		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input61", (String)commonUtil.resultMap.get("${transimissionType}"));
 		 
 		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input84", (String)commonUtil.resultMap.get("${qdxs}"));
+		 
 		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input34",  (String)commonUtil.resultMap.get("${fuelSupplyMethod}"));
 		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input77", (String)commonUtil.resultMap.get("${airSupethod}"));
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input79", "4");
+		 String posite = (String)commonUtil.resultMap.get("${posite}");
+		 String ltsl = "4";
+		 if (posite.contains("8×4")) {ltsl = "12";}
+		 else if (posite.contains("6×4")) {ltsl = "10";}
+		 else if (posite.contains("6×2")) {ltsl = "8";}
+		 else if (posite.contains("4×2")) {ltsl = "4";}
+		 else if (posite.contains("4×4")) {ltsl = "4";}
+		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input79", ltsl);
+		 
 		 
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input71", (String)commonUtil.resultMap.get("${power}"));
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input72", (String)commonUtil.resultMap.get("${ratepeed}"));
@@ -288,7 +361,7 @@ public class reptile_test {
 		 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input83", "三元催化",0);
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input10", "0");
 		 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input37", "三元催化",1);
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input11", "0");
+		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input11", "-");
 		 
 		 
 		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input38", "否");
@@ -310,21 +383,35 @@ public class reptile_test {
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input80", (String)commonUtil.resultMap.get("${tel}"));
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input69", (String)commonUtil.resultMap.get("${postcode}"));
 		 
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input20", "-");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input21", "-");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input22", "0");
 		 
 		 
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input19", "1");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input102", "-");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input103", "-");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input104", "-");
-		 
-		 
-		 
+		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input99", "-");
+		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input100", "-");
+		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input101", "0");
 		 
 		 
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input23", (String)commonUtil.resultMap.get("${factoryName}"));
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input43", "有");
+//		 OBD设定 rq
+		 String OBD = "有";
+		 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");    
+		 String date_limit_daxing = "2018-01-01";
+		 String date_limit_xiaoxing = "2011-07-01";
+		 Date date_limit_daxing_Date = f.parse(date_limit_daxing);
+		 Date date_limit_xiaoxing_Date = f.parse(date_limit_xiaoxing);
+		 Date ccrq = f.parse(rq);
+		 if (((String)commonUtil.resultMap.get("${platType}")).equals("大型汽车")) {if (ccrq.before(date_limit_daxing_Date)) {OBD = "无";}}
+		 else if (((String)commonUtil.resultMap.get("${platType}")).equals("小型汽车")) {if (ccrq.before(date_limit_xiaoxing_Date)) {OBD = "无";}}
+		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input43", OBD);
+
+		 
+		 
 		 String dang = "";
 		 String gang = "";
+		 System.out.println((String)commonUtil.resultMap.get("${platType}"));
 		 if (((String)commonUtil.resultMap.get("${platType}")).equals("大型汽车")) {
 			 dang = "10";
 			 gang = "6";
@@ -444,93 +531,105 @@ public class reptile_test {
 	 
 	 public static void main(String[] args) throws Exception 
     { 
-		 // 对浏览器驱动
-		 reptile_test reptile =new reptile_test("http://172.32.250.11:8090/jc/yt/loginout/login.yt");
-		 Thread.sleep(20000);
-		 reptile.br.switchTo().frame("addWaitWinIframe");
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input5", "注册登记检验");
-		 reptile.fillTestProvince(reptile.br, "_easyui_textbox_input6", "鲁");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input2", "DR3344");
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input7", "小型汽车");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input3", "131186");
-		 reptile.br.findElement(By.id("clearBtn")).click();
-		 Thread.sleep(5000);
-//		 WebDriverWait w=new WebDriverWait(reptile.br,60);
-//		 w.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("l-btn l-btn-small")));
-		 reptile.br.switchTo().frame("addWaitWinIframe");
-//		 WebElement selector = reptile.br.findElement(By.cssSelector("body > div.panel.window.panel-htop.messager-window > div.dialog-button.messager-button > a"));
-//		 selector.click();
-		 
-		 
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input89", "123456");
-		 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input67", "黑",1);
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input68", "123456");
-//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input64", "客车");
-		 
-		 
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input87", "非营运");
-		 reptile.fillDate(reptile.br, "_easyui_textbox_input63", "2019-01-08");
-		 reptile.fillDate(reptile.br, "_easyui_textbox_input62", "2019-01-08");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input65", "大车1");
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input28", "国产");
-		 
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input91", "大车2");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input90", "大车3");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input75", "大车4");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input74", "大车5");
-		 
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input66", "大车6");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input73", "大车7");
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input85", "汽油");
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input30", "无");
-		 
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input8", "大车8");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input92", "大车9");
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input61", "手动");
-		 
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input84", "前驱");
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input34", "高压共轨");
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input77", "涡轮增压");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input79", "9");
-		 
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input71", "93123123");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input72", "93123123");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input82", "93123123");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input78", "93123123");
-		 
-		 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input83", "三元催化",0);
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input10", "93123123");
-		 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input37", "三元催化",1);
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input11", "93123123");
-		 
-		 
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input38", "否");
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input59", "否");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input70", "-");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input13", "-");
-		 
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input88", "长治市");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input81", "13456798");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input53", "20");
-		 
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input42", "统一社会信用代码");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input15", "140481199712230413");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input80", "13456798");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input69", "047500");
-		 
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input19", "140481199712230413");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input102", "140481199712230413");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input103", "140481199712230413");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input104", "140481199712230413");
-		 
-		 
-		 
-		 
-		 
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input23", "140481199712230413");
-		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input43", "有");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input54", "140481199712230413");
-		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input55", "140481199712230413");
+//		 OBD设定 rq
+		 String OBD = "有";
+		 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");    
+		 String date_limit_daxing = "2010-01-01";
+		 String date_limit_xiaoxing = "2011-07-01";
+		 Date date_limit_daxing_Date = f.parse(date_limit_daxing);
+		 Date date_limit_xiaoxing_Date = f.parse(date_limit_xiaoxing);
+		 System.out.println(date_limit_daxing_Date.after(date_limit_xiaoxing_Date));
+
+//		 // 对浏览器驱动
+//		 reptile_test reptile =new reptile_test("http://172.32.250.11:8090/jc/yt/loginout/login.yt","http://172.32.250.14:8000/menhu/index.html");
+//		 Thread.sleep(25000);
+//		 reptile.br.switchTo().frame("addWaitWinIframe");
+//		 reptile.br.switchTo().frame("addWaitWinIframe");
+//		 Thread.sleep(2000);
+////		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input5", "注册登记检验");
+//		 reptile.fillVehicleType(reptile.br, "_easyui_textbox_input64", "轻型栏板货车");
+////		 reptile.fillTestProvince(reptile.br, "_easyui_textbox_input6", "鲁");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input2", "DR3344");
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input7", "小型汽车");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input3", "131186");
+//		 reptile.br.findElement(By.id("clearBtn")).click();
+//		 Thread.sleep(5000);
+////		 WebDriverWait w=new WebDriverWait(reptile.br,60);
+////		 w.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("l-btn l-btn-small")));
+//		 reptile.br.switchTo().frame("addWaitWinIframe");
+////		 WebElement selector = reptile.br.findElement(By.cssSelector("body > div.panel.window.panel-htop.messager-window > div.dialog-button.messager-button > a"));
+////		 selector.click();
+//		 
+//		 
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input89", "123456");
+//		 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input67", "黑",1);
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input68", "123456");
+////		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input64", "客车");
+//		 
+//		 
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input87", "非营运");
+//		 reptile.fillDate(reptile.br, "_easyui_textbox_input63", "2019-01-08");
+//		 reptile.fillDate(reptile.br, "_easyui_textbox_input62", "2019-01-08");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input65", "大车1");
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input28", "国产");
+//		 
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input91", "大车2");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input90", "大车3");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input75", "大车4");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input74", "大车5");
+//		 
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input66", "大车6");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input73", "大车7");
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input85", "汽油");
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input30", "无");
+//		 
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input8", "大车8");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input92", "大车9");
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input61", "手动");
+//		 
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input84", "前驱");
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input34", "高压共轨");
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input77", "涡轮增压");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input79", "9");
+//		 
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input71", "93123123");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input72", "93123123");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input82", "93123123");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input78", "93123123");
+//		 
+//		 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input83", "三元催化",0);
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input10", "93123123");
+//		 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input37", "三元催化",1);
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input11", "93123123");
+//		 
+//		 
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input38", "否");
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input59", "否");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input70", "-");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input13", "-");
+//		 
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input88", "长治市");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input81", "13456798");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input53", "20");
+//		 
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input42", "统一社会信用代码");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input15", "140481199712230413");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input80", "13456798");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input69", "047500");
+//		 
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input19", "140481199712230413");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input102", "140481199712230413");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input103", "140481199712230413");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input104", "140481199712230413");
+//		 
+//		 
+//		 
+//		 
+//		 
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input23", "140481199712230413");
+//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input43", "有");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input54", "140481199712230413");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input55", "140481199712230413");
 		 
 		 
 		 

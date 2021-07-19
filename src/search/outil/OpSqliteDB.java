@@ -125,11 +125,12 @@ public class OpSqliteDB {
 		return false;
    }
 //   根据车牌号和 车辆类型去查询
-   public static HashMap<String,String> queryCardata ( String hphm, String hpzl) throws Exception {
+   public static HashMap<String,String> queryCardata (String hphm) throws Exception {
 	   String key = "qwrwrww十多个";
 	   MD5 mt= new MD5(key, "utf-8");
 	   OpSqliteDB db = new OpSqliteDB("DatabaseName.db");
-	   String sql = "SELECT * FROM UserTable WHERE platnum = '" + mt.encode(hphm) +"' AND platType = '"+ mt.encode(hpzl)+"' limit 1";
+	   String sql = "SELECT * FROM UserTable WHERE platnum = '" + mt.encode(hphm) +"' order by id limit 1";
+	   System.out.println(sql);
 	   db.stmt.executeUpdate(sql);
 	   HashMap<String,String> result_map = new HashMap<String, String>();
 		try {
@@ -137,12 +138,14 @@ public class OpSqliteDB {
 			while(db.rs.next())
 			{
 				for (String s: variableStatic.qrfileds) {
-					System.out.println(mt.decode(db.rs.getString(s.substring(2,s.length()-1))));
+//					System.out.println(s);
+					if (s.equals("${qdxs}")) {break;}
+//					System.out.println(m	t.decode(db.rs.getString(s.substring(2,s.length()-1))));
 					result_map.put(s, mt.decode(db.rs.getString(s.substring(2,s.length()-1))));
 				}
 				result_map.put("TDATE", db.rs.getString("TDATE"));
 			}
-			System.out.println(mt.decode(result_map.get("TDATE")));
+//			System.out.println(mt.decode(result_map.get("TDATE")));
 		} catch (SQLException e) 
 		{
 			e.printStackTrace();

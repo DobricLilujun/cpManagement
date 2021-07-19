@@ -2,8 +2,12 @@ package search;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -31,6 +35,7 @@ public class reptile {
 	public Robot r;
 	
 	reptile(String urlString) {
+		System.setProperty("webdriver.chrome.driver",".\\.\\resource\\file\\chromedriver.exe");
 		this.urlString = urlString;
 		ChromeOptions option = new ChromeOptions();
 		option.addArguments("disable-infobars");
@@ -52,12 +57,18 @@ public class reptile {
 		WebEventListener eventListener = new WebEventListener();
         e_driver.register(eventListener);
 		e_driver.get(urlString);
+        action = new Actions(driver);
+        r = new Robot();
+        Thread.sleep(10000);
+        JavascriptExecutor jsExecutor = (JavascriptExecutor)driver;
+        
+        /* Javascript that will create new Firefox window. */
+        String jsOpenNewWindow = "window.open('"+"http://www.baidu.com"+"');";
+        jsExecutor.executeScript(jsOpenNewWindow);
         ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
         System.out.println(tabs.size());
         e_driver.switchTo().window(tabs.get(0));
         System.out.println("有标签页："+tabs.size()+"被检测到！");
-        action = new Actions(driver);
-        r = new Robot();
 	  }
 	 
 	 public void get_combox(WebDriver driver) throws InterruptedException {
@@ -208,11 +219,13 @@ public class reptile {
 	 public static void main(String[] args) throws Exception 
     { 
 		 // 对浏览器驱动
-//		 reptile reptile =new reptile("http://172.32.250.11:8090/jc/yt/loginout/login.yt");
-		 String a = "2018/02/26 00:00:00";
-		 String b[] = a.split(" ");
-		 String c[] = b[0].split("/");
-		 System.out.println(c[0]+ " 年 "+c[1]+ " 月 "+c[2]+ " 日 ");
+//		 reptile reptile =new reptile("http://www.baidu.com");
+		 String result = JOptionPane.showInputDialog("检测到新车牌号，请确认你要输入的综检车牌号：");
+		 System.out.println(result);
+//		 String a = "2018/02/26 00:00:00";
+//		 String b[] = a.split(" ");
+//		 String c[] = b[0].split("/");
+//		 System.out.println(c[0]+ " 年 "+c[1]+ " 月 "+c[2]+ " 日 ");
     } 
 }
 	 
