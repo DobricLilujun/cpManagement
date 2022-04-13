@@ -5,16 +5,16 @@ import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
- 
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
- 
+
 import org.apache.commons.lang.StringUtils;
- 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+
+import Decoder.BASE64Decoder;
+import Decoder.BASE64Encoder;
  
 public class MD5 {
     //向量(同时拥有向量和密匙才能解密)，此向量必须是8byte，多少都报错

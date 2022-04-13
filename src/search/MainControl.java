@@ -136,7 +136,7 @@ public class MainControl extends JFrame implements variableStatic{
 //					frame.setUndecorated(true);
 					frame.setLocation((displaySize.width - frameSize.width) / 2, (displaySize.height - frameSize.height) / 2);
 					frame.setVisible(true);
-					frame.setTitle("V1.17");
+					frame.setTitle("V1.18");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -536,7 +536,7 @@ public class MainControl extends JFrame implements variableStatic{
 					if (OpSqliteDB.verifyIsOkForUser()) {
 						try {
 							extracextractDataFromUI();	commonUtil.areaPrint("成功从UI中拿到参数");//从UI中拿到参数
-	//					从通道中拿到具体有用参数
+//	//					从通道中拿到具体有用参数
 //							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数");
 							String authority = OpSqliteDB.search("authority");  //在数据库中拿到 权限信息 判断 是否有
 							commonUtil.log.printInfo("该用户的权限是 "+ authority);  // 记录用户的权限。写入log
@@ -544,7 +544,7 @@ public class MainControl extends JFrame implements variableStatic{
 							extractDataToPublicStr();	commonUtil.areaPrint("完成对数据库中提取的原数据的处理和更新");//对数据库中提取的原数据进行数据更新和处理 
 							POI.createQrCode();		//创建 QR二维码图片
 							
-	//						commonUtil.log.printInfo("以下是导出的数据，可以作为暂时参考，如果发布版，不能够出现这些东西，保护用户的数据安全：");
+							commonUtil.log.printInfo("以下是导出的数据，可以作为暂时参考，如果发布版，不能够出现这些东西，保护用户的数据安全：");
 	//						for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
 	////							System.out.println(entry.getKey()+" : "+entry.getValue());
 	//							commonUtil.log.printInfo(entry.getKey()+" : "+entry.getValue());
@@ -734,8 +734,15 @@ public class MainControl extends JFrame implements variableStatic{
 								commonUtil.log.printInfo("替换补充表中数据成功！");
 								commonUtil.areaPrint("替换补充表中数据成功！");
 							}
+//							汽车排放外检表
+							else if (i==2) {
+								ChangeExcelData.exportDataXls(commonUtil.resultMap_excel,variableStatic.tables[2]+"1");
+								ChangeExcelData.exportDataXls(commonUtil.resultMap_excel,variableStatic.tables[2]+"2");
+								commonUtil.log.printInfo("替换汽车排放外检表数据成功！");
+								commonUtil.areaPrint("替换汽车排放外检表数据成功！");
+							}
 //							如果是人工检验表的话,需要导出检测两个xls表并导出
-							else if (i ==1) {
+							else if (i==1) {
 								ChangeExcelData.exportDataXls(commonUtil.resultMap_excel,variableStatic.tables[1]+"1");
 								ChangeExcelData.exportDataXls(commonUtil.resultMap_excel,variableStatic.tables[1]+"2");
 								commonUtil.log.printInfo("替换人工检验表数据成功！");
@@ -754,7 +761,7 @@ public class MainControl extends JFrame implements variableStatic{
 					for (int i=0; i<variableStatic.tables.length;i++) {
 						if (commonUtil.ifPrint[i]==1) {
 							if (i==1) {
-								printChannel.printSpecify();
+								printChannel.printSpecify_1();
 								File file = new File ("resource/output/"+"人工检验表"+".pdf");
 								commonUtil.areaPrint("开始打印人工检验表。。。");
 								printChannel.printpdf(file);
@@ -765,6 +772,20 @@ public class MainControl extends JFrame implements variableStatic{
 								deleteFile("resource/temp/"+"人工检验表2"+".xls");
 								commonUtil.log.printInfo("打印人工检验表中数据成功！");
 							}
+							// 汽车排放外检表
+							if (i==2) {
+								printChannel.printSpecify_2();
+								File file = new File ("resource/output/"+"汽车排放外检表"+".pdf");
+								commonUtil.areaPrint("开始打印汽车排放外检表。。。");
+								printChannel.printpdf(file);
+								commonUtil.areaPrint("创建汽车排放外检表打印任务成功");
+								deleteFile("resource/output/"+"汽车排放外检表1"+".xls");
+								deleteFile("resource/output/"+"汽车排放外检表2"+".xls");
+								deleteFile("resource/temp/"+"汽车排放外检表1"+".xls");
+								deleteFile("resource/temp/"+"汽车排放外检表2"+".xls");
+								commonUtil.log.printInfo("打印汽车排放外检表中数据成功！");
+							}
+							
 							else if (i==4) 
 							{
 								printChannel.word2pdf("\\resource\\output\\"+"补充申请表"+".docx","\\resource\\output\\"+"补充申请表"+".pdf");

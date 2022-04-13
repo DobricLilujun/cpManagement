@@ -227,6 +227,7 @@ public class MainWindow
 						result = Get.get(s1,s2,flag,conn1);
 						LinkedList<String> origin = new LinkedList<String>()
 						{{
+							
 							add("DW");
 							add("MakeDate");
 							add("CPH");
@@ -245,7 +246,9 @@ public class MainWindow
 							add("ZCZL");
 							add("ZBZL");
 							add("SYXZStr");
+							
 						}};
+						
 						result.add(address);
 						result.add(number);
 						result.add(postcode);
@@ -260,6 +263,7 @@ public class MainWindow
 						origin.add("fadongjixinghao");
 						String name = "打印表安";
 						export_info(origin,result,name);
+						
 					}
 					else if(ComboBox_table.getSelectedIndex()==1)
 					{

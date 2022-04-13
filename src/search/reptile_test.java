@@ -23,8 +23,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import com.sun.corba.se.spi.orbutil.fsm.Action;
-import com.sun.glass.events.KeyEvent;
+import java.awt.event.KeyEvent;
 
 import search.WebEventListener;
 import search.outil.OpSqliteDB;

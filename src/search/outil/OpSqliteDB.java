@@ -455,21 +455,12 @@ public class OpSqliteDB {
 //        app.updatePicture("xls性能检测判定表", "resource\\file\\性能检测判定表.xlsx");
 //        app.updatePicture("补充申请表","resource\\file\\补充申请表.docx");
         
-        app.updatePicture("xls委托书", "resource\\file\\委托书.xls");
-        app.updatePicture("xls人工检验表1", "resource\\file\\人工检验表1.xls");
-        app.updatePicture("xls人工检验表2", "resource\\file\\人工检验表2.xls");
-        app.updatePicture("xls汽车排放外检表", "resource\\file\\汽车排放外检表.xls");
-        app.updatePicture("xls牌证申请表", "resource\\file\\牌证申请表.xls");
-//      app.updatePicture("xls补充申请表","resource\\file\\补充申请表.docx");
-        app.updatePicture("xls载货汽车表", "resource\\file\\载货汽车表.xls");
-        app.updatePicture("xls牵引车辆表", "resource\\file\\牵引车辆表.xls");
-        app.updatePicture("xls客车表", "resource\\file\\客车表.xls");
-        app.updatePicture("xls挂车表", "resource\\file\\挂车表.xls");
-        app.updatePicture("xls性能检测判定表", "resource\\file\\性能检测判定表.xls");
-        app.updatePicture("补充申请表","resource\\file\\补充申请表.docx");
-//        app.readPicture("客车表","客车表.docx");
+        app.updatePicture("xls汽车排放外检表1", "resource\\file\\汽车排放外检表1.xls");
+        app.updatePicture("xls汽车排放外检表2", "resource\\file\\汽车排放外检表2.xls");
+        
+//        app.readPicture("xls汽车排放外检表1","汽车排放外检表1.xls");
 //     app.updatePicture("委托书", "resource\\file\\委托书.docx");
-//     app.updatePicture("人工检验表", "resource\\file\\人工检验表.docx");
+//       app.updatePicture("人工检验表", "resource\\file\\人工检验表.docx");
 //     app.updatePicture("汽车排放外检表", "resource\\file\\汽车排放外检表.docx");
 //     app.updatePicture("牌证申请表", "resource\\file\\牌证申请表.docx");
 //     app.updatePicture("补充申请表","resource\\file\\补充申请表.docx");

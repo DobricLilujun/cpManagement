@@ -59,14 +59,14 @@ public class ChangeExcelData {
     	db.readPicture("xls"+filename, filename+ variableStatic.fileXlsxNameTail);
     	String inPath= variableStatic.filePathRoot + filename+ variableStatic.fileXlsxNameTail;
     	String outPath= variableStatic.outPutPathRoot + filename + variableStatic.fileXlsxNameTail;
-//		String inPath = "resource/file/"+filename+".xlsx";
-//	    String outPath = "resource/output/"+filename+".xlsx";
-
-	    System.out.println(inPath);
-	    System.out.println(outPath);
+    	
         InputStream is = new FileInputStream(new File(inPath));
+        System.out.println(inPath);
         Workbook wb = WorkbookFactory.create(is);
+        System.out.println(wb);
         Sheet sheet = wb.getSheet(filename);//获取Excel的工作表sheet，下标从0开始。
+        System.out.println(filename);
+        System.out.println(sheet);
         int trLength = sheet.getLastRowNum();//获取Excel的行数
         for (int i = 0; i < trLength; i++) {
             Row row = sheet.getRow(i);//获取Excel的行，下标从0开始

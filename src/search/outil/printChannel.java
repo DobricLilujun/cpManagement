@@ -213,8 +213,8 @@ public class printChannel {
 	     return true;
 	}
 	
-//	转为打人工检验表而设计
-	public static void printSpecify() throws FileNotFoundException {
+//	专为打人工检验表和汽车排放外检表而设计
+	public static void printSpecify_1() throws FileNotFoundException {
 		xlsx2pdf("人工检验表1");
 		xlsx2pdf("人工检验表2");
 		FileInputStream stream1 = new FileInputStream(new File("resource/output/人工检验表1.pdf"));
@@ -223,6 +223,18 @@ public class printChannel {
 	    PdfDocumentBase doc = PdfDocument.mergeFiles(streams);
 	    doc.save("resource/output/人工检验表.pdf");
         doc.close();
+       
+	}
+	
+	public static void printSpecify_2() throws FileNotFoundException {
+		xlsx2pdf("汽车排放外检表1");
+		xlsx2pdf("汽车排放外检表2");
+		FileInputStream stream3 = new FileInputStream(new File("resource/output/汽车排放外检表1.pdf"));
+	    FileInputStream stream4 = new FileInputStream(new File("resource/output/汽车排放外检表2.pdf"));
+	    InputStream[] streams_ = new FileInputStream[]{stream3, stream4};
+	    PdfDocumentBase doc1 = PdfDocument.mergeFiles(streams_);
+	    doc1.save("resource/output/汽车排放外检表.pdf");
+        doc1.close();
 	}
 	
 //	public static boolean printXlsx(String filename) {
