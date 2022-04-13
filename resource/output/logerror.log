@@ -528,3 +528,4 @@ Driver info: org.openqa.selenium.chrome.ChromeDriver
 Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 86.0.4240.198, chrome: {chromedriverVersion: 86.0.4240.22 (398b0743353ff..., userDataDir: C:\Users\86913\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:50848}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
 Session ID: 4733cbd3789fc6ca41f8653e17942ff9
 *** Element info: {Using=id, value=_easyui_textbox_input102} 2021-07-18 16:28:56 
+Hello 2022-04-04 16:50:51 
