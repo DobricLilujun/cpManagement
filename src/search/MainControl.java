@@ -537,20 +537,22 @@ public class MainControl extends JFrame implements variableStatic{
 						try {
 							extracextractDataFromUI();	commonUtil.areaPrint("成功从UI中拿到参数");//从UI中拿到参数
 //	//					从通道中拿到具体有用参数
-//							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数");
+							
+							// 二选一
+//							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数"); // 测试
 							String authority = OpSqliteDB.search("authority");  //在数据库中拿到 权限信息 判断 是否有
-							commonUtil.log.printInfo("该用户的权限是 "+ authority);  // 记录用户的权限。写入log
 							commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));  // 将数据库总数据写入全局变量中供调用
+							
+							commonUtil.log.printInfo("该用户的权限是 "+ authority);  // 记录用户的权限。写入log
+							
 							extractDataToPublicStr();	commonUtil.areaPrint("完成对数据库中提取的原数据的处理和更新");//对数据库中提取的原数据进行数据更新和处理 
 							POI.createQrCode();		//创建 QR二维码图片
-							
 							commonUtil.log.printInfo("以下是导出的数据，可以作为暂时参考，如果发布版，不能够出现这些东西，保护用户的数据安全：");
 	//						for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
 	////							System.out.println(entry.getKey()+" : "+entry.getValue());
 	//							commonUtil.log.printInfo(entry.getKey()+" : "+entry.getValue());
 	//						}
 							OpSqliteDB.insertCarData();	commonUtil.areaPrint("插入数据库成功");	//将数据插入到数据库中，供离线调用
-
 							JOptionPane.showMessageDialog(null, "导出数据成功!");
 	//					在本地数据库中查询该数据
 	//					OpSqliteDB.queryCardata((String)commonUtil.resultMap.get("${platnum}"), (String)commonUtil.resultMap.get("${platType}"));
@@ -773,7 +775,7 @@ public class MainControl extends JFrame implements variableStatic{
 								commonUtil.log.printInfo("打印人工检验表中数据成功！");
 							}
 							// 汽车排放外检表
-							if (i==2) {
+							else if (i==2) {
 								printChannel.printSpecify_2();
 								File file = new File ("resource/output/"+"汽车排放外检表"+".pdf");
 								commonUtil.areaPrint("开始打印汽车排放外检表。。。");
