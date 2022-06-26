@@ -1,5 +1,6 @@
 package search;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -16,10 +17,11 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import com.opencsv.*;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.File;
+import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -285,7 +287,416 @@ public class reptile_test {
 //	 }
 	 
 	 public void ifAutoComplete (reptile_test reptile) throws InterruptedException, ParseException {
+		 
+		 reptile.br.switchTo().frame("addWaitWinIframe");
+		 reptile.br.switchTo().frame("addWaitWinIframe");
+//		 WebElement selector = reptile.br.findElement(By.cssSelector("body > div.panel.window.panel-htop.messager-window > div.dialog-button.messager-button > a"));
+//		 selector.click();
+		 
+		 List<WebElement> finded = reptile.br.findElements(By.id("_easyui_textbox_input89"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input89", (String)commonUtil.resultMap.get("${vin}")); 
+		 }
+		 
+		 String platype = (String)commonUtil.resultMap.get("${platType}");
+		 if (platype.contains("大型汽车")) {
+			 platype = "黄";
+		 }else {
+			 platype = "蓝";
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input67"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input67", platype,0);
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input68"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input68", (String)commonUtil.resultMap.get("${owner}"));
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input64"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillVehicleType(reptile.br, "_easyui_textbox_input64", (String)commonUtil.resultMap.get("${vehicleType}"));
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input87"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input87", (String)commonUtil.resultMap.get("${SYXZ}"));
+		 }
+		 
+		 String rq  = (String)commonUtil.resultMap.get("${CCDJRQ}");rq = C2EDate(rq);
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input63"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillDate(reptile.br, "_easyui_textbox_input63", rq);
+		 }
+		 rq  = (String)commonUtil.resultMap.get("${CLCCRQ}");rq = C2EDate(rq);
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input62"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillDate(reptile.br, "_easyui_textbox_input62", rq);
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input65"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input65",(String)commonUtil.resultMap.get("${brand}") );
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input28"));
+		 if (finded.size() > 0)
+		 {
+			 if (((String)commonUtil.resultMap.get("${GCJK}")).equals("A")) {
+				 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input28", "国产" );		
+			 }
+			 else if (((String)commonUtil.resultMap.get("${GCJK}")).equals("B")) {
+				 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input28", "进口" );		
+			 }
+		 }
 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input91"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input91", (String)commonUtil.resultMap.get("${crosght}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input90"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input90", (String)commonUtil.resultMap.get("${ZBZL}"));
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input75"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input75", (String)commonUtil.resultMap.get("${hdzzl}"));
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input74"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input74", (String)commonUtil.resultMap.get("${ZKRS}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input66"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input66", (String)commonUtil.resultMap.get("${XH}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input73"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input73", (String)commonUtil.resultMap.get("${engineModel}"));
+		 }
+		 
+		 
+//		 对于燃油形式，进行一定的定义和对比,包含双油料种类的选择
+		 String fueltypestr = (String)commonUtil.resultMap.get("${fuelType}");
+		 String result[] = fueltypestr.split(" , ");
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input85"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input85", result[0]);
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input30"));
+		 if (finded.size() > 0)
+		 {
+			 if (result.length>=2) {reptile.fillComboxBox(reptile.br, "_easyui_textbox_input30", result[1]);}	
+		 }
+		  
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input8"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input8", (String)commonUtil.resultMap.get("${FDJH}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input92"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input92", (String)commonUtil.resultMap.get("${factoryName}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input61"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input61", (String)commonUtil.resultMap.get("${transimissionType}"));
+		 }
+		 
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input84"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input84", (String)commonUtil.resultMap.get("${qdxs}"));
+		 }
+		 
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input34"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input34",  (String)commonUtil.resultMap.get("${fuelSupplyMethod}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input77"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input77", (String)commonUtil.resultMap.get("${airSupethod}"));
+		 }
+		 
+		 String posite = (String)commonUtil.resultMap.get("${posite}");
+		 String ltsl = "4";
+		 if (posite.contains("8×4")) {ltsl = "12";}
+		 else if (posite.contains("6×4")) {ltsl = "10";}
+		 else if (posite.contains("6×2")) {ltsl = "8";}
+		 else if (posite.contains("4×2")) {ltsl = "4";}
+		 else if (posite.contains("4×4")) {ltsl = "4";}
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input79"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input79", ltsl);
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input71"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input71", (String)commonUtil.resultMap.get("${power}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input72"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input72", (String)commonUtil.resultMap.get("${ratepeed}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input82"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input82", (String)commonUtil.resultMap.get("${PL}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input78"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input78", "0");
+		 }
+		 
+		 
+//		 三元催化
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input83"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input83", "三元催化",0);
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input10"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input10", "0");
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input37"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBoxSelectedWithSameValue(reptile.br, "_easyui_textbox_input37", "三元催化",1);
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input11"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input11", "-");
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input38"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input38", "否");
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input59"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input59", "否");
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input70"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input70", "-");
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input13"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input13", "-");
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input88"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input88", "长治市");
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input81"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input81", (String)commonUtil.resultMap.get("${address}"));
+		 }
+		 
+		 String zbzl = (String)commonUtil.resultMap.get("${ZBZL}");
+		 String zs = (String)commonUtil.resultMap.get("${ZS}");
+		 double zbzl_double = Double.parseDouble(zbzl);
+		 double zs_double = Double.parseDouble(zs);
+		 String dczs = String.valueOf(Math.round(zbzl_double/zs_double));
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input53"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input53", dczs);
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input42"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input42", "身份证");
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input15"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input15", (String)commonUtil.resultMap.get("${sfzmhm}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input80"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input80", (String)commonUtil.resultMap.get("${tel}"));
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input69"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input69", (String)commonUtil.resultMap.get("${postcode}"));
+		 }
+		 
+		 
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input20", "-");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input21", "-");
+//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input22", "0");
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input19"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input19", "1");
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input99"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input99", "-");
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input100"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input100", "-");
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input101"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input101", "0");
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input23"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input23", (String)commonUtil.resultMap.get("${factoryName}"));
+		 }
+		 
+//		 OBD设定 rq
+		 String OBD = "有";
+		 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");    
+		 String date_limit_daxing = "2018-01-01";
+		 String date_limit_xiaoxing = "2011-07-01";
+		 Date date_limit_daxing_Date = f.parse(date_limit_daxing);
+		 Date date_limit_xiaoxing_Date = f.parse(date_limit_xiaoxing);
+		 Date ccrq = f.parse(rq);
+		 if (((String)commonUtil.resultMap.get("${platType}")).equals("大型汽车")) {if (ccrq.before(date_limit_daxing_Date)) {OBD = "无";}}
+		 else if (((String)commonUtil.resultMap.get("${platType}")).equals("小型汽车")) {if (ccrq.before(date_limit_xiaoxing_Date)) {OBD = "无";}}
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input43"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input43", OBD);
+		 }
+		 
+		 String dang = "";
+		 String gang = "";
+		 System.out.println((String)commonUtil.resultMap.get("${platType}"));
+		 if (((String)commonUtil.resultMap.get("${platType}")).equals("大型汽车")) {
+			 dang = "10";
+			 gang = "6";
+		 }
+		 else if (((String)commonUtil.resultMap.get("${platType}")).equals("小型汽车")) {
+			 dang = "5";
+			 gang = "4";
+		 }
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input54"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input54", dang);
+		 }
+		 
+		 
+		 finded = reptile.br.findElements(By.id("_easyui_textbox_input55"));
+		 if (finded.size() > 0)
+		 {
+			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input55", gang);
+		 }
+		 
+		 commonUtil.log.printInfo("自动打印成功请检查！");
+	 }
+//	 车身颜色 测试
+	 public void ifAutoComplete_test (reptile_test reptile) throws InterruptedException, ParseException {
 		 reptile.br.switchTo().frame("addWaitWinIframe");
 		 reptile.br.switchTo().frame("addWaitWinIframe");
 		 Thread.sleep(2000);
@@ -423,7 +834,7 @@ public class reptile_test {
 		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input55", gang);
 		 commonUtil.log.printInfo("自动打印成功请检查！");
 	 }
-//	 车身颜色 测试
+	 
 	 public void get_1_JS (WebDriver driver) throws AWTException, InterruptedException {
 		 
 //		 通过JS 改变readonly 参数来改变 值
@@ -531,13 +942,13 @@ public class reptile_test {
 	 public static void main(String[] args) throws Exception 
     { 
 //		 OBD设定 rq
-		 String OBD = "有";
-		 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");    
-		 String date_limit_daxing = "2010-01-01";
-		 String date_limit_xiaoxing = "2011-07-01";
-		 Date date_limit_daxing_Date = f.parse(date_limit_daxing);
-		 Date date_limit_xiaoxing_Date = f.parse(date_limit_xiaoxing);
-		 System.out.println(date_limit_daxing_Date.after(date_limit_xiaoxing_Date));
+//		 String OBD = "有";
+//		 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");    
+//		 String date_limit_daxing = "2010-01-01";
+//		 String date_limit_xiaoxing = "2011-07-01";
+//		 Date date_limit_daxing_Date = f.parse(date_limit_daxing);
+//		 Date date_limit_xiaoxing_Date = f.parse(date_limit_xiaoxing);
+//		 System.out.println(date_limit_daxing_Date.after(date_limit_xiaoxing_Date));
 
 //		 // 对浏览器驱动
 //		 reptile_test reptile =new reptile_test("http://172.32.250.11:8090/jc/yt/loginout/login.yt","http://172.32.250.14:8000/menhu/index.html");
@@ -629,8 +1040,14 @@ public class reptile_test {
 //		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input43", "有");
 //		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input54", "140481199712230413");
 //		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input55", "140481199712230413");
-		 
-		 
+		 String fileName = "F:\\Desktop\\test.csv";
+	        try (CSVReader reader = new CSVReader(new FileReader(fileName))) {
+	            List<String[]> r = reader.readAll();
+	            for(int i = 0; i< r.size(); i++) {
+	            	String result[] = Arrays.toString(r.get(i)).substring(1,Arrays.toString(r.get(i)).length()-1).split(",");
+	            	System.out.println(result[0]);
+	            }
+	        }
 		 
 		 
 		 

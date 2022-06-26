@@ -67,5 +67,11 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/Eclipse/eclipse_java-workspace/cp_management/cpManagement/lib/commons-lang3-3.6.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/eclipse_java-workspace/cp_management/cpManagement/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/eclipse_java-workspace/cp_management/cpManagement/lib/commons-text-1.1.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/eclipse_java-workspace/cp_management/cpManagement/lib/commons-beanutils-1.9.3.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/eclipse_java-workspace/cp_management/cpManagement/lib/commons-collections-3.2.2.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/eclipse_java-workspace/cp_management/cpManagement/lib/opencsv-4.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

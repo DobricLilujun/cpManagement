@@ -539,19 +539,19 @@ public class MainControl extends JFrame implements variableStatic{
 //	//					从通道中拿到具体有用参数
 							
 							// 二选一
-//							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数"); // 测试
+							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数"); // 测试
 							String authority = OpSqliteDB.search("authority");  //在数据库中拿到 权限信息 判断 是否有
-							commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));  // 将数据库总数据写入全局变量中供调用
+//							commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));  // 将数据库总数据写入全局变量中供调用
 							
 							commonUtil.log.printInfo("该用户的权限是 "+ authority);  // 记录用户的权限。写入log
 							
 							extractDataToPublicStr();	commonUtil.areaPrint("完成对数据库中提取的原数据的处理和更新");//对数据库中提取的原数据进行数据更新和处理 
 							POI.createQrCode();		//创建 QR二维码图片
 							commonUtil.log.printInfo("以下是导出的数据，可以作为暂时参考，如果发布版，不能够出现这些东西，保护用户的数据安全：");
-	//						for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
-	////							System.out.println(entry.getKey()+" : "+entry.getValue());
-	//							commonUtil.log.printInfo(entry.getKey()+" : "+entry.getValue());
-	//						}
+							for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
+	//							System.out.println(entry.getKey()+" : "+entry.getValue());
+								commonUtil.log.printInfo(entry.getKey()+" : "+entry.getValue());
+							}
 							OpSqliteDB.insertCarData();	commonUtil.areaPrint("插入数据库成功");	//将数据插入到数据库中，供离线调用
 							JOptionPane.showMessageDialog(null, "导出数据成功!");
 	//					在本地数据库中查询该数据
@@ -1403,9 +1403,9 @@ public class MainControl extends JFrame implements variableStatic{
 		}
 		
 //		车身颜色转 中文
-		for (int i=0;i<variableStatic.typeColor_Site.length;i++) {
-			if (commonUtil.resultMap.get("${CSYS}").equals(variableStatic.typeColor_Site[i][0])) {
-				commonUtil.resultMap.put("${CSYS}",variableStatic.typeColor_Site[i][1]);
+		for (int i=0;i<variableStatic.typeColor.length;i++) {
+			if (commonUtil.resultMap.get("${CSYS}").equals(variableStatic.typeColor[i][0])) {
+				commonUtil.resultMap.put("${CSYS}",variableStatic.typeColor[i][1]);
 			}
 		}
 		

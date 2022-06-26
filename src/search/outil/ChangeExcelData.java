@@ -60,6 +60,10 @@ public class ChangeExcelData {
     	String inPath= variableStatic.filePathRoot + filename+ variableStatic.fileXlsxNameTail;
     	String outPath= variableStatic.outPutPathRoot + filename + variableStatic.fileXlsxNameTail;
     	
+//    	POIFSFileSystem poifs = new POIFSFileSystem();
+//    	DocumentInputStream documentInputStream = poifs.createDocumentInputStream(inPath);
+//    	WorkbookFactory.processRecords(documentInputStream);
+    	
         InputStream is = new FileInputStream(new File(inPath));
         System.out.println(inPath);
         Workbook wb = WorkbookFactory.create(is);

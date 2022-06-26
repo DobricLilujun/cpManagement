@@ -150,7 +150,7 @@ public class POI {
 	    {
 	    	Map<String, Object> data = new HashMap<>();
 	    	data.put("${brand}", "解放牌");
-	    	data.put("${owner}", "潞城市承昌通商贸有限公司hahahahahahhAHAHAH");
+	    	data.put("${owner}", "潞城市承昌通商贸有限公司hahahahahahhAHAHAH法大师傅大师傅大师傅似的发生大法师发到付第三方的是非得失放安德夫水电费的手法阿凡达书法大赛发丰富第书法大赛分啊打发第三方的算法风格的覆盖到说法官方的说过的翻滚法大师傅第三方的上斯蒂芬斯东方闪电发手案发史蒂夫的算法案发的身份的算法安德森法大师傅当时");
 	    	data.put("${XH}", "CA4256P1K2T1E5A80");
 	    	data.put("${usage}", "");
 	    	data.put("${SYXZ}", "F");
