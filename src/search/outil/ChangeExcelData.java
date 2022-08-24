@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -20,29 +19,29 @@ import search.variableStatic;
 
 public class ChangeExcelData {
 
-	public static void main(String[] args) throws IOException, EncryptedDocumentException, InvalidFormatException {
-        String path = "人工检验表";
-        String outPath = "resource/output/人工检验表.xlsx";
-
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("platnum", "晋DLQ718");
-        params.put("vehicleType", "小型汽车");
-        params.put("usage", "135666");
-        params.put("SYXZ", "自用车");
-        params.put("DLYSZH", "213243242341144657");
-        params.put("CLCCRQ", "2019年1月15日");
-        params.put("CCDJRQ", "2019年1月15日");
-        params.put("JYRQ", "2019年1月15日");
-        params.put("SFSQ", "否");
-        params.put("ZXZSL", "2");
-        params.put("ZCZD", "否");
-        params.put("KQXG", "否");
-        params.put("owner", "中中中中中中中中中中中中中中中中中中中中中中中中中");
-        params.put("tel", "1502211919292929292992");
-        params.put("postcode", "047500");
-
-        new ChangeExcelData().replaceExcel(path,params);
-    }
+//	public static void main(String[] args) throws IOException, EncryptedDocumentException, InvalidFormatException {
+//        String path = "人工检验表";
+//        String outPath = "resource/output/人工检验表.xlsx";
+//
+//        Map<String, Object> params = new HashMap<String, Object>();
+//        params.put("platnum", "晋DLQ718");
+//        params.put("vehicleType", "小型汽车");
+//        params.put("usage", "135666");
+//        params.put("SYXZ", "自用车");
+//        params.put("DLYSZH", "213243242341144657");
+//        params.put("CLCCRQ", "2019年1月15日");
+//        params.put("CCDJRQ", "2019年1月15日");
+//        params.put("JYRQ", "2019年1月15日");
+//        params.put("SFSQ", "否");
+//        params.put("ZXZSL", "2");
+//        params.put("ZCZD", "否");
+//        params.put("KQXG", "否");
+//        params.put("owner", "中中中中中中中中中中中中中中中中中中中中中中中中中");
+//        params.put("tel", "1502211919292929292992");
+//        params.put("postcode", "047500");
+//
+//        new ChangeExcelData().replaceExcel(path,params);
+//    }
 
 	public static boolean exportDataXls(Map<String, Object> params,String filename) throws InvalidFormatException, IOException {
 

@@ -8,6 +8,7 @@ import search.outil.OpSqliteDB;
 
 public class commonUtil {
 	
+	public static String VERSION_NUMBER = "V2.0.0";
 	public static String COMPANY_NAME = "潞城市鑫达财会服务有限公司";
 	public static String OUTPUT_XML_FILE_PAHT = "resource/output/result.xml";
 	public static logSystem log ;

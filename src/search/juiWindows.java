@@ -104,7 +104,7 @@ public class juiWindows extends JFrame implements variableStatic{
 		// 读取基本配置数据
 	    calendar.setTime(date);
 	    	
-		setTitle("鑫达 软件");
+		setTitle("鑫达 软件 " + commonUtil.VERSION_NUMBER);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(juiWindows.class.getResource("/resources/car.png")));
 		setForeground(Color.WHITE);
 		setFont(new Font("Times New Roman", Font.BOLD, 22));
@@ -166,14 +166,14 @@ public class juiWindows extends JFrame implements variableStatic{
 //					如果成功激活，更新一些基本字段
 						try {
 							if (activate()) {
-								JOptionPane.showMessageDialog(null,"激活成功,请重新点击登录","温馨提示",JOptionPane.PLAIN_MESSAGE);
+								JOptionPane.showMessageDialog(null,"激活成功,请重新点击登录",commonUtil.VERSION_NUMBER + ": 温馨提示",JOptionPane.PLAIN_MESSAGE);
 								infoLabel.setText("激活状态");
 								infoLabel.setForeground(Color.green);
 
 							}
 //					如果没有成功激活，那么提示说 激活秘钥不正确，请重新激活。
 							else {
-								JOptionPane.showMessageDialog(null,"激活秘钥失败，请重新输入","温馨提示",JOptionPane.PLAIN_MESSAGE);
+								JOptionPane.showMessageDialog(null,"激活秘钥失败，请重新输入",commonUtil.VERSION_NUMBER + "温馨提示",JOptionPane.PLAIN_MESSAGE);
 							}
 						} catch (HeadlessException e1) {
 							// TODO Auto-generated catch block

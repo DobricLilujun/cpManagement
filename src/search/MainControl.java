@@ -136,7 +136,7 @@ public class MainControl extends JFrame implements variableStatic{
 //					frame.setUndecorated(true);
 					frame.setLocation((displaySize.width - frameSize.width) / 2, (displaySize.height - frameSize.height) / 2);
 					frame.setVisible(true);
-					frame.setTitle("V1.18");
+					frame.setTitle(commonUtil.VERSION_NUMBER);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -539,9 +539,9 @@ public class MainControl extends JFrame implements variableStatic{
 //	//					从通道中拿到具体有用参数
 							
 							// 二选一
-							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数"); // 测试
+//							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数"); // 测试
 							String authority = OpSqliteDB.search("authority");  //在数据库中拿到 权限信息 判断 是否有
-//							commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));  // 将数据库总数据写入全局变量中供调用
+							commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));  // 将数据库总数据写入全局变量中供调用
 							
 							commonUtil.log.printInfo("该用户的权限是 "+ authority);  // 记录用户的权限。写入log
 							

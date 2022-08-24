@@ -237,8 +237,8 @@ public class POI {
 	    	}
 //	    	如果是 三通道数据都使用
 	    	else if (Authority ==2){
-		    	HashMap<String,String> result_map_data_SAISI = ChannelGetDataFromDatabaseSIS.extractInfoFromDatabase(ChannelGetDataFromDatabaseSIS.fileds_list, ChannelGetDataFromDatabaseSIS.table_name, PZHM);
-		    	commonUtil.areaPrint("成功从接口二中拿到数据");
+//		    	HashMap<String,String> result_map_data_SAISI = ChannelGetDataFromDatabaseSIS.extractInfoFromDatabase(ChannelGetDataFromDatabaseSIS.fileds_list, ChannelGetDataFromDatabaseSIS.table_name, PZHM);
+//		    	commonUtil.areaPrint("成功从接口二中拿到数据");
 		    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,commonUtil.dwjgdm_URL);
 		    	commonUtil.areaPrint("成功从接口三中拿到数据");
 //	    		以接口数据作为基础数据
@@ -253,17 +253,17 @@ public class POI {
 	    		}
 	    		commonUtil.log.printInfo("成功从接口中调出数据，使用多通道数据！");
 //	    		以赛斯数据库作为补充数据	
-	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
-//	    			System.out.println(result_final.get(entry.getValue()));
-	    			if (result_final.get(entry.getValue()).equals(""))
-	    			{
-	    				String data_temp = result_map_data_SAISI.get(data_field_SAISI.get(entry.getKey()));
-		    			if (data_temp!=null) {
-		    				result_final.put(entry.getValue(), data_temp);
-		    			}	
-	    			}
-	    		}	
-	    		commonUtil.log.printInfo("成功从赛斯中调出数据，使用多通道数据！");
+//	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
+////	    			System.out.println(result_final.get(entry.getValue()));
+//	    			if (result_final.get(entry.getValue()).equals(""))
+//	    			{
+//	    				String data_temp = result_map_data_SAISI.get(data_field_SAISI.get(entry.getKey()));
+//		    			if (data_temp!=null) {
+//		    				result_final.put(entry.getValue(), data_temp);
+//		    			}	
+//	    			}
+//	    		}	
+//	    		commonUtil.log.printInfo("成功从赛斯中调出数据，使用多通道数据！");
 //	    		以华研数据库作为第二补充数据
 	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
 //	    			System.out.println(entry.getValue());
@@ -290,7 +290,49 @@ public class POI {
 				}
 	    		commonUtil.log.printInfo(str);
 	    		
-	    	}else
+	    	}
+	    	//只有接口和华燕
+	    	else if (Authority ==3){
+		    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,commonUtil.dwjgdm_URL);
+		    	commonUtil.areaPrint("成功从接口三中拿到数据");
+//	    		以接口数据作为基础数据
+	    		for (Map.Entry<String,String> entry: data_field_DY.entrySet()) {
+	    			String data_temp = result_map_data_Interface.get(data_field_INTERFACE.get(entry.getKey()));
+	    			if (data_temp!=null) {
+	    				result_final.put(entry.getValue(), data_temp);
+	    			}else
+	    			{
+	    				result_final.put(entry.getValue(), "");
+	    			}
+	    		}
+//	    		以华研数据库作为第一补充数据
+	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
+//	    			System.out.println(entry.getValue());
+//	    			System.out.println(result_final.get(entry.getValue()));
+//	    			System.out.println(result_final.get(entry.getValue()).equals(""));
+	    			if (result_final.get(entry.getValue()).equals(""))
+	    			{
+//	    				System.out.println(data_field_HY.get(entry.getKey()));
+	    				String data_temp = result_map_data_HY.get(data_field_HY.get(entry.getKey()));
+//	    				System.out.println(data_temp);
+		    			if (data_temp!=null) {
+		    				result_final.put(entry.getValue(), data_temp);
+		    			}
+	    			}
+	    		}
+	    		commonUtil.log.printInfo("成功从华燕中调出数据，使用多通道数据！");
+	    		commonUtil.areaPrint("成功从华燕中调出数据，使用多通道数据！");
+//	    		打印数据值，并在log中打印出相关数据，用于进行数据值 判断 最后要把此代码注释掉，不可放在release版本中
+	    		commonUtil.log.printInfo("导出数据信息如下:");
+	    		String str = "";
+	    		for (Map.Entry<String,Object> entry :result_final.entrySet()) {
+	    			str = str + entry.getValue()+" - ";
+					System.out.println(entry.getKey()+" : "+entry.getValue());
+				}
+	    		commonUtil.log.printInfo(str);
+	    		
+	    	}
+	    	else
 	    	{
 	    		commonUtil.log.printErr("GetDataFromThreeChannel 数据有误，请检查。");
 	    		System.out.println("GetDataFromThreeChannel 数据有误，请检查。");

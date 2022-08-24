@@ -529,3 +529,33 @@ Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 8
 Session ID: 4733cbd3789fc6ca41f8653e17942ff9
 *** Element info: {Using=id, value=_easyui_textbox_input102} 2021-07-18 16:28:56 
 Hello 2022-04-04 16:50:51 
+org.openqa.selenium.WebDriverException: unknown error: 
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:53'
+System info: host: 'LAPTOP-LRQIVD86', ip: '192.168.1.105', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_202'
+Driver info: driver.version: ChromeDriver
+remote stacktrace: Backtrace:
+	Ordinal0 [0x00DDC013+3194899]
+	Ordinal0 [0x00CC6021+2056225]
+	Ordinal0 [0x00B5F608+587272]
+	Ordinal0 [0x00ADD81E+55326]
+	Ordinal0 [0x00ADC64A+50762]
+	Ordinal0 [0x00B01EE9+204521]
+	Ordinal0 [0x00B01D0D+204045]
+	Ordinal0 [0x00AFFC1B+195611]
+	Ordinal0 [0x00AE3B7F+80767]
+	Ordinal0 [0x00AE4B4E+84814]
+	Ordinal0 [0x00AE4AD9+84697]
+	Ordinal0 [0x00CDCE64+2149988]
+	GetHandleVerifier [0x00F4BE95+1400773]
+	GetHandleVerifier [0x00F4BB61+1399953]
+	GetHandleVerifier [0x00F531FA+1430314]
+	GetHandleVerifier [0x00F4C69F+1402831]
+	Ordinal0 [0x00CD3D61+2112865]
+	Ordinal0 [0x00CDE5CB+2155979]
+	Ordinal0 [0x00CDE6F5+2156277]
+	Ordinal0 [0x00CEF26E+2224750]
+	BaseThreadInitThunk [0x770C7BA9+25]
+	RtlInitializeExceptionChain [0x77DDC12B+107]
+	RtlGetAppContainerNamedObjectPath [0x77DDC0AE+238]
+ 2022-07-02 16:42:33 
+java.lang.NullPointerException 2022-07-02 16:42:33 
