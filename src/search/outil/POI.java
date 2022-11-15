@@ -209,8 +209,8 @@ public class POI {
 	    	}
 //	    	如果是 三通道数据都使用
 	    	else if (Authority ==2){
-		    	HashMap<String,String> result_map_data_SAISI = ChannelGetDataFromDatabaseSIS.extractInfoFromDatabase(ChannelGetDataFromDatabaseSIS.fileds_list, ChannelGetDataFromDatabaseSIS.table_name, PZHM);
-		    	commonUtil.areaPrint("成功从接口二中拿到数据");
+//		    	HashMap<String,String> result_map_data_SAISI = ChannelGetDataFromDatabaseSIS.extractInfoFromDatabase(ChannelGetDataFromDatabaseSIS.fileds_list, ChannelGetDataFromDatabaseSIS.table_name, PZHM);
+//		    	commonUtil.areaPrint("成功从接口二中拿到数据");
 		    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,commonUtil.dwjgdm_URL);
 		    	commonUtil.areaPrint("成功从接口三中拿到数据");
 //	    		以接口数据作为基础数据
@@ -225,17 +225,17 @@ public class POI {
 	    		}
 	    		commonUtil.log.printInfo("成功从接口中调出数据，使用多通道数据！");
 //	    		以赛斯数据库作为补充数据	
-	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
-//	    			System.out.println(result_final.get(entry.getValue()));
-	    			if (result_final.get(entry.getValue()).equals(""))
-	    			{
-	    				String data_temp = result_map_data_SAISI.get(data_field_SAISI.get(entry.getKey()));
-		    			if (data_temp!=null) {
-		    				result_final.put(entry.getValue(), data_temp);
-		    			}	
-	    			}
-	    		}	
-	    		commonUtil.log.printInfo("成功从赛斯中调出数据，使用多通道数据！");
+//	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
+////	    			System.out.println(result_final.get(entry.getValue()));
+//	    			if (result_final.get(entry.getValue()).equals(""))
+//	    			{
+//	    				String data_temp = result_map_data_SAISI.get(data_field_SAISI.get(entry.getKey()));
+//		    			if (data_temp!=null) {
+//		    				result_final.put(entry.getValue(), data_temp);
+//		    			}	
+//	    			}
+//	    		}	
+//	    		commonUtil.log.printInfo("成功从赛斯中调出数据，使用多通道数据！");
 //	    		以华研数据库作为第二补充数据
 	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
 //	    			System.out.println(entry.getValue());

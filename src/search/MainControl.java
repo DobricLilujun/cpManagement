@@ -117,7 +117,7 @@ public class MainControl extends JFrame implements variableStatic
 //					frame.setUndecorated(true);
 					frame.setLocation((displaySize.width - frameSize.width) / 2, (displaySize.height - frameSize.height) / 2);
 					frame.setVisible(true);
-					 commonUtil.authority = OpSqliteDB.search("authority");
+					commonUtil.authority = OpSqliteDB.search("authority");
 					frame.setTitle( commonUtil.VERSION_NUMBER + " 权限：" + commonUtil.authority);
 				} catch (Exception e) {
 					e.printStackTrace();
