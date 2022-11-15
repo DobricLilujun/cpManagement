@@ -559,9 +559,12 @@ remote stacktrace: Backtrace:
 	RtlGetAppContainerNamedObjectPath [0x77DDC0AE+238]
  2022-07-02 16:42:33 
 java.lang.NullPointerException 2022-07-02 16:42:33 
+<<<<<<< HEAD
 打开扫描仪失败，请检查错误！端口号是: COM7 2022-07-09 20:02:05 
 gnu.io.NoSuchPortException 2022-07-09 20:02:05 
 数据库连接：IP=172.6.46.225 DBName=newgajck_38900出现问题！ 2022-11-15 12:01:18 
 SQL操作错误 2022-11-15 12:01:18 
 导出数据出现问题，请解决！ 2022-11-15 12:01:18 
 java.lang.NullPointerException 2022-11-15 12:01:18 
+=======
+>>>>>>> 63976a47bd932a1da2e9e94a06bab99bf45ea81e
