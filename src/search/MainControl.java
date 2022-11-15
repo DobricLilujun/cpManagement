@@ -207,15 +207,15 @@ public class MainControl extends JFrame implements variableStatic
 			public void mouseClicked(MouseEvent e) {
 				if (!commonUtil.WTSisClicked) {
 					lblNewLabel_4.setForeground(Color.green);
-					commonUtil.ifPrint[0] = 1;
 					commonUtil.WTSisClicked = true;
+					commonUtil.ifPrint[0] = 1;
+					}
+				else {
 					lblNewLabel_4.setForeground(Color.white);
 					commonUtil.WTSisClicked = false;
 					commonUtil.ifPrint[0] = 0;
 				}
-				
 			}
-			
 		});
 		lblNewLabel_4.setForeground(Color.WHITE);
 		lblNewLabel_4.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));

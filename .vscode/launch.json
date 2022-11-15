@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch juiWindows",
+            "request": "launch",
+            "mainClass": "search.juiWindows",
+            "projectName": "cpManagement"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
