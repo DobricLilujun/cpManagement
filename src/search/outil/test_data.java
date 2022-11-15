@@ -6,12 +6,7 @@ import java.net.URLDecoder;
 
 
 import org.apache.axis.AxisFault;
-import javax.xml.namespace.QName;
-import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
-import org.apache.axis.encoding.XMLType;
-
-
 
 public class test_data {
 	public static String url="http://172.6.46.2/jcxws/TmriOutNewAccess.asmx?wsdl";
@@ -38,7 +33,6 @@ public class test_data {
 						+"8993</clsbdh>\n<jyjgbh>1400000149</jyjgbh>\n</QueryCondition>\n</root>";
 				String jkxlh = 
 		"7D1A09090106170400158195E6FCF3E2F28C8AF3828AE6FB868FDEC7D5C2D18CD3D0CFDEB9ABCBBED2B5CEF1CFB5CDB3";
-				TmriJaxRpcOutNewAccessLocator services = new TmriJaxRpcOutNewAccessLocator();
 				result=stub.queryObjectOutNew("18", jkxlh, "18C49", "510101199001011234","001400000149","","","","172.6.46.103",encrptXmlDoc);
 //				result=stub.queryObjectOut("18", jkxlh, "18C49",encrptXmlDoc);
 				

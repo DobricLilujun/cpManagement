@@ -10,6 +10,7 @@ public class ScanBarcodeListener {
 
 	public static final List<String> findPorts() {
 		// 获得当前所有可用串口
+		@SuppressWarnings("unchecked")
 		Enumeration<CommPortIdentifier> portList = CommPortIdentifier.getPortIdentifiers();
 		List<String> portNameList = new ArrayList<String>();
 		// 将可用串口名添加到List并返回该List

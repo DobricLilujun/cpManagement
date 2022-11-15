@@ -15,55 +15,24 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import com.jacob.activeX.ActiveXComponent;
-import com.jacob.com.ComThread;
-import com.jacob.com.Dispatch;
-import com.jacob.com.Variant;
-
 import java.awt.Color;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Vector;
 import java.awt.event.ActionEvent;
-
-import javax.swing.filechooser.FileFilter;
-import javax.swing.table.DefaultTableModel;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
-
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 
 public class MainWindow 
@@ -74,8 +43,10 @@ public class MainWindow
 	private static JLabel label;
 	private static JPanel panel1;
 	private static JPanel panel2;
+	@SuppressWarnings("unused")
 	private static JScrollPane scrollPane;
-	private static JTextArea textArea;
+	@SuppressWarnings("unused")
+	private static JTextArea  textArea;
 	private static JTextField textField2;
 	private static JTextField textField3;
 	private static JTextField textField4;
@@ -96,7 +67,6 @@ public class MainWindow
 	public String path = null;
 	public static String conn1=null;
 	public static reptile re;
-//	public static String company_name="";
 
 	public static void main(String[] args) throws UnknownHostException
 	{
@@ -107,32 +77,15 @@ public class MainWindow
 		File directory =new File("");
 		String url_test = directory.getAbsolutePath()+"\\url_test.txt";
 		
-//		String name_test = directory.getAbsolutePath()+"\\name_test.txt";
-//		File file1=new File(name_test);
-//		
-//		try 
-//		{
-//			if(file1.exists())
-//			{
-//				InputStreamReader reader = new InputStreamReader(  
-//	                    new FileInputStream(file1)); // 建立一个输入流对象reader  
-//	            BufferedReader br = new BufferedReader(reader); // 建立一个对象，它把文件内容转成计算机能读懂的语言  
-//	           
-//	            company_name = br.readLine();  
-//			}
-//		} catch (IOException e) 
-//		{
-//		e.printStackTrace();
-//		}
 		File file=new File(url_test);
 		try 
 		{
 			if(file.exists())
 			{
 				InputStreamReader reader1 = new InputStreamReader(  
-	                    new FileInputStream(file)); // 建立一个输入流对象reader  
+	                    new FileInputStream(file));
 	            @SuppressWarnings("resource")
-				BufferedReader br1 = new BufferedReader(reader1); // 建立一个对象，它把文件内容转成计算机能读懂的语言  
+				BufferedReader br1 = new BufferedReader(reader1);
 	           
 	            conn1 = br1.readLine();  
 			}
@@ -140,10 +93,9 @@ public class MainWindow
 		{
 		e.printStackTrace();
 		}
-		String test = directory.getAbsolutePath()+"\\test.txt";
 		
+		String test = directory.getAbsolutePath()+"\\test.txt";
 		File file2=new File(test);
-		//定义文件路径
 		int flag=0;
 		String hostName=addr.getHostName().toString();
 		
@@ -151,10 +103,10 @@ public class MainWindow
 		{
 			if(file2.exists())
 			{
-				
 				InputStreamReader reader = new InputStreamReader(  
-	            new FileInputStream(file2)); // 建立一个输入流对象reader  
-	            BufferedReader br = new BufferedReader(reader); // 建立一个对象，它把文件内容转成计算机能读懂的语言  
+	            new FileInputStream(file2));
+	            @SuppressWarnings("resource")
+				BufferedReader br = new BufferedReader(reader);
 	           
 	            host_read = br.readLine();  
 			}
@@ -164,7 +116,6 @@ public class MainWindow
 		}
 		if ((host_read.equals(hostName))||(flag==1))
 		{	
-		//GUI窗口主函数
 			try
 			{
 				MainWindow window = new MainWindow();
@@ -186,7 +137,6 @@ public class MainWindow
 
 	private void initialize() throws IOException
 	{
-		//新建窗口并设置基本信息
 		frame = new JFrame();
 		frame.setSize(1400,400);
 	    frame.setLocation(300, 150);
@@ -194,14 +144,12 @@ public class MainWindow
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setIconImage((new ImageIcon("resource//images//icon.jpg")).getImage());
 	    
-	    //加载软件基本信息和数据
 	    load();
 	    File f  = new File(".");
 	    try {
 			path = f.getCanonicalPath();
 		} catch (IOException e3) 
 	    {
-			// TODO Auto-generated catch block
 			e3.printStackTrace();
 		}
 		JButton button = new JButton("导出综检数据");
@@ -212,7 +160,6 @@ public class MainWindow
 				public void actionPerformed(ActionEvent e)
 				{
 					get_info Get = new get_info();
-//					print Doc =new print();
 					s1=textField2.getText().toString();
 					s2=(String)ComboBox.getSelectedItem();
 					address=textField3.getText().toString();
@@ -225,6 +172,7 @@ public class MainWindow
 					{
 						flag=0;
 						result = Get.get(s1,s2,flag,conn1);
+						@SuppressWarnings("serial")
 						LinkedList<String> origin = new LinkedList<String>()
 						{{
 							
@@ -246,9 +194,7 @@ public class MainWindow
 							add("ZCZL");
 							add("ZBZL");
 							add("SYXZStr");
-							
 						}};
-						
 						result.add(address);
 						result.add(number);
 						result.add(postcode);
@@ -263,7 +209,6 @@ public class MainWindow
 						origin.add("fadongjixinghao");
 						String name = "打印表安";
 						export_info(origin,result,name);
-						
 					}
 					else if(ComboBox_table.getSelectedIndex()==1)
 					{
@@ -334,11 +279,9 @@ public class MainWindow
 				new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
 						try {
 							re.export_ecologie_data();
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -400,19 +343,12 @@ public class MainWindow
  	}
 	public void export_info(LinkedList<String> origin, LinkedList<String> result,String name)
 	{
-	    // 声明一个工作薄
-	    HSSFWorkbook wb = new HSSFWorkbook();
-	    //声明一个单子并命名
+	    @SuppressWarnings("resource")
+		HSSFWorkbook wb = new HSSFWorkbook();
 	    HSSFSheet sheet = wb.createSheet("name");
-	    //给单子名称一个长度
 	    sheet.setDefaultColumnWidth((short)25);
-	    // 生成一个样式 
 	    HSSFCellStyle style = wb.createCellStyle();
-	    //创建第一行（也可以称为表头）
 	    HSSFRow row = sheet.createRow(0);
-	    //样式字体居中
-//	    style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-	    //给表头第一行一次创建单元格
 	    HSSFCell cell ;
 	    for(int i=0;i<origin.size();i++)
 	    {
@@ -430,7 +366,6 @@ public class MainWindow
 	    try {
 			path = f.getCanonicalPath();
 		} catch (IOException e3) {
-			// TODO Auto-generated catch block
 			e3.printStackTrace();
 		}
 	   
@@ -439,7 +374,6 @@ public class MainWindow
 	    System.out.println(path);
 	    try 
 	      {
-	        //默认导出到E盘下
 	        FileOutputStream out = new FileOutputStream(path);
 	        wb.write(out);
 	        out.close();

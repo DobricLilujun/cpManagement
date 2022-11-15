@@ -2,8 +2,6 @@ package search.outil;
 
 
 import java.security.Key;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
 
 import javax.crypto.Cipher;
@@ -24,19 +22,19 @@ public class MD5 {
     private String charset = "utf-8";
     
     public static void main(String[] args) {
-        try {
-            String value = "caililiang蔡立亮_微信：caililiangcaililiang；邮箱：785553790@qq.com";
-            String key = "qwrwrww十多个";// 自定义密钥,个数不能太短，太短报错，过长，它默认只取前N位（N的具体值，大家另行查找资料）
-            MD5 mt= new MD5(key, "utf-8");
-            System.out.println("解密后的字符：" + mt.decode("4b608d8d567da0771dee42306f0c08054e630e606c133cd4a04dc688a6fb0709b04501cc96b83362b5e69ae2aac692558803f056cdec729a0c2813f726c074f2ceacca01c526cbdc"));
+//        try {
+//            String value = "caililiang蔡立亮_微信：caililiangcaililiang；邮箱：785553790@qq.com";
+//            String key = "qwrwrww十多个";// 自定义密钥,个数不能太短，太短报错，过长，它默认只取前N位（N的具体值，大家另行查找资料）
 //            MD5 mt= new MD5(key, "utf-8");
-//            System.out.println("加密前的字符：" + value);
-//            System.out.println("加密后的字符：" + mt.encode(value));
-//           
-//            System.out.println("字符串的MD5值："+getMD5Value(value));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//            System.out.println("解密后的字符：" + mt.decode("4b608d8d567da0771dee42306f0c08054e630e606c133cd4a04dc688a6fb0709b04501cc96b83362b5e69ae2aac692558803f056cdec729a0c2813f726c074f2ceacca01c526cbdc"));
+////            MD5 mt= new MD5(key, "utf-8");
+////            System.out.println("加密前的字符：" + value);
+////            System.out.println("加密后的字符：" + mt.encode(value));
+////           
+////            System.out.println("字符串的MD5值："+getMD5Value(value));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
     
     /**
@@ -85,30 +83,30 @@ public class MD5 {
         return new String(pasByte, this.charset);
     }
     
-    /**
-     * 获取MD5的值，可用于对比校验
-     * @param sourceStr
-     * @return
-     */
-    private static String getMD5Value(String sourceStr) {
-        String result = "";
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(sourceStr.getBytes());
-            byte b[] = md.digest();
-            int i;
-            StringBuffer buf = new StringBuffer("");
-            for (int offset = 0; offset < b.length; offset++) {
-                i = b[offset];
-                if (i < 0)
-                    i += 256;
-                if (i < 16)
-                    buf.append("0");
-                buf.append(Integer.toHexString(i));
-            }
-            result = buf.toString();
-        } catch (NoSuchAlgorithmException e) {
-        }
-        return result;
-    }
+//    /**
+//     * 获取MD5的值，可用于对比校验
+//     * @param sourceStr
+//     * @return
+//     */
+//    private static String getMD5Value(String sourceStr) {
+//        String result = "";
+//        try {
+//            MessageDigest md = MessageDigest.getInstance("MD5");
+//            md.update(sourceStr.getBytes());
+//            byte b[] = md.digest();
+//            int i;
+//            StringBuffer buf = new StringBuffer("");
+//            for (int offset = 0; offset < b.length; offset++) {
+//                i = b[offset];
+//                if (i < 0)
+//                    i += 256;
+//                if (i < 16)
+//                    buf.append("0");
+//                buf.append(Integer.toHexString(i));
+//            }
+//            result = buf.toString();
+//        } catch (NoSuchAlgorithmException e) {
+//        }
+//        return result;
+//    }
 }

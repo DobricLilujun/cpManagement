@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 
 import search.DBConection;
 import search.commonUtil;
-import search.variableStatic;
 
 public class ChannelGetDataFromDatabaseSIS {
 	

@@ -9,7 +9,12 @@ package search.outil;
 
 public class TmriJaxRpcOutNewAccessLocator extends org.apache.axis.client.Service implements TmriJaxRpcOutNewAccess {
 
-    public TmriJaxRpcOutNewAccessLocator() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public TmriJaxRpcOutNewAccessLocator() {
     }
 
 

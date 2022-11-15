@@ -1,6 +1,5 @@
 package search;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,7 +7,7 @@ import java.util.LinkedList;
 
 public class get_info 
 {
-	LinkedList<String> result = new LinkedList();
+	LinkedList<String> result = new LinkedList<String>();
 	static String cname;
 	static String ctype;
 	static String cnum;
@@ -25,18 +24,15 @@ public class get_info
 			
 //			sql = "select DW,MakeDate,CPH,DJDate,DPH,PZLBStr,KilomCount,CLLBXStr,FDJH,FDJXH,changPH,XingHao,PaiLiang,EDGLRPM,EDGL,ZCZL,ZBZL,SYXZStr from CarInfo where CPH='"+s1+"'and PZLBStr ='"+s2+"';";
 			sql = "select Car_ID from CarInfo where Car_CPH='"+s1+"'and Car_PZLBStr ='"+s2+"';";
-//			System.out.println("I ama hererrer");
 			try {
 				stmt = (Statement) db.conn.createStatement();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			try {
 				rs = (ResultSet)stmt.executeQuery(sql);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			try {
@@ -69,7 +65,6 @@ public class get_info
 				rs.close();
 				db.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -126,7 +121,6 @@ public class get_info
 				rs.close();
 				db.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

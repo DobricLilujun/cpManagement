@@ -1,40 +1,35 @@
 package search;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import com.opencsv.*;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.File;
-import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.awt.event.KeyEvent;
 
 import search.WebEventListener;
-import search.outil.OpSqliteDB;
 
 public class reptile_test {
 	
 //	public static String browserString = "D:\\360 浏览器\\360se6\\Application\\360se.exe";
 	public static String browserString ;
-	private ChromeOptions option ;
+	@SuppressWarnings("unused")
+	private ChromeOptions option;
 	public WebDriver br;
 	public String urlString;
 	public EventFiringWebDriver e_driver;
@@ -92,8 +87,6 @@ public class reptile_test {
 	
 	 public void startBrowser(WebDriver driver) throws Exception
     {
-		int waitTime = 20;
-		WebDriverWait wait = new WebDriverWait(driver, waitTime);
 		e_driver = new EventFiringWebDriver(driver);
 		WebEventListener eventListener = new WebEventListener();
         e_driver.register(eventListener);
@@ -179,15 +172,17 @@ public class reptile_test {
 		 WebElement targetCombox= driver.findElement(By.id(targetID));
 		 action.click(targetCombox).perform();
 		 JavascriptExecutor js = (JavascriptExecutor) driver;
-		 WebElement content = driver.findElement(By.xpath("//div[text()='"+targeChoice+"']")); 
-		 String StrJs = "var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true,false);arguments[0].dispatchEvent(evObj);arguments[0].click();";
-//		 System.out.println(StrJs);
-		 js.executeScript(StrJs,content);
-		 content = driver.findElement(By.xpath("//div[text()='"+targeChoice+"']")); 
-//		 System.out.println(content.getAttribute("outerHTML"));
-		 StrJs = "var evObj = document.createEvent('HTMLEvents');evObj.initEvent('select',true,false);arguments[0].dispatchEvent(evObj);";
-//		 System.out.println(StrJs);
-		 js.executeScript(StrJs,content);
+		 List<WebElement> content = driver.findElements(By.xpath("//div[text()='"+targeChoice+"']"));
+		 if (content.size() > 0)
+		 {
+			 String StrJs = "var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true,false);arguments[0].dispatchEvent(evObj);arguments[0].click();";
+//			 System.out.println(StrJs);
+			 js.executeScript(StrJs,content.get(0));
+//			 System.out.println(content.getAttribute("outerHTML"));
+			 StrJs = "var evObj = document.createEvent('HTMLEvents');evObj.initEvent('select',true,false);arguments[0].dispatchEvent(evObj);";
+//			 System.out.println(StrJs);
+			 js.executeScript(StrJs,content.get(0));
+		 }
 	 }
 	 
 	 public void fillVehicleType (WebDriver driver,String targetID, String targeChoice) throws InterruptedException {
@@ -198,7 +193,6 @@ public class reptile_test {
 		 if (targeChoice.equals("轻型栏板货车")) {
 			 targeChoice = "轻型普通货车";
 		 }
-		 JavascriptExecutor js = (JavascriptExecutor) driver;
 		 WebElement targetCombox= driver.findElement(By.id(targetID));
 		 action.click(targetCombox).perform();
 		 WebElement contentEle= driver.findElement(By.xpath("/html/body/div[22]/div"));
@@ -216,10 +210,7 @@ public class reptile_test {
 				 String eleText = elespan.getAttribute("textContent");
 				 if (targeChoice.equals(eleText)) {
 					 action.click(spanlist).perform();
-					 Thread.sleep(1000);
 					 action.click(elediv).perform();
-//					 String StrJs = "var evObj = document.createEvent('HTMLEvents');evObj.initEvent('select',true,false);arguments[0].dispatchEvent(evObj);";
-//					 js.executeScript(StrJs,elediv);
 					 isfind = true;
 					 break;
 				 }
@@ -230,21 +221,27 @@ public class reptile_test {
 	 }
 //	 通过名字和排序 填写 选项框
 	 public void fillComboxBoxSelectedWithSameValue (WebDriver driver,String targetID, String targeChoice, int order) {
+ 
 		 WebElement targetCombox= driver.findElement(By.id(targetID));
 		 action.click(targetCombox).perform();
 		 JavascriptExecutor js = (JavascriptExecutor) driver;
-		 List<WebElement> contents = driver.findElements(By.xpath("//div[text()='"+targeChoice+"']")); 
-		 WebElement content = contents.get(order);
-		 String StrJs = "var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true,false);arguments[0].dispatchEvent(evObj);arguments[0].click();";
-		 System.out.println(StrJs);
-		 js.executeScript(StrJs,content);
+		 List<WebElement> contents = driver.findElements(By.xpath("//div[text()='"+targeChoice+"']"));
+		 if (contents.size()>0) {
+			 WebElement content = contents.get(order);
+			 String StrJs = "var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover',true,false);arguments[0].dispatchEvent(evObj);arguments[0].click();";
+			 System.out.println(StrJs);
+			 js.executeScript(StrJs,content);
+		 }
 		 contents = driver.findElements(By.xpath("//div[text()='"+targeChoice+"']"));
-		 System.out.println(contents.size());
-		 content = contents.get(order);
-		 System.out.println(content.getAttribute("outerHTML"));
-		 StrJs = "var evObj = document.createEvent('HTMLEvents');evObj.initEvent('select',true,false);arguments[0].dispatchEvent(evObj);";
-		 System.out.println(StrJs);
-		 js.executeScript(StrJs,content);
+		 if (contents.size()>0) {
+			 System.out.println(contents.size());
+			 WebElement content = contents.get(order);
+			 System.out.println(content.getAttribute("outerHTML"));
+			 String StrJs = "var evObj = document.createEvent('HTMLEvents');evObj.initEvent('select',true,false);arguments[0].dispatchEvent(evObj);";
+			 System.out.println(StrJs);
+			 js.executeScript(StrJs,content);
+		 }
+		 
 	 }
 //	 填写 日期
 	 public void fillDate (WebDriver driver,String targetID, String Date) {
@@ -268,23 +265,17 @@ public class reptile_test {
 	 }
 //	 填写 文本框
 	 public void fillTextInput (WebDriver driver,String targetID, String StringContent) {
-		 WebElement clpp= driver.findElement(By.id(targetID));
-		 clpp.clear();
-		 clpp.click();
-		 clpp.clear();
-		 clpp.click();
-		 clpp.sendKeys(StringContent);
+		 List<WebElement> finded = driver.findElements(By.id(targetID));
+		 if (finded.size() > 0)
+		 {
+			 WebElement clpp= driver.findElement(By.id(targetID));
+			 clpp.clear();
+			 clpp.click();
+			 clpp.clear();
+			 clpp.click();
+			 clpp.sendKeys(StringContent);
+		 }	 
 	 }
-	 
-//	 public void SanDo (reptile_test reptile) {
-//
-//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input5", "注册登记检验");
-//		 reptile.fillTestProvince(reptile.br, "_easyui_textbox_input6", "鲁");
-//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input2", "DR3344");
-//		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input7", "小型汽车");
-//		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input3", "131186");
-//		 reptile.br.findElement(By.id("clearBtn")).click();
-//	 }
 	 
 	 public void ifAutoComplete (reptile_test reptile) throws InterruptedException, ParseException {
 		 
@@ -433,19 +424,30 @@ public class reptile_test {
 		 
 		 
 		 finded = reptile.br.findElements(By.id("_easyui_textbox_input61"));
-		 if (finded.size() > 0)
-		 {
-			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input61", (String)commonUtil.resultMap.get("${transimissionType}"));
+		 
+		 String transmissionType = (String)commonUtil.resultMap.get("${transimissionType}");
+		 if ((transmissionType == "手动") || (transmissionType == "自动")||(transmissionType == "手自一体")||(transmissionType == "测试")) {
+			 if (finded.size() > 0)
+			 {
+				 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input61", (String)commonUtil.resultMap.get("${transimissionType}"));
+			 }
+		 }else {
+			 commonUtil.log.printInfo("变速器形式，搜取数据异常，搜取数据为: "+transmissionType+".请优化！");
 		 }
+		 
 		 
 		 
 		 
 		 finded = reptile.br.findElements(By.id("_easyui_textbox_input84"));
-		 if (finded.size() > 0)
-		 {
-			 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input84", (String)commonUtil.resultMap.get("${qdxs}"));
+		 String qdxs = (String)commonUtil.resultMap.get("${qdxs}");
+		 if ((qdxs == "前驱") || (qdxs == "后驱")||(qdxs == "其他")||(qdxs == "全时四驱")||(qdxs == "分时四驱")) {
+			 if (finded.size() > 0)
+			 {
+				 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input84", (String)commonUtil.resultMap.get("${qdxs}"));
+			 }
+		 }else {
+			 commonUtil.log.printInfo("驱动形式，搜取数据异常，搜取数据为: "+qdxs+".请优化！");
 		 }
-		 
 		 
 		 
 		 finded = reptile.br.findElements(By.id("_easyui_textbox_input34"));
@@ -573,17 +575,14 @@ public class reptile_test {
 		 }
 		 
 		 String zbzl = (String)commonUtil.resultMap.get("${ZBZL}");
-		 String zs = (String)commonUtil.resultMap.get("${ZS}");
 		 double zbzl_double = Double.parseDouble(zbzl);
-		 double zs_double = Double.parseDouble(zs);
-		 String dczs = String.valueOf(Math.round(zbzl_double/zs_double));
+		 String dczs = String.valueOf(Math.round(zbzl_double/2));
 		 
 		 finded = reptile.br.findElements(By.id("_easyui_textbox_input53"));
 		 if (finded.size() > 0)
 		 {
 			 reptile.fillTextInput(reptile.br, "_easyui_textbox_input53", dczs);
 		 }
-		 
 		 
 		 finded = reptile.br.findElements(By.id("_easyui_textbox_input42"));
 		 if (finded.size() > 0)
@@ -907,38 +906,7 @@ public class reptile_test {
 		 return false;
 	 }
 	 
-	 public boolean sendKeyToInput(WebDriver driver) throws InterruptedException
-	 {
-         Thread.sleep(1000);
-         WebElement a = driver.findElement(By.id("toStationText"));
-         System.out.println("-------------------------");
-         System.out.println(a.getAttribute("value"));
-         JavascriptExecutor removeAttribute = (JavascriptExecutor) driver;
-         //remove readonly attribute
-//         removeAttribute.executeScript("var setDate=document.getElementById(\"date\").removeAttribute('readonly');");
-//         //输入要输入日期
-//         driver.findElement(By.id("date")).clear();
-         a.sendKeys("上海");
-//         driver.findElement(By.id("date")).sendKeys("2019-08-31");
-         //点击查询
-//         driver.findElement(By.id("searchBtn")).click();
-         System.out.println("-------------------------");
-//         a.sendKeys("2019-08-31");
-         return true;
-	 }
-	public boolean sendKeyToComboxUI(WebDriver driver,String id, int index) {
-		WebElement selector = driver.findElement(By.id(id));
-//		System.out.println(selector.getAllSelectedOptions().toString());
-		return false;
-	}
-//	 method.click(By.id("fwmmsrk1"));
-//	 method.sendKeys(By.id("servicePassword"),"123456");
-	 //通过爬虫导出数据
-	 public void export_ecologie_data() throws Exception
-	 {
-		 System.out.print("我正在导出数据内容");
-	 }
-	 
+//	 测试代码
 	 public static void main(String[] args) throws Exception 
     { 
 //		 OBD设定 rq
@@ -1040,14 +1008,14 @@ public class reptile_test {
 //		 reptile.fillComboxBox(reptile.br, "_easyui_textbox_input43", "有");
 //		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input54", "140481199712230413");
 //		 reptile.fillTextInput(reptile.br, "_easyui_textbox_input55", "140481199712230413");
-		 String fileName = "F:\\Desktop\\test.csv";
-	        try (CSVReader reader = new CSVReader(new FileReader(fileName))) {
-	            List<String[]> r = reader.readAll();
-	            for(int i = 0; i< r.size(); i++) {
-	            	String result[] = Arrays.toString(r.get(i)).substring(1,Arrays.toString(r.get(i)).length()-1).split(",");
-	            	System.out.println(result[0]);
-	            }
-	        }
+//		 String fileName = "F:\\Desktop\\test.csv";
+//	        try (CSVReader reader = new CSVReader(new FileReader(fileName))) {
+//	            List<String[]> r = reader.readAll();
+//	            for(int i = 0; i< r.size(); i++) {
+//	            	String result[] = Arrays.toString(r.get(i)).substring(1,Arrays.toString(r.get(i)).length()-1).split(",");
+//	            	System.out.println(result[0]);
+//	            }
+//	        }
 		 
 		 
 		 

@@ -1,12 +1,9 @@
 package search.outil;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,7 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -29,24 +25,13 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-import org.dom4j.DocumentException;
-
 import search.EncryUtil;
 import search.QRCodeGenerate;
 import search.commonUtil;
-import search.dataTableCorrespond;
 import search.variableStatic;
-
 
 public class POI {
 
-
-	
-	/**
-	 * 文件数据替换
-	 * @author 23  *
-	 */
-	    
 	    public static  Map<String, Object> getDataMap() {
 	    	Map<String, Object> data = new HashMap<>();
 	    	
@@ -67,7 +52,8 @@ public class POI {
 	    	File file = new File (filepath);
 	    	InputStream in = new BufferedInputStream(new FileInputStream(file));
 	    	InputStreamReader ir = new InputStreamReader(in,"utf-8");
-	    	BufferedReader br= new BufferedReader(ir);
+	    	@SuppressWarnings("resource")
+			BufferedReader br= new BufferedReader(ir);
 	    	String line = "";
 	    	while ((line=br.readLine())!=null) {
 	    		String[] str = line.split(",");
@@ -80,7 +66,6 @@ public class POI {
 //	    从文件中拿到字段的非加密数据写入到文件中并加密
 	    public static void writeDataCorrespondFromFile(String filepath,String outputpath) throws IOException{
 	    	
-	    	Map<String, String> data = new HashMap<>();
 	    	File file = new File (filepath);
 	    	File fout = new File (outputpath);
 	    	InputStream in = new BufferedInputStream(new FileInputStream(file));
@@ -188,19 +173,6 @@ public class POI {
 	    	return data;
 	    }
 	    
-//	    通过key来找到MAP数据结构的值
-		public static String getKeyByValue(Map map, Object value) {  
-        String keys="";  
-        Iterator it = map.entrySet().iterator();  
-        while (it.hasNext()) {  
-            Map.Entry entry = (Entry) it.next();  
-            Object obj = entry.getValue();  
-            if (obj != null && obj.equals(value)) {  
-                keys=(String) entry.getKey();  
-            }  
-        }  
-        return keys;  
-        }  
 		
 //	    将三通道数据进行处理和融合, 通过Authority 来判断权限
 	    public static Map<String, Object> GetDataFromThreeChannel(int Authority) throws Exception{
@@ -290,7 +262,49 @@ public class POI {
 				}
 	    		commonUtil.log.printInfo(str);
 	    		
-	    	}else
+	    	}
+	    	//只有接口和华燕
+	    	else if (Authority ==3){
+		    	HashMap<String,String> result_map_data_Interface = ChannelGetDataFromInterface.exportDataFromInterface(PZHM,HPZL,CLSBDH,commonUtil.dwjgdm_URL);
+		    	commonUtil.areaPrint("成功从接口三中拿到数据");
+//	    		以接口数据作为基础数据
+	    		for (Map.Entry<String,String> entry: data_field_DY.entrySet()) {
+	    			String data_temp = result_map_data_Interface.get(data_field_INTERFACE.get(entry.getKey()));
+	    			if (data_temp!=null) {
+	    				result_final.put(entry.getValue(), data_temp);
+	    			}else
+	    			{
+	    				result_final.put(entry.getValue(), "");
+	    			}
+	    		}
+//	    		以华研数据库作为第一补充数据
+	    		for (Entry<String, String> entry: data_field_DY.entrySet()) {
+//	    			System.out.println(entry.getValue());
+//	    			System.out.println(result_final.get(entry.getValue()));
+//	    			System.out.println(result_final.get(entry.getValue()).equals(""));
+	    			if (result_final.get(entry.getValue()).equals(""))
+	    			{
+//	    				System.out.println(data_field_HY.get(entry.getKey()));
+	    				String data_temp = result_map_data_HY.get(data_field_HY.get(entry.getKey()));
+//	    				System.out.println(data_temp);
+		    			if (data_temp!=null) {
+		    				result_final.put(entry.getValue(), data_temp);
+		    			}
+	    			}
+	    		}
+	    		commonUtil.log.printInfo("成功从华燕中调出数据，使用多通道数据！");
+	    		commonUtil.areaPrint("成功从华燕中调出数据，使用多通道数据！");
+//	    		打印数据值，并在log中打印出相关数据，用于进行数据值 判断 最后要把此代码注释掉，不可放在release版本中
+	    		commonUtil.log.printInfo("导出数据信息如下:");
+	    		String str = "";
+	    		for (Map.Entry<String,Object> entry :result_final.entrySet()) {
+	    			str = str + entry.getValue()+" - ";
+					System.out.println(entry.getKey()+" : "+entry.getValue());
+				}
+	    		commonUtil.log.printInfo(str);
+	    		
+	    	}
+	    	else
 	    	{
 	    		commonUtil.log.printErr("GetDataFromThreeChannel 数据有误，请检查。");
 	    		System.out.println("GetDataFromThreeChannel 数据有误，请检查。");
@@ -421,8 +435,7 @@ public class POI {
 	    public static void getWord(Map<String, Object> data, List<List<String[]>> tabledataList, Map<String, Object> picmap, String filename)
 	            throws Exception {
 	    	
-	    	OpSqliteDB db = new OpSqliteDB("DatabaseName.db");
-	    	db.readPicture(filename, filename+ variableStatic.fileDoxNameTail);
+	    	OpSqliteDB.readPicture(filename, filename+ variableStatic.fileDoxNameTail);
 	    	String i= variableStatic.filePathRoot + filename+ variableStatic.fileDoxNameTail;
 	    	String o= variableStatic.outPutPathRoot + filename + variableStatic.fileDoxNameTail;
 //	    	System.out.println(i);

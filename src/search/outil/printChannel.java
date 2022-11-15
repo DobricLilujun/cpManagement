@@ -6,53 +6,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintException;
 import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.ServiceUI;
-import javax.print.SimpleDoc;
-import javax.print.attribute.Attribute;
-import javax.print.attribute.AttributeSet;
-import javax.print.attribute.DocAttributeSet;
-import javax.print.attribute.HashDocAttributeSet;
 import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.standard.Chromaticity;
-import javax.print.attribute.standard.Copies;
-import javax.print.attribute.standard.Finishings;
-import javax.print.attribute.standard.Media;
-import javax.print.attribute.standard.MediaSizeName;
-import javax.print.attribute.standard.MediaTray;
-import javax.print.attribute.standard.NumberUp;
-import javax.print.attribute.standard.OrientationRequested;
-import javax.print.attribute.standard.SheetCollate;
 import javax.print.attribute.standard.Sides;
-import javax.swing.JFileChooser;
 
 import com.spire.pdf.PdfDocument;
 import com.spire.pdf.PdfDocumentBase;
-import com.spire.pdf.PdfPageSize;
 import com.spire.xls.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.printing.PDFPageable;
 import org.apache.pdfbox.printing.PDFPrintable;
 import org.apache.pdfbox.printing.Scaling;
-import org.apache.poi.ss.usermodel.PaperSize;
-import org.apache.poi.ss.usermodel.Sheet;
-//import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import java.awt.print.Book;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
-import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import com.spire.xls.FileFormat;
 import com.jacob.activeX.ActiveXComponent;
-import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
-import com.jacob.com.Variant;
 
 public class printChannel {
 	
@@ -154,8 +123,6 @@ public class printChannel {
                 System.out.print("打印失败，未找到可用打印机，请检查。");
                 return false;
             }
-            PrintService printService =  PrintServiceLookup.lookupDefaultPrintService(); 
-            
             //设置纸张及缩放
             PDFPrintable pdfPrintable = new PDFPrintable(document, Scaling.SHRINK_TO_FIT);
             //设置多页打印

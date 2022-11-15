@@ -5,15 +5,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -24,7 +21,6 @@ import java.awt.event.KeyEvent;
 public class reptile {
 	
 	public static String browserString = "D:\\360 浏览器\\360se6\\Application\\360se.exe";
-	private ChromeOptions option ;
 	public WebDriver br;
 	public String urlString;
 	public EventFiringWebDriver e_driver;
@@ -48,8 +44,6 @@ public class reptile {
 	
 	 public void startBrowser(WebDriver driver) throws Exception
     {
-		int waitTime = 20;
-		WebDriverWait wait = new WebDriverWait(driver, waitTime);
 		e_driver = new EventFiringWebDriver(driver);
 		WebEventListener eventListener = new WebEventListener();
         e_driver.register(eventListener);
@@ -58,8 +52,6 @@ public class reptile {
         r = new Robot();
         Thread.sleep(10000);
         JavascriptExecutor jsExecutor = (JavascriptExecutor)driver;
-        
-        /* Javascript that will create new Firefox window. */
         String jsOpenNewWindow = "window.open('"+"http://www.baidu.com"+"');";
         jsExecutor.executeScript(jsOpenNewWindow);
         ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
@@ -199,15 +191,6 @@ public class reptile {
 		 return false;
 	 }
 	 
-	 
-	public boolean sendKeyToComboxUI(WebDriver driver,String id, int index) {
-		WebElement selector = driver.findElement(By.id(id));
-//		System.out.println(selector.getAllSelectedOptions().toString());
-		return false;
-	}
-//	 method.click(By.id("fwmmsrk1"));
-//	 method.sendKeys(By.id("servicePassword"),"123456");
-	 //通过爬虫导出数据
 	 public void export_ecologie_data() throws Exception
 	 {
 		 System.out.print("我正在导出数据内容");

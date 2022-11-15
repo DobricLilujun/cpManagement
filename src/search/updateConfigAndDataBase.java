@@ -1,7 +1,6 @@
 package search;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 
 import search.outil.OpSqliteDB;
@@ -9,7 +8,6 @@ import search.outil.OpSqliteDB;
 public class updateConfigAndDataBase {
 
 	public static void main(String args[]) throws Exception {
-		
 		String s = Protection.getSerialNumber("C");
 		String computerName = Protection.getComputerName();
 		BufferedWriter out = new BufferedWriter(new FileWriter("result.txt"));
@@ -20,9 +18,8 @@ public class updateConfigAndDataBase {
 		Protection.writeProperties("key_HD", Protection.getSerialNumber("C"));
 		Protection.writeProperties("computerName", Protection.getComputerName());
 		Protection.writeProperties("last_activation_date", "2021-03-04");   
-		OpSqliteDB db = new OpSqliteDB("DatabaseName.db");
 		
-		db.update("date_limit", "2021-03-07");
+		OpSqliteDB.update_data("date_limit", "2021-03-07");
 		Protection.readValue_NoEncrypt("conf.properties", "browserString");
 //	    db.update("browserString", "D:\\360 浏览器\\360se6\\Application\\360se.exe");
 //	    db.update("DataBase_ip_HY_COMMMON", "172.6.46.225");
@@ -38,22 +35,22 @@ public class updateConfigAndDataBase {
 //	    db.update("cjsbdh_interface", "510101199001011234");
 //	    db.update("zdbs_interface", "172.6.46.103");
 	    
-	    db.update("browserString", Protection.readValue_NoEncrypt("conf.properties", "browserString"));
-	    db.update("DataBase_name_HY_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_name_HY_COMMMON"));
-	    db.update("DataBase_ip_HY_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_ip_HY_COMMMON"));
-	    db.update("DataBase_username_HY_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_username_HY_COMMMON"));
-	    db.update("DataBase_password_HY_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_password_HY_COMMMON"));
-	    db.update("DataBase_ip_SIS_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_ip_SIS_COMMMON"));
-	    db.update("DataBase_name_SIS_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_name_SIS_COMMMON"));
-	    db.update("DataBase_username_SIS_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_username_SIS_COMMMON"));
-	    db.update("DataBase_password_SIS_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_password_SIS_COMMMON"));
-	    db.update("url_interface", Protection.readValue_NoEncrypt("conf.properties", "url_interface"));
-	    db.update("jkxlh_interface", Protection.readValue_NoEncrypt("conf.properties", "jkxlh_interface"));
-	    db.update("jkdh_interface", Protection.readValue_NoEncrypt("conf.properties", "jkdh_interface"));
-	    db.update("cjsbdh_interface", Protection.readValue_NoEncrypt("conf.properties", "cjsbdh_interface"));
-	    db.update("zdbs_interface", Protection.readValue_NoEncrypt("conf.properties", "zdbs_interface"));
-	    db.update("dwjgdm", Protection.readValue_NoEncrypt("conf.properties", "dwjgdm"));
-	    db.update("dwjgdm_URL", Protection.readValue_NoEncrypt("conf.properties", "dwjgdm_URL"));
+		OpSqliteDB.update_data("browserString", Protection.readValue_NoEncrypt("conf.properties", "browserString"));
+		OpSqliteDB.update_data("DataBase_name_HY_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_name_HY_COMMMON"));
+		OpSqliteDB.update_data("DataBase_ip_HY_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_ip_HY_COMMMON"));
+		OpSqliteDB.update_data("DataBase_username_HY_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_username_HY_COMMMON"));
+		OpSqliteDB.update_data("DataBase_password_HY_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_password_HY_COMMMON"));
+		OpSqliteDB.update_data("DataBase_ip_SIS_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_ip_SIS_COMMMON"));
+		OpSqliteDB.update_data("DataBase_name_SIS_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_name_SIS_COMMMON"));
+		OpSqliteDB.update_data("DataBase_username_SIS_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_username_SIS_COMMMON"));
+		OpSqliteDB.update_data("DataBase_password_SIS_COMMMON", Protection.readValue_NoEncrypt("conf.properties", "DataBase_password_SIS_COMMMON"));
+		OpSqliteDB.update_data("url_interface", Protection.readValue_NoEncrypt("conf.properties", "url_interface"));
+		OpSqliteDB.update_data("jkxlh_interface", Protection.readValue_NoEncrypt("conf.properties", "jkxlh_interface"));
+		OpSqliteDB.update_data("jkdh_interface", Protection.readValue_NoEncrypt("conf.properties", "jkdh_interface"));
+		OpSqliteDB.update_data("cjsbdh_interface", Protection.readValue_NoEncrypt("conf.properties", "cjsbdh_interface"));
+		OpSqliteDB.update_data("zdbs_interface", Protection.readValue_NoEncrypt("conf.properties", "zdbs_interface"));
+		OpSqliteDB.update_data("dwjgdm", Protection.readValue_NoEncrypt("conf.properties", "dwjgdm"));
+		OpSqliteDB.update_data("dwjgdm_URL", Protection.readValue_NoEncrypt("conf.properties", "dwjgdm_URL"));
 	    
 	    
 	}

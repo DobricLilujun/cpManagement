@@ -25,11 +25,13 @@ public class UserController {
 		return true;
 	}
 	
+	@SuppressWarnings("unused")
 	private static String encode(String str) {
 		String t = EncryUtil.encrypt(str);
 		return t;
 	}
 	
+	@SuppressWarnings("unused")
 	private static String descode(String str) {
 		String t = EncryUtil.decrypt(str);
 		return t;
@@ -43,6 +45,7 @@ public class UserController {
 	}
 
 	// 加密
+	@SuppressWarnings("unused")
 	private String desCode(String str) {
 		// str为加密的截止日期
 		String t = EncryUtil.encrypt(str);

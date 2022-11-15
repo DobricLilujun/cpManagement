@@ -1,21 +1,15 @@
 package search.outil;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.rmi.RemoteException;
 import java.util.HashMap;
-
 import org.apache.axis.AxisFault;
 import org.apache.axis.client.Service;
-import org.dom4j.DocumentException;
-
 import search.commonUtil;
 import search.variableStatic;
 
@@ -105,7 +99,6 @@ public class ChannelGetDataFromInterface {
 				fw.write(result);
 				commonUtil.log.printInfo("接口数据写入result.xml文件成功");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				commonUtil.log.printErr("接口数据写入result.xml文件失败，可能result.xml正在被占用，请检查！");
 				e.printStackTrace();
 			}finally{
@@ -114,7 +107,6 @@ public class ChannelGetDataFromInterface {
 						fw.close();
 						commonUtil.log.printInfo("关闭写入数据流成功，接口调用成功");
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 						commonUtil.log.printErr("关闭写入数据流失败，接口调用失败");
 					}
@@ -129,29 +121,6 @@ public class ChannelGetDataFromInterface {
 		return map_result;
 	}
 	
-//	Obsolete
-	public String doWrite() throws Exception{
-			this.ensureStub();
-			String result = "";
-			String encrptXmlDoc ="<?xml version=\"1.0\" encoding=\"GBK\"?>\n<root>"
-					+"\n<QueryCondition>\n<hphm>晋DUF109</hphm>\n<hpzl>02</hpzl>\n<clsbdh>"
-					+"8993</clsbdh>\n<jyjgbh>1400000149</jyjgbh>\n</QueryCondition>\n</root>";
-			System.out.println(encrptXmlDoc);
-			String jkxlh = 
-	"7D1A09090106170400158195E6FCF3E2F28C8AF3828AE6FB868FDEC7D5C2D18CD3D0CFDEB9ABCBBED2B5CEF1CFB5CDB3";
-			
-			TmriJaxRpcOutNewAccessLocator services = new TmriJaxRpcOutNewAccessLocator();
-			System.out.println(stub);
-			result=stub.queryObjectOutNew("18", jkxlh, "18C49", "510101199001011234","001400000149","","","","172.6.46.103",encrptXmlDoc);
-//			result=stub.queryObjectOutNew("18",jkxlh,jkdh,cjsbdh,dwjgdm,"","","",zdbs,encrptXmlDoc);
-			try{
-				result = URLDecoder.decode(result, "utf-8");
-			}catch(Exception ex){
-				ex.printStackTrace();
-			}
-			System.out.println("机动车检验过程开始信息:"+result);
-			return result;
-		}
 	
 	  public static void main(String[] args) throws Exception 
     { 

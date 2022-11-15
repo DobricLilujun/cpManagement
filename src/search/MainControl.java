@@ -1,72 +1,51 @@
 package search;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import org.dom4j.DocumentException;
-
 import search.outil.ChangeExcelData;
 import search.outil.OpSqliteDB;
 import search.outil.POI;
 import search.outil.SerialRead;
 import search.outil.printChannel;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
-import java.awt.FlowLayout;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import java.awt.CardLayout;
-import javax.swing.JList;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.SystemColor;
 import java.awt.Panel;
 import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
-import javax.swing.Box;
-import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 import java.awt.TextArea;
-import java.awt.TextField;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class MainControl extends JFrame implements variableStatic{
+@SuppressWarnings("rawtypes")
+public class MainControl extends JFrame implements variableStatic
+{
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtd;
 	private JTextField textField;
@@ -83,9 +62,7 @@ public class MainControl extends JFrame implements variableStatic{
 	private JTextField textField_10;
 	private JTextField textField_19;
 	private JLabel DY;
-	private JLabel PZ;
 	private JLabel SM;
-	private JLabel GY;
 	private JLabel DIS;
 	private JPanel panel_1;
 	private Panel panel_2;
@@ -102,10 +79,15 @@ public class MainControl extends JFrame implements variableStatic{
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
 	
+	@SuppressWarnings("unused")
 	private boolean isClickedDY = true;
+	@SuppressWarnings("unused")
 	private boolean isClickedSM = false;
+	@SuppressWarnings("unused")
 	private boolean isClickedPZ = false;
+	@SuppressWarnings("unused")
 	private boolean isClickedGY = false;
+	
 	private JTextField textField_12;
 	private JTextField textField_13;
 	private JTextField textField_14;
@@ -129,14 +111,14 @@ public class MainControl extends JFrame implements variableStatic{
 				try {
 					commonUtil.log = new logSystem();  // log系统初始化界面
 					MainControl frame = new MainControl();   // 界面初始化函数
-					
 //					对Main Control 中的某些位置信息进行设置
 					Dimension displaySize = Toolkit.getDefaultToolkit().getScreenSize();   
 					Dimension frameSize = frame.getSize();
 //					frame.setUndecorated(true);
 					frame.setLocation((displaySize.width - frameSize.width) / 2, (displaySize.height - frameSize.height) / 2);
 					frame.setVisible(true);
-					frame.setTitle("V1.18");
+					 commonUtil.authority = OpSqliteDB.search("authority");
+					frame.setTitle( commonUtil.VERSION_NUMBER + " 权限：" + commonUtil.authority);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -149,8 +131,6 @@ public class MainControl extends JFrame implements variableStatic{
 		switch(i){
 	    case 0 :
 	       this.DY.setForeground(Color.GREEN);
-//	       this.PZ.setForeground(Color.WHITE);
-//	       this.GY.setForeground(Color.WHITE);
 	       this.SM.setForeground(Color.WHITE);
 	       this.DIS.setText("一键打印");
 	   	   this.isClickedDY = true;
@@ -162,8 +142,6 @@ public class MainControl extends JFrame implements variableStatic{
 	       break;
 	    case 1 :
 	       this.DY.setForeground(Color.WHITE);
-//	       this.PZ.setForeground(Color.WHITE);
-//	       this.GY.setForeground(Color.WHITE);
 	       this.SM.setForeground(Color.GREEN);
 	       this.DIS.setText("扫码输入");
 	   	   this.isClickedDY = false;
@@ -175,8 +153,6 @@ public class MainControl extends JFrame implements variableStatic{
 	       break;    
 	    case 2 :
 	       this.DY.setForeground(Color.WHITE);
-//	       this.PZ.setForeground(Color.GREEN);
-//	       this.GY.setForeground(Color.WHITE);
 	       this.SM.setForeground(Color.WHITE);
 	   	   this.isClickedDY = false;
 	   	   this.isClickedSM = false;
@@ -186,8 +162,6 @@ public class MainControl extends JFrame implements variableStatic{
 	       break;
 	    case 3 :
 	       this.DY.setForeground(Color.WHITE);
-//	       this.PZ.setForeground(Color.WHITE);
-//	       this.GY.setForeground(Color.GREEN);
 	       this.SM.setForeground(Color.WHITE);
 	   	   this.isClickedDY = false;
 	   	   this.isClickedSM = false;
@@ -203,6 +177,7 @@ public class MainControl extends JFrame implements variableStatic{
 	 * Create the frame.
 	 * @throws Exception 
 	 */
+	@SuppressWarnings("unchecked")
 	public MainControl() throws Exception {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -235,7 +210,6 @@ public class MainControl extends JFrame implements variableStatic{
 					lblNewLabel_4.setForeground(Color.green);
 					commonUtil.ifPrint[0] = 1;
 					commonUtil.WTSisClicked = true;
-				}else {
 					lblNewLabel_4.setForeground(Color.white);
 					commonUtil.WTSisClicked = false;
 					commonUtil.ifPrint[0] = 0;
@@ -535,23 +509,27 @@ public class MainControl extends JFrame implements variableStatic{
 				try {
 					if (OpSqliteDB.verifyIsOkForUser()) {
 						try {
-							extracextractDataFromUI();	commonUtil.areaPrint("成功从UI中拿到参数");//从UI中拿到参数
+							extracextractDataFromUI();	commonUtil.areaPrint("成功从UI中拿到参数");//JUI中拿到参数
 //	//					从通道中拿到具体有用参数
 							
 							// 二选一
-							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数"); // 测试
+//							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数"); // 测试
 							String authority = OpSqliteDB.search("authority");  //在数据库中拿到 权限信息 判断 是否有
-//							commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));  // 将数据库总数据写入全局变量中供调用
+							commonUtil.resultMap = POI.GetDataFromThreeChannel(Integer.valueOf(authority));  // 将数据库总数据写入全局变量中供调用
 							
 							commonUtil.log.printInfo("该用户的权限是 "+ authority);  // 记录用户的权限。写入log
 							
 							extractDataToPublicStr();	commonUtil.areaPrint("完成对数据库中提取的原数据的处理和更新");//对数据库中提取的原数据进行数据更新和处理 
 							POI.createQrCode();		//创建 QR二维码图片
-							commonUtil.log.printInfo("以下是导出的数据，可以作为暂时参考，如果发布版，不能够出现这些东西，保护用户的数据安全：");
-							for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
-	//							System.out.println(entry.getKey()+" : "+entry.getValue());
-								commonUtil.log.printInfo(entry.getKey()+" : "+entry.getValue());
-							}
+							
+							
+//							commonUtil.log.printInfo("以下是导出的数据，可以作为暂时参考，如果发布版，不能够出现这些东西，保护用户的数据安全：");
+//							for (Map.Entry<String,Object> entry :commonUtil.resultMap.entrySet()) {
+//	//							System.out.println(entry.getKey()+" : "+entry.getValue());
+//								commonUtil.log.printInfo(entry.getKey()+" : "+entry.getValue());
+//							}
+							
+							
 							OpSqliteDB.insertCarData();	commonUtil.areaPrint("插入数据库成功");	//将数据插入到数据库中，供离线调用
 							JOptionPane.showMessageDialog(null, "导出数据成功!");
 	//					在本地数据库中查询该数据
@@ -561,7 +539,6 @@ public class MainControl extends JFrame implements variableStatic{
 	//						POI.exportData(commonUtil.resultMap, table);
 	//					}		
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						commonUtil.log.printErr("导出数据出现问题，请解决！");
 						commonUtil.log.printErr(e1.toString());
 						e1.printStackTrace();
@@ -571,7 +548,6 @@ public class MainControl extends JFrame implements variableStatic{
 						JOptionPane.showMessageDialog(null, "导	出数据失败，因为您更改了日期!");
 					}
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -813,7 +789,6 @@ public class MainControl extends JFrame implements variableStatic{
 						}
 					}
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -907,13 +882,13 @@ public class MainControl extends JFrame implements variableStatic{
 					}
 					
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 					commonUtil.areaPrint("未自动查询到本地数据");
 				}
 				
 			}
 		});
+		
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"大型汽车", "小型汽车", "外籍汽车", "两、三轮摩托车", "轻便摩托车", "农用运输车", "挂车", "教练汽车", "警用汽车", "大型新能源汽车", "小型新能源汽车", "  "}));
 		comboBox.setForeground(Color.BLACK);
 		comboBox.setBackground(Color.WHITE);
@@ -1057,7 +1032,6 @@ public class MainControl extends JFrame implements variableStatic{
 					commonUtil.areaPrint("读取数据完成，浏览器信息为: "+ commonUtil.browserString);
 					commonUtil.log.printInfo("读取数据完成，浏览器信息为: "+ commonUtil.browserString);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					commonUtil.log.printErr(e.toString());
 				}
@@ -1067,7 +1041,6 @@ public class MainControl extends JFrame implements variableStatic{
 					commonUtil.areaPrint("成功打开360浏览器，请在该浏览器中进行登录哦！");
 				
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 						e.printStackTrace();
 						commonUtil.log.printErr(e.toString());
 				}
@@ -1104,7 +1077,6 @@ public class MainControl extends JFrame implements variableStatic{
 					
 				} catch (Exception e) {
 					commonUtil.log.printInfo("打开扫描仪失败，请检查错误！端口号是: "+commonUtil.PortNum);
-					// TODO Auto-generated catch block
 					commonUtil.log.printInfo(e.toString());
 					commonUtil.log.printErr("打开扫描仪失败，请检查错误！端口号是: "+commonUtil.PortNum);
 					commonUtil.log.printErr(e.toString());
