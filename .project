@@ -14,9 +14,16 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>images</name>
+			<type>2</type>
+			<location>C:/Users/david/eclipse-workspace/cpManagement/resource/images</location>
+		</link>
+	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1668515501325</id>
+			<id>1668518295458</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

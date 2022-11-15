@@ -25,12 +25,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import search.Protection;
-import search.outil.OpSqliteDB;
-
 import javax.swing.JPasswordField;
 import search.MainControl;
+import search.outil.OpSqliteDB;
 
 public class juiWindows extends JFrame implements variableStatic{
 
@@ -81,9 +78,8 @@ public class juiWindows extends JFrame implements variableStatic{
 	public juiWindows() throws Exception {
 		
 	    calendar.setTime(date);
-	    	
 		setTitle("鑫达 软件 " + commonUtil.VERSION_NUMBER);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(juiWindows.class.getResource("/resources/car.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(juiWindows.class.getResource("images/car.png")));
 		setForeground(Color.WHITE);
 		setFont(new Font("Times New Roman", Font.BOLD, 22));
 		setBackground(Color.WHITE);
@@ -104,7 +100,7 @@ public class juiWindows extends JFrame implements variableStatic{
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(2, 5, 600, 600);
-		lblNewLabel_1.setIcon(new ImageIcon(juiWindows.class.getResource("/resources/icon.jpg")));
+		lblNewLabel_1.setIcon(new ImageIcon(juiWindows.class.getResource("images/icon.jpg")));
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("严谨 科学 数字 智能 ");

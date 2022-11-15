@@ -36,7 +36,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 import java.awt.TextArea;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -1108,7 +1107,7 @@ public class MainControl extends JFrame implements variableStatic
 				setOnClicked(0);
 			}
 		});
-		DY.setIcon(new ImageIcon(MainControl.class.getResource("/resources/打印机.png")));
+		DY.setIcon(new ImageIcon(MainControl.class.getResource("images/打印机.png")));
 		DY.setHorizontalAlignment(SwingConstants.CENTER);
 		DY.setForeground(Color.green);
 		DY.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
@@ -1126,7 +1125,7 @@ public class MainControl extends JFrame implements variableStatic
 				setOnClicked(1);
 			}
 		});
-		SM.setIcon(new ImageIcon(MainControl.class.getResource("/resources/键盘.png")));
+		SM.setIcon(new ImageIcon(MainControl.class.getResource("images/键盘.png")));
 		SM.setHorizontalAlignment(SwingConstants.CENTER);
 		SM.setForeground(Color.WHITE);
 		SM.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
@@ -1197,7 +1196,7 @@ public class MainControl extends JFrame implements variableStatic
 		topPanel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(MainControl.class.getResource("/resources/标志.jpg")));
+		lblNewLabel.setIcon(new ImageIcon(MainControl.class.getResource("images/标志.jpg")));
 		lblNewLabel.setBounds(65, 0, 102, 101);
 		topPanel.add(lblNewLabel);
 		

@@ -3,6 +3,7 @@ package search;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.TextArea;
+import search.logSystem;
 
 public class commonUtil {
 	public static String VERSION_NUMBER = "鑫达 软件 " + "V2.0.0";

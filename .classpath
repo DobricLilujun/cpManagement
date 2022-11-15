@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry including="search/" kind="src" path="src"/>
+	<classpathentry kind="src" path="images"/>
 	<classpathentry kind="lib" path="C:/Users/david/eclipse-workspace/cpManagement/lib/activation-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/david/eclipse-workspace/cpManagement/lib/axis.jar"/>
 	<classpathentry kind="lib" path="C:/Users/david/eclipse-workspace/cpManagement/lib/axis-1.4.jar"/>
