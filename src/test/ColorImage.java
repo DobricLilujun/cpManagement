@@ -55,7 +55,7 @@ public class ColorImage {
 //		LinkedList<Double> result = rc.getImagePixel("resource/image/pdf/1-1号/2-4.JPG",228,255,19,255,138,8);
 		LinkedList<Double> result = rc.getImagePixel("resource/image/pdf/1-1号/18-20.JPG",127,0,0,246,114,78);
 //		for (Double a: result) {
-//			System.out.println(a);
+//			System.out.println(a);123
 //		}
 	}
 
