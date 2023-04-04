@@ -48,7 +48,7 @@ public class MainControl extends JFrame implements variableStatic
 	private JPanel contentPane;
 	private JTextField txtd;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textField_1; 
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_7;
@@ -77,7 +77,7 @@ public class MainControl extends JFrame implements variableStatic
 	private JRadioButton rdbtnNewRadioButton;
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
-	
+	 
 	@SuppressWarnings("unused")
 	private boolean isClickedDY = true;
 	@SuppressWarnings("unused")
@@ -509,7 +509,7 @@ public class MainControl extends JFrame implements variableStatic
 					if (OpSqliteDB.verifyIsOkForUser()) {
 						try {
 							extracextractDataFromUI();	commonUtil.areaPrint("成功从UI中拿到参数");//JUI中拿到参数
-//	//					从通道中拿到具体有用参数
+// 					    从通道中拿到具体有用参数
 							
 							// 二选一
 //							commonUtil.resultMap = POI.Test(); commonUtil.areaPrint("成功从数据库中拿到参数"); // 测试
@@ -558,6 +558,7 @@ public class MainControl extends JFrame implements variableStatic
 		btnNewButton_1.setBackground(Color.BLUE);
 		btnNewButton_1.setBounds(536, 412, 112, 60);
 		panel_2.add(btnNewButton_1);
+		
 		
 		JLabel lblNewLabel_3_3_3_1 = new JLabel("额定转速");
 		lblNewLabel_3_3_3_1.setForeground(SystemColor.textHighlight);
